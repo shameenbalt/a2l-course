@@ -159,7 +159,7 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
   <div class="band" aria-hidden="true"></div>
   <header>
     <h1>A2L Refrigerant Practice Exam</h1>
-    <p class="lede">R-454B, R-32 and other A2Ls: safety classes, leak sensors, cylinders, hauling and safe service. Written by a working HVAC tech. <a href="../">Read the A2L guide</a></p>
+    <p class="lede">R-454B, R-32 and other A2Ls: safety classes, leak sensors, cylinders, hauling and safe service. Written by a working HVAC tech. <a href="../">Read the A2L guide</a> · <a href="../lessons/a2l-jobsite-safety/">Lesson 1</a></p>
   </header>
 
   <section id="setup" class="card">
@@ -260,7 +260,11 @@ function drawProfile(){const p=profile();$("s-days").textContent=liveDays(p);$("
  $("lvl-next").textContent=nxt?`${nxt[0]-p.xp} XP to ${nxt[1]}`:"Top level";
  $("lvl-bar").style.width=(nxt?Math.round((p.xp-cur[0])/(nxt[0]-cur[0])*100):100)+"%"}
 drawProfile();
-const counts={};Q.forEach(q=>counts[q.t]=(counts[q.t]||0)+1);
+/* ?topics=tools,service limits the round to those topics (lesson pages link here) */
+const pick=(new URLSearchParams(location.search).get("topics")||"").split(",").filter(k=>T[k]);
+const POOL=pick.length?Q.filter(q=>pick.includes(q.t)):Q;
+if(pick.length)$("topiclist").insertAdjacentHTML("beforebegin",`<p class="small">Lesson quiz: only these topics. <a href="./">Use all topics</a></p>`);
+const counts={};POOL.forEach(q=>counts[q.t]=(counts[q.t]||0)+1);
 $("topiclist").innerHTML=Object.keys(T).filter(k=>counts[k]).map(k=>`<span>${T[k]}</span><span>${counts[k]} q</span>`).join("");
 
 /* ---------- build a round ---------- */
@@ -272,7 +276,7 @@ function prep(q){const t=typeOf(q);
  return q}
 function build(list){set=list.map(prep);i=0;res=[];xp=0;run=0;bestRun=0;
  $("setup").hidden=true;$("results").hidden=true;$("quiz").hidden=false;hud();show();window.scrollTo(0,0)}
-$("start").onclick=()=>build(shuffle(Q).slice(0,Math.min(count,Q.length)));
+$("start").onclick=()=>build(shuffle(POOL).slice(0,Math.min(count,POOL.length)));
 
 function hud(){$("h-streak").textContent="🔥 "+run;$("h-xp").textContent="⚡ "+xp+" XP";
  $("dots").innerHTML=set.map((_,n)=>{let c=n===i?"now":"";if(res[n])c=mode==="practice"?(res[n].ok?"ok":"no"):"done";return`<i class="${c}"></i>`}).join("")}

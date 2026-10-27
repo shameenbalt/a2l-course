@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A2L Jobsite Safety Lesson</title>
+<meta name="description" content="Lesson 1 for HVAC techs: A2L tools and cylinders, hauling refrigerant in the truck, spotting ignition hazards on the job, and filling out the A2L system label. With a warm-up and quiz.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"A2L Jobsite Safety: Tools, Hauling, Hazards and Labels","author":{"@type":"Person","name":"Shameen","jobTitle":"HVAC service technician"},"dateModified":"2026-10-27","educationalLevel":"Trade","learningResourceType":"Lesson","about":["A2L refrigerant","R-454B","R-32","refrigerant cylinder transport","A2L system label"]}
+</script>
+<style>
+/* Same look as the guide: one reading column, red A2L cylinder band as the only accent */
+:root{
+  --bg:#f4f5f5; --paper:#ffffff; --fg:#1d2326; --muted:#5b666c; --line:#d6dbde; --band:#c8322b; --tint:#fbecea; --good:#1f7a4a; --goodtint:#e3f3ea;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:17px/1.65 var(--body);margin:0}
+article{max-width:680px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.band{height:10px;background:var(--band);border-radius:3px}
+.crumb{font:500 .8rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+h1{font:700 clamp(2.2rem,8vw,3.2rem)/.98 var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+h2{font:700 1.6rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.02em;margin:18px 0 0;text-wrap:balance}
+h2 .n{color:var(--band);margin-right:.25em}
+p,ul,ol{margin:0}
+ul,ol{padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.by{font:500 .8rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.box.top{border-top:4px solid var(--band)}
+.box strong.h{font:700 1.15rem var(--display);text-transform:uppercase;letter-spacing:.04em}
+.tip{background:var(--tint);border-radius:6px;padding:12px 16px}
+.story{border-left:4px solid var(--band);padding:4px 0 4px 14px;font-style:italic}
+.check{font:500 .72rem var(--mono);color:var(--band);border:1px solid var(--band);padding:1px 5px;border-radius:3px;white-space:nowrap;font-style:normal}
+a{color:var(--fg);text-decoration-color:var(--band);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--band);outline-offset:2px}
+/* warm-up */
+.wq{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.wq:first-of-type{border-top:0;padding-top:0}
+.wq p.q{font-weight:600}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{font:inherit;font-size:.95rem;text-align:left;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;cursor:pointer;min-height:44px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--goodtint);border-color:var(--good)}
+.opt.wrong{background:var(--tint);border-color:var(--band)}
+.why{font-size:.92rem;color:var(--muted)}
+.why b{color:var(--fg)}
+/* label sample */
+.label{font-family:var(--mono);font-size:.85rem;border:2px solid var(--fg);border-radius:6px;padding:12px 14px;background:var(--paper);display:grid;grid-template-columns:auto 1fr;gap:6px 12px}
+.label .t{grid-column:1/-1;text-align:center;font-weight:600;letter-spacing:.08em;border-bottom:1px solid var(--line);padding-bottom:6px}
+.label span:nth-child(odd):not(.t){color:var(--muted);text-transform:uppercase;font-size:.75rem;padding-top:2px}
+.go{display:block;text-align:center;background:var(--band);color:#fff;font:700 1.25rem var(--display);text-transform:uppercase;letter-spacing:.05em;text-decoration:none;border-radius:8px;padding:14px}
+.go:hover{filter:brightness(1.08)}
+.src{font-size:.88rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<article>
+  <div class="band" aria-hidden="true"></div>
+  <p class="crumb"><a href="../../">A2L guide</a> · Lesson 1</p>
+  <h1>A2L Jobsite Safety</h1>
+  <p class="by">By Shameen · HVAC service tech · Oct 27, 2026 · About 10 minutes</p>
+
+  <div class="box top">
+    <strong class="h">Warm-up: 3 quick guesses</strong>
+    <p class="why">Guess before you read. Getting one wrong is fine. It makes the answer stick when you get to it below. Nothing here is scored.</p>
+    <div id="warm"></div>
+  </div>
+
+  <p>This lesson covers what changes on a normal service call once the refrigerant can burn: the tools you bring, how you haul the cylinder, what you look for when you walk in, and the label you fill out when you leave. I wrote it while studying for my own A2L certification.</p>
+
+  <h2><span class="n">1</span>Know what you're carrying: A1, A2L, A3</h2>
+  <p>Three classes come up all day now. Know them cold.</p>
+  <ul>
+    <li><b>A1</b> doesn't spread a flame. R-410A, R-22.</li>
+    <li><b>A2L</b> can burn, but it's hard to light and the flame is slow and weak. R-454B, R-32.</li>
+    <li><b>A3</b> is highly flammable. R-290 (propane), R-600a (isobutane). It lights easy and burns hot and fast, so A3 systems hold a very small charge.</li>
+  </ul>
+  <p>Here's how I keep it straight: an A2L needs a lot to go wrong at once. An A3 doesn't. Don't let "mildly flammable" make you careless, but don't treat an A2L like a propane tank either.</p>
+
+  <h2><span class="n">2</span>Tools and cylinders</h2>
+  <ul>
+    <li><b>Spark-proof where it counts.</b> Your recovery machine and vacuum pump should be rated for A2L. A standard motor or switch can throw a spark right where the vapor is. Gauges and hoses are fine. Your leak detector has to be made to sense A2L.</li>
+    <li><b>Red is the warning.</b> A2L cylinders have a red band or red top. <span class="check">CHECK</span></li>
+    <li><b>Left-hand threads.</b> A2L cylinders use a left-hand thread valve, so you can't screw an A1 adapter on by mistake. Righty-tighty doesn't apply here. <span class="check">CHECK</span></li>
+    <li><b>Never mix or top off.</b> R-454B is not a drop-in for R-410A. Recover into a cylinder marked for that refrigerant only.</li>
+  </ul>
+
+  <h2><span class="n">3</span>Supply house to the job</h2>
+  <p>Most cylinder problems start before you get to the job.</p>
+  <ul>
+    <li><b>At the counter:</b> check the label, the red band, and that the valve is shut and capped. Don't load a cylinder that's dented, rusted or hissing.</li>
+    <li><b>In the truck:</b> stand it upright and strap it down. Keep it out of the cab, in a space that gets air, and away from heat and the sun.</li>
+    <li><b>DOT:</b> A2L refrigerant ships as a Division 2.1 flammable gas. Carrying it as a tech usually falls under the "materials of trade" rules in 49 CFR, which set limits on how much you carry and how it's secured. <span class="check">CHECK</span></li>
+    <li><b>Leak alarm in the truck?</b> I couldn't find a DOT rule that requires one. A portable A2L detector in the truck is still smart. <span class="check">CHECK</span></li>
+  </ul>
+  <div class="tip"><b>If you hear hissing while you drive:</b> pull over somewhere safe, shut off the engine, get out, and open the doors so it airs out. Don't smoke and don't flip switches. Wait until the leak stops and the air clears before you touch it.</div>
+
+  <h2><span class="n">4</span>Walk in and look for fire</h2>
+  <p>Before I open a system, I do a quick lap and ask two questions. What could light it? And where would the gas go?</p>
+  <ul>
+    <li><b>Things that light it:</b> pilot lights, energized heat strips, a coworker smoking, a tool or light switch that sparks, a running motor that isn't rated for A2L.</li>
+    <li><b>Where it goes:</b> A2L vapor is heavier than air. It sinks and pools low, in a closed room, a pit or a closet, right where water heater pilots sit.</li>
+    <li><b>What I do:</b> kill or isolate ignition sources, get air moving, check the area with my detector, and keep it checked while I work.</li>
+  </ul>
+  <p class="story">Picture this: a closet with a gas water heater and an air handler. The coil leaks overnight with the door shut. The pilot is 6 inches off the floor. That's exactly where the gas collects. Shut the gas and open the door before you even pull gauges.</p>
+
+  <h2><span class="n">5</span>Fill out the label before you leave</h2>
+  <p>On A2L installs, field information goes on the unit. Honestly, it's good practice on every system. The next tech shouldn't have to guess.</p>
+  <div class="label" aria-label="Sample A2L system label">
+    <span class="t">A2L SYSTEM LABEL (SAMPLE)</span>
+    <span>Company</span><span>Smith Heating &amp; Air</span>
+    <span>Evacuation</span><span>450 microns</span>
+    <span>Leak test</span><span>400 psig dry nitrogen</span>
+    <span>Test date</span><span>10/27/2026</span>
+    <span>Refrigerant</span><span>R-454B</span>
+    <span>Total charge</span><span>9 lb 4 oz</span>
+  </div>
+  <p>Total charge means the factory charge plus what you added for the line set. Leave off anything that isn't about the system, like the customer's phone number.</p>
+
+  <div class="box">
+    <strong class="h">Explain it back</strong>
+    <p>Before the quiz, say this out loud like you're training a new helper. If you stumble, reread that part.</p>
+    <ol>
+      <li>What's the difference between A2L and A3, in one sentence?</li>
+      <li>How do you haul an A2L cylinder, and what do you do if it leaks while you drive?</li>
+      <li>Name four ignition sources you'd look for in a mechanical room.</li>
+      <li>What goes on the system label?</li>
+    </ol>
+  </div>
+
+  <a class="go" href="../../quiz/?topics=basics,tools,haul,service">Take the lesson quiz</a>
+  <p class="src">Quiz covers: safety class basics, tools and cylinders, hauling, and safe service. Missed ones link back to the reading.</p>
+
+  <p class="src">Sources to check: ASHRAE 34 (safety classes), UL 60335-2-40 (A2L equipment and markings), AHRI Guideline N (cylinder colors), DOT 49 CFR 173.6 (materials of trade), EPA SNAP. Items marked <span class="check">CHECK</span> are still being confirmed. Rules change, so always follow the equipment maker's instructions and your local code. Study aid only.</p>
+</article>
+
+<script>
+/* Warm-up: tap to reveal, no score. Answers are covered in sections 1, 3 and 4. */
+const W=[
+ {q:"Which is more flammable: an A2L like R-454B, or an A3 like R-290?",o:["A2L","A3","They're the same"],a:1,e:"<b>A3.</b> It lights easy and burns fast. A2L is hard to light and the flame is slow. See section 1."},
+ {q:"You hear a cylinder hissing in the back of the van while you drive. What's first?",o:["Keep driving to the job and fix it there","Reach back and close the valve while driving","Pull over, shut off the engine, get out and air it out"],a:2,e:"<b>Pull over and get out.</b> The cab and the engine are ignition sources. See section 3."},
+ {q:"An A2L leak in a closed room collects where?",o:["Near the ceiling","Low, near the floor","It spreads out evenly"],a:1,e:"<b>Low.</b> A2L vapor is heavier than air, so it pools where pilot lights sit. See section 4."}];
+const box=document.getElementById("warm");
+box.innerHTML=W.map((w,k)=>`<div class="wq"><p class="q">${k+1}. ${w.q}</p><div class="opts">${w.o.map((o,n)=>`<button class="opt" data-w="${k}" data-n="${n}">${o}</button>`).join("")}</div><p class="why" hidden>${w.e}</p></div>`).join("");
+box.addEventListener("click",ev=>{const b=ev.target.closest(".opt");if(!b)return;const w=W[+b.dataset.w],wrap=b.closest(".wq");
+ wrap.querySelectorAll(".opt").forEach((el,n)=>{el.disabled=true;if(n===w.a)el.classList.add("right");else if(el===b)el.classList.add("wrong")});
+ wrap.querySelector(".why").hidden=false});
+</script>
+</body>
+</html>
