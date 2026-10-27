@@ -12,11 +12,11 @@
 <style>
 /* Same look as the guide: one reading column, red A2L cylinder band as the only accent */
 :root{
-  --bg:#f4f5f5; --paper:#ffffff; --fg:#1d2326; --muted:#5b666c; --line:#d6dbde; --band:#c8322b; --tint:#fbecea; --good:#1f7a4a; --goodtint:#e3f3ea;
+  --bg:#f4f5f5; --paper:#ffffff; --fg:#1d2326; --muted:#5b666c; --line:#d6dbde; --band:#c8322b; --tint:#fbecea; --good:#1f7a4a; --goodtint:#e3f3ea; --amber:#d99a1e;
   --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;--amber:#e8b04a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;--amber:#e8b04a;color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:17px/1.65 var(--body);margin:0}
 article{max-width:680px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
@@ -54,6 +54,29 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--band);outline-offse
 .go{display:block;text-align:center;background:var(--band);color:#fff;font:700 1.25rem var(--display);text-transform:uppercase;letter-spacing:.05em;text-decoration:none;border-radius:8px;padding:14px}
 .go:hover{filter:brightness(1.08)}
 .src{font-size:.88rem;color:var(--muted)}
+/* figures: inline SVG drawn with the page tokens so they flip with dark mode */
+figure{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px 12px 12px;display:flex;flex-direction:column;gap:8px}
+figure svg{width:100%;height:auto;display:block;font-family:var(--body)}
+figcaption{font-size:.9rem;color:var(--muted);line-height:1.5}
+svg text{fill:var(--fg)} svg .sm{font-size:12.5px} svg .mut{fill:var(--muted)} svg .ok{fill:var(--good);font-weight:600} svg .red-t{fill:var(--band);font-weight:600}
+svg .chip{fill:var(--fg)} svg .chipt{fill:var(--paper);font:700 19px var(--display);text-anchor:middle}
+svg .trk{fill:var(--line)} svg .amb{fill:var(--amber)} svg .red{fill:var(--band)}
+svg .body{fill:var(--bg);stroke:var(--fg);stroke-width:2} svg .win{fill:var(--line)} svg .tire{fill:var(--fg)}
+svg .lead,svg .vent line,svg .coil line{stroke:var(--muted);stroke-width:1.5} svg .rack{stroke:var(--muted);stroke-width:4}
+svg .arw{fill:none;stroke:var(--fg);stroke-width:2} svg .fgf{fill:var(--fg)} svg .spin{fill:var(--band);font-size:26px;font-weight:700}
+svg .strap{stroke:var(--amber);stroke-width:5} svg .xx{fill:var(--band);font-size:34px;font-weight:700}
+svg .room{fill:none;stroke:var(--fg);stroke-width:2} svg .g0{stop-color:var(--amber);stop-opacity:.05} svg .g1{stop-color:var(--amber);stop-opacity:.55}
+svg .pilotbox{fill:var(--fg)} svg .flame{fill:#f28a2e}
+h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.03em;margin:4px 0 0}
+.steps{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;counter-reset:s}
+.steps li{counter-increment:s;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:2px;position:relative}
+.steps li::before{content:counter(s);position:absolute;top:8px;right:10px;font:700 1.3rem var(--display);color:var(--band)}
+.steps .ic{font-size:1.8rem;line-height:1.2}.steps span:last-child{font-size:.88rem;color:var(--muted)}
+.ign{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ign span{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.92rem;display:flex;flex-direction:column;gap:2px;line-height:1.35}
+.ign span:last-child{grid-column:1/-1;background:var(--goodtint);border-color:var(--good)}
+.ign i{font-style:normal;font-size:1.5rem}
+
 </style>
 </head>
 <body>
@@ -61,7 +84,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--band);outline-offse
   <div class="band" aria-hidden="true"></div>
   <p class="crumb"><a href="../../">A2L guide</a> · Lesson 1</p>
   <h1>A2L Jobsite Safety</h1>
-  <p class="by">By Shameen · HVAC service tech · Oct 27, 2026 · About 10 minutes</p>
+  <p class="by">By Shameen · HVAC service tech · Oct 27, 2026 · About 8 minutes</p>
 
   <div class="box top">
     <strong class="h">Warm-up: 3 quick guesses</strong>
@@ -71,41 +94,104 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--band);outline-offse
 
   <p>This lesson covers what changes on a normal service call once the refrigerant can burn: the tools you bring, how you haul the cylinder, what you look for when you walk in, and the label you fill out when you leave. I wrote it while studying for my own A2L certification.</p>
 
-  <h2><span class="n">1</span>Know what you're carrying: A1, A2L, A3</h2>
-  <p>Three classes come up all day now. Know them cold.</p>
-  <ul>
-    <li><b>A1</b> doesn't spread a flame. R-410A, R-22.</li>
-    <li><b>A2L</b> can burn, but it's hard to light and the flame is slow and weak. R-454B, R-32.</li>
-    <li><b>A3</b> is highly flammable. R-290 (propane), R-600a (isobutane). It lights easy and burns hot and fast, so A3 systems hold a very small charge.</li>
-  </ul>
-  <p>Here's how I keep it straight: an A2L needs a lot to go wrong at once. An A3 doesn't. Don't let "mildly flammable" make you careless, but don't treat an A2L like a propane tank either.</p>
+  <h2><span class="n">1</span>A1, A2L, A3: how fast it burns</h2>
+  <figure>
+  <svg viewBox="0 0 360 178" role="img" aria-label="Flame speed by safety class. A1 like R-410A: no flame spread. A2L like R-454B and R-32: slow, 10 cm/s or less. A3 like R-290 propane: fast.">
+    <g><rect class="chip" x="0" y="8" width="56" height="34" rx="6"/><text class="chipt" x="28" y="31">A1</text>
+      <text x="66" y="20" class="sm">R-410A, R-22</text><rect class="trk" x="66" y="28" width="290" height="12" rx="6"/><text x="66" y="56" class="sm mut">No flame spread</text></g>
+    <g><rect class="chip" x="0" y="68" width="56" height="34" rx="6"/><text class="chipt" x="28" y="91">A2L</text>
+      <text x="66" y="80" class="sm">R-454B, R-32</text><rect class="trk" x="66" y="88" width="290" height="12" rx="6"/><rect class="amb" x="66" y="88" width="46" height="12" rx="6"/><text x="66" y="116" class="sm mut">Slow: 10 cm/s or less. Hard to light.</text></g>
+    <g><rect class="chip" x="0" y="128" width="56" height="34" rx="6"/><text class="chipt" x="28" y="151">A3</text>
+      <text x="66" y="140" class="sm">R-290 propane, R-600a</text><rect class="trk" x="66" y="148" width="290" height="12" rx="6"/><rect class="red" x="66" y="148" width="290" height="12" rx="6"/><text x="66" y="176" class="sm mut">Fast. Lights easy. Tiny charges only.</text></g>
+  </svg>
+  <figcaption>Bar = how fast the flame spreads. An A2L needs a lot to go wrong at once. An A3 doesn't.</figcaption>
+  </figure>
 
-  <h2><span class="n">2</span>Tools and cylinders</h2>
+  <h2><span class="n">2</span>Read the cylinder</h2>
+  <figure>
+  <svg viewBox="0 0 360 228" role="img" aria-label="A2L cylinder: red band on the shoulder, left-hand thread valve, marked for one refrigerant only.">
+    <defs><clipPath id="cyl"><path d="M50,216 V100 Q50,58 105,58 Q160,58 160,100 V216 Z"/></clipPath>
+      <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fgf"/></marker></defs>
+    <path class="body" d="M50,216 V100 Q50,58 105,58 Q160,58 160,100 V216 Z"/>
+    <rect class="red" x="40" y="78" width="130" height="24" clip-path="url(#cyl)"/>
+    <rect class="body" x="93" y="34" width="24" height="24" rx="3"/>
+    <ellipse class="body" cx="105" cy="30" rx="22" ry="6"/>
+    <rect class="body" x="117" y="40" width="20" height="10" rx="2"/>
+    <text x="148" y="34" class="spin">↺</text>
+    <text x="105" y="160" class="sm mut" text-anchor="middle">R-454B</text>
+    <line class="lead" x1="165" y1="44" x2="196" y2="44"/><text x="200" y="40" class="sm"><tspan font-weight="600">Left-hand thread</tspan><tspan x="200" dy="15" class="mut">Turn LEFT to tighten</tspan></text>
+    <line class="lead" x1="170" y1="90" x2="196" y2="98"/><text x="200" y="96" class="sm"><tspan font-weight="600">Red band or top</tspan><tspan x="200" dy="15" class="mut">= flammable gas</tspan></text>
+    <line class="lead" x1="160" y1="160" x2="196" y2="160"/><text x="200" y="156" class="sm"><tspan font-weight="600">One refrigerant only</tspan><tspan x="200" dy="15" class="mut">Never mix or top off</tspan></text>
+  </svg>
+  <figcaption>Recovery machine, vacuum pump and leak detector must be rated for A2L. <span class="check">CHECK</span> colors and threads</figcaption>
+  </figure>
+
+  <h2><span class="n">3</span>Load the truck right</h2>
+  <figure>
+  <svg viewBox="0 0 360 200" role="img" aria-label="Service van side view. Cylinder upright and strapped in the cargo area with airflow. No cylinder in the cab.">
+    <line class="lead" x1="0" y1="174" x2="360" y2="174"/>
+    <rect class="body" x="14" y="44" width="234" height="112" rx="8"/>
+    <path class="body" d="M248,156 V64 H296 L334,108 V156 Z"/>
+    <path class="win" d="M256,72 H292 L322,106 H256 Z"/>
+    <circle class="tire" cx="72" cy="158" r="17"/><circle class="tire" cx="290" cy="158" r="17"/>
+    <g class="vent"><line x1="30" y1="58" x2="62" y2="58"/><line x1="30" y1="65" x2="62" y2="65"/><line x1="30" y1="72" x2="62" y2="72"/></g>
+    <path class="arw" d="M70,66 q14,-14 28,0" marker-end="url(#ah)"/>
+    <line class="rack" x1="196" y1="62" x2="196" y2="150"/>
+    <rect class="body" x="150" y="78" width="32" height="72" rx="10"/><rect class="red" x="150" y="88" width="32" height="10"/>
+    <rect class="body" x="160" y="68" width="12" height="10"/>
+    <line class="strap" x1="148" y1="118" x2="198" y2="118"/>
+    <text x="268" y="132" class="xx" text-anchor="middle">✕</text>
+    <text x="40" y="96" class="sm ok">✓ Air moving</text>
+    <text x="40" y="118" class="sm ok">✓ Upright</text>
+    <text x="40" y="140" class="sm ok">✓ Strapped</text>
+    <text x="298" y="40" class="sm" text-anchor="middle">Never in the cab</text>
+    <text x="166" y="38" class="sm mut" text-anchor="middle">Valve shut + capped</text>
+  </svg>
+  <figcaption>At the supply house, pass on any cylinder that's dented, rusted or hissing. Keep it out of the sun.</figcaption>
+  </figure>
   <ul>
-    <li><b>Spark-proof where it counts.</b> Your recovery machine and vacuum pump should be rated for A2L. A standard motor or switch can throw a spark right where the vapor is. Gauges and hoses are fine. Your leak detector has to be made to sense A2L.</li>
-    <li><b>Red is the warning.</b> A2L cylinders have a red band or red top. <span class="check">CHECK</span></li>
-    <li><b>Left-hand threads.</b> A2L cylinders use a left-hand thread valve, so you can't screw an A1 adapter on by mistake. Righty-tighty doesn't apply here. <span class="check">CHECK</span></li>
-    <li><b>Never mix or top off.</b> R-454B is not a drop-in for R-410A. Recover into a cylinder marked for that refrigerant only.</li>
+    <li><b>DOT:</b> A2L ships as a Division 2.1 flammable gas. A tech carrying it usually falls under the "materials of trade" rules in 49 CFR, which set limits on amount and securing. <span class="check">CHECK</span></li>
+    <li><b>Leak alarm in the truck?</b> I couldn't find a DOT rule that requires one. A portable A2L detector is still smart. <span class="check">CHECK</span></li>
   </ul>
 
-  <h2><span class="n">3</span>Supply house to the job</h2>
-  <p>Most cylinder problems start before you get to the job.</p>
-  <ul>
-    <li><b>At the counter:</b> check the label, the red band, and that the valve is shut and capped. Don't load a cylinder that's dented, rusted or hissing.</li>
-    <li><b>In the truck:</b> stand it upright and strap it down. Keep it out of the cab, in a space that gets air, and away from heat and the sun.</li>
-    <li><b>DOT:</b> A2L refrigerant ships as a Division 2.1 flammable gas. Carrying it as a tech usually falls under the "materials of trade" rules in 49 CFR, which set limits on how much you carry and how it's secured. <span class="check">CHECK</span></li>
-    <li><b>Leak alarm in the truck?</b> I couldn't find a DOT rule that requires one. A portable A2L detector in the truck is still smart. <span class="check">CHECK</span></li>
-  </ul>
-  <div class="tip"><b>If you hear hissing while you drive:</b> pull over somewhere safe, shut off the engine, get out, and open the doors so it airs out. Don't smoke and don't flip switches. Wait until the leak stops and the air clears before you touch it.</div>
+  <h3 class="sub">Hissing while you drive? Do this:</h3>
+  <ol class="steps">
+    <li><span class="ic" aria-hidden="true">🛑</span><b>Pull over</b><span>somewhere safe</span></li>
+    <li><span class="ic" aria-hidden="true">🔑</span><b>Engine off</b><span>no switches, no smoking</span></li>
+    <li><span class="ic" aria-hidden="true">🚪</span><b>Get out</b><span>open the doors</span></li>
+    <li><span class="ic" aria-hidden="true">💨</span><b>Let it clear</b><span>then deal with it</span></li>
+  </ol>
 
   <h2><span class="n">4</span>Walk in and look for fire</h2>
-  <p>Before I open a system, I do a quick lap and ask two questions. What could light it? And where would the gas go?</p>
-  <ul>
-    <li><b>Things that light it:</b> pilot lights, energized heat strips, a coworker smoking, a tool or light switch that sparks, a running motor that isn't rated for A2L.</li>
-    <li><b>Where it goes:</b> A2L vapor is heavier than air. It sinks and pools low, in a closed room, a pit or a closet, right where water heater pilots sit.</li>
-    <li><b>What I do:</b> kill or isolate ignition sources, get air moving, check the area with my detector, and keep it checked while I work.</li>
-  </ul>
-  <p class="story">Picture this: a closet with a gas water heater and an air handler. The coil leaks overnight with the door shut. The pilot is 6 inches off the floor. That's exactly where the gas collects. Shut the gas and open the door before you even pull gauges.</p>
+  <figure>
+  <svg viewBox="0 0 360 214" role="img" aria-label="Closet cross-section. Refrigerant leaks from the air handler coil, sinks, and pools near the floor where the water heater pilot light sits.">
+    <defs><linearGradient id="gas" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="g0"/><stop offset="1" class="g1"/></linearGradient></defs>
+    <rect class="room" x="6" y="22" width="348" height="164"/>
+    <rect x="8" y="128" width="344" height="56" fill="url(#gas)"/>
+    <rect class="body" x="36" y="72" width="62" height="112" rx="8"/>
+    <rect class="pilotbox" x="54" y="160" width="26" height="18" rx="3"/>
+    <path class="flame" d="M67,176 q-7,-6 0,-14 q7,8 0,14z"/>
+    <rect class="body" x="236" y="40" width="88" height="96" rx="4"/>
+    <g class="coil"><line x1="248" y1="104" x2="312" y2="104"/><line x1="248" y1="112" x2="312" y2="112"/><line x1="248" y1="120" x2="312" y2="120"/></g>
+    <path class="arw" d="M270,140 v28" marker-end="url(#ah)"/><path class="arw" d="M290,140 v28" marker-end="url(#ah)"/>
+    <text x="280" y="34" class="sm" text-anchor="middle">Leak at the coil</text>
+    <text x="66" y="66" class="sm" text-anchor="middle">Water heater</text>
+    <text x="180" y="160" class="sm" text-anchor="middle" font-weight="600">Gas sinks and pools low</text>
+    <text x="110" y="206" class="sm red-t">▲ The pilot sits right in it</text>
+    <text x="180" y="16" class="sm mut" text-anchor="middle">Door shut · no airflow</text>
+  </svg>
+  <figcaption>A2L vapor is heavier than air. Shut the gas and open the door before you even pull gauges.</figcaption>
+  </figure>
+  <p>Before I open a system, I take a quick lap and ask two things: <b>what could light it, and where would the gas go?</b></p>
+  <div class="ign">
+    <span><i aria-hidden="true">🔥</i>Pilot lights</span>
+    <span><i aria-hidden="true">♨️</i>Live heat strips</span>
+    <span><i aria-hidden="true">🚬</i>Smoking</span>
+    <span><i aria-hidden="true">⚡</i>Sparking tools and switches</span>
+    <span><i aria-hidden="true">⚙️</i>Motors not rated for A2L</span>
+    <span><i aria-hidden="true">🍳</i>Furnace or stove burners</span>
+    <span><i aria-hidden="true">📟</i>Fix: kill it, air it out, check with your detector</span>
+  </div>
 
   <h2><span class="n">5</span>Fill out the label before you leave</h2>
   <p>On A2L installs, field information goes on the unit. Honestly, it's good practice on every system. The next tech shouldn't have to guess.</p>
