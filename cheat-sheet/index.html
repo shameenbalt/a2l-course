@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A2L Cheat Sheet</title>
+<meta name="description" content="One-page A2L refrigerant cheat sheet for HVAC techs: key numbers, safety classes, R-454B and R-32, cylinder markings, the RDS leak sensor, which standard covers what, and field rules.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"A2L Cheat Sheet for HVAC Techs","author":{"@type":"Person","name":"Shameen","jobTitle":"HVAC service technician"},"dateModified":"2026-10-27","learningResourceType":"Reference","about":["A2L refrigerant","R-454B","R-32","refrigerant detection system","ASHRAE 34","UL 60335-2-40"]}
+</script>
+<style>
+/* Reference page: scan-first. Big number tiles, then grids and tables. Prints on one or two pages. */
+:root{
+  --bg:#f4f5f5; --paper:#ffffff; --fg:#1d2326; --muted:#5b666c; --line:#d6dbde; --band:#c8322b; --tint:#fbecea; --good:#1f7a4a; --goodtint:#e3f3ea; --amber:#d99a1e; --ambtint:#fbf1dc;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;--amber:#e8b04a;--ambtint:#33280f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;--amber:#e8b04a;--ambtint:#33280f;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--body);margin:0}
+article{max-width:680px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+.band{height:10px;background:var(--band);border-radius:3px}
+h1{font:700 clamp(2.2rem,8vw,3.2rem)/.98 var(--display);text-transform:uppercase;margin:0}
+h2{font:700 1.45rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:14px 0 0}
+p,ul,ol{margin:0}
+ul,ol{padding-left:1.2em;display:flex;flex-direction:column;gap:5px}
+.by{font:500 .8rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+a{color:var(--fg);text-decoration-color:var(--band);text-underline-offset:3px}
+.check{font:500 .7rem var(--mono);color:var(--band);border:1px solid var(--band);padding:1px 5px;border-radius:3px;white-space:nowrap}
+.src{font-size:.86rem;color:var(--muted)}
+/* number tiles */
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.num{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--band);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.num b{font:700 1.9rem/1 var(--display)}
+.num span{font-size:.86rem;color:var(--muted);line-height:1.35}
+/* safety class grid */
+.grid{display:grid;grid-template-columns:auto repeat(4,1fr);gap:4px;font-size:.82rem}
+.grid div{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 4px;text-align:center;line-height:1.25;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.grid .h{background:transparent;border:0;font:500 .7rem var(--mono);color:var(--muted);text-transform:uppercase}
+.grid b{font:700 1.15rem/1 var(--display)}
+.grid .hot{background:var(--ambtint);border-color:var(--amber)}
+.grid .fire{background:var(--tint);border-color:var(--band)}
+.grid .na{color:var(--muted)}
+.key{font-size:.84rem;color:var(--muted)}
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.n{font-family:var(--mono);white-space:nowrap}
+/* figure */
+figure{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px}
+figure svg{width:100%;max-width:300px;height:auto;display:block;margin:0 auto}
+svg .body{fill:var(--bg);stroke:var(--fg);stroke-width:2} svg .red{fill:var(--band)} svg text{fill:var(--fg)} svg .mut{fill:var(--muted);font-size:12px}
+svg .dot{fill:var(--fg)} svg .dott{fill:var(--paper);font:700 13px var(--body);text-anchor:middle}
+svg .spin{fill:var(--band);font-size:24px;font-weight:700}
+.legend{counter-reset:c;list-style:none;padding:0;gap:6px}
+.legend li{counter-increment:c;display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:start;font-size:.92rem}
+.legend li::before{content:counter(c);background:var(--fg);color:var(--paper);border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font:700 .78rem var(--body)}
+/* do / don't */
+.dd{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:560px){.dd{grid-template-columns:1fr 1fr}}
+.dd>div{border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.dd .do{background:var(--goodtint);border:1px solid var(--good)}
+.dd .dont{background:var(--tint);border:1px solid var(--band)}
+.dd strong{font:700 1.1rem var(--display);text-transform:uppercase;letter-spacing:.04em}
+.dd ul{font-size:.92rem}
+.disc{border:1px dashed var(--line);border-radius:6px;padding:10px 12px;font-size:.86rem;color:var(--muted)}
+.print{align-self:flex-start;font:700 1rem var(--display);text-transform:uppercase;letter-spacing:.05em;background:var(--fg);color:var(--bg);border:0;border-radius:6px;padding:10px 16px;cursor:pointer}
+@media print{body{background:#fff;font-size:12px}.print{display:none}article{padding:0;gap:10px}.num b{font-size:1.4rem}}
+</style>
+<link rel="stylesheet" href="../assets/nav.css">
+</head>
+<body>
+<nav class="site-nav" aria-label="Site"><ul><li><a href="../">Guide</a></li><li><a href="../lessons/a2l-jobsite-safety/">Lessons</a></li><li><a href="../quiz/">Quiz</a></li><li><a href="../cheat-sheet/" aria-current="page">Cheat sheet</a></li></ul></nav>
+<article>
+  <div class="band" aria-hidden="true"></div>
+  <h1>A2L Cheat Sheet</h1>
+  <p class="by">By Shameen · HVAC service tech · Updated Oct 27, 2026</p>
+  <p>Everything I want in my head on an A2L job, on one page. Pull it up on the roof or print it for the truck.</p>
+  <button class="print" type="button" onclick="window.print()">Print it</button>
+
+  <h2>Numbers to know</h2>
+  <div class="nums">
+    <div class="num"><b>≤10 cm/s</b><span>Flame speed that makes it "2L" (about 4 in/s)</span></div>
+    <div class="num"><b>700 GWP</b><span>Cap for new home and light commercial AC, made from Jan 1, 2025</span></div>
+    <div class="num"><b>25% LFL</b><span>Where the unit's leak sensor (RDS) must react</span></div>
+    <div class="num"><b>15 sec</b><span>RDS must start mitigation within this</span></div>
+    <div class="num"><b>5 min</b><span>Mitigation keeps running at least this long</span></div>
+    <div class="num"><b>~4 lb</b><span>Charge where an RDS is generally expected <span class="check">CHECK</span></span></div>
+    <div class="num"><b>80%</b><span>Max fill on a recovery cylinder, by weight</span></div>
+    <div class="num"><b>Div. 2.1</b><span>DOT hazard class: flammable gas <span class="check">CHECK</span></span></div>
+  </div>
+
+  <h2>Safety classes (ASHRAE 34)</h2>
+  <div class="grid" role="table" aria-label="ASHRAE 34 safety classes with example refrigerants">
+    <div class="h" role="columnheader"></div><div class="h">1<br>no flame</div><div class="h">2L<br>slow</div><div class="h">2<br>flammable</div><div class="h">3<br>very</div>
+    <div class="h">A<br>lower tox</div><div><b>A1</b>R-410A<br>R-22</div><div class="hot"><b>A2L</b>R-454B<br>R-32</div><div><b>A2</b>R-152a</div><div class="fire"><b>A3</b>R-290<br>R-600a</div>
+    <div class="h">B<br>higher tox</div><div><b>B1</b>R-123</div><div class="hot"><b>B2L</b>R-717<br>ammonia</div><div class="na"><b>B2</b>rare</div><div class="na"><b>B3</b>rare</div>
+  </div>
+  <p class="key">Letter = how toxic. Number = how well it burns. You'll mostly see A1, A2L and A3.</p>
+
+  <h2>The refrigerants</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Refrigerant</th><th>Class</th><th>GWP</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>R-454B</b></td><td>A2L</td><td class="n">466</td><td>Blend (R-32 + R-1234yf). Charge as liquid. Pressures a bit under R-410A.</td></tr>
+      <tr><td><b>R-32</b></td><td>A2L</td><td class="n">675</td><td>Single component. Mini-splits. Pressures a bit over R-410A.</td></tr>
+      <tr><td>R-410A</td><td>A1</td><td class="n">2,088</td><td>What you service now. Never mix with A2L.</td></tr>
+      <tr><td>R-290</td><td>A3</td><td class="n">3</td><td>Propane. Small charges only.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="key">GWP values are the AR4 numbers EPA uses. <span class="check">CHECK</span></p>
+
+  <h2>Read the cylinder</h2>
+  <figure>
+    <svg viewBox="0 0 220 200" role="img" aria-label="A2L cylinder with four numbered points: left-hand thread valve, red band, refrigerant name, gray body.">
+      <defs><clipPath id="cyl"><path d="M50,192 V90 Q50,50 105,50 Q160,50 160,90 V192 Z"/></clipPath></defs>
+      <path class="body" d="M50,192 V90 Q50,50 105,50 Q160,50 160,90 V192 Z"/>
+      <rect class="red" x="40" y="70" width="130" height="22" clip-path="url(#cyl)"/>
+      <rect class="body" x="93" y="26" width="24" height="24" rx="3"/><ellipse class="body" cx="105" cy="22" rx="22" ry="6"/>
+      <rect class="body" x="117" y="32" width="20" height="10" rx="2"/>
+      <text x="140" y="28" class="spin">↺</text>
+      <text x="105" y="140" class="mut" text-anchor="middle">R-454B</text>
+      <circle class="dot" cx="190" cy="36" r="11"/><text class="dott" x="190" y="41">1</text>
+      <circle class="dot" cx="190" cy="81" r="11"/><text class="dott" x="190" y="86">2</text>
+      <circle class="dot" cx="30" cy="136" r="11"/><text class="dott" x="30" y="141">3</text>
+      <circle class="dot" cx="190" cy="168" r="11"/><text class="dott" x="190" y="173">4</text>
+    </svg>
+    <ol class="legend">
+      <li><span><b>Left-hand thread</b> valve (CGA 164). Turn left to tighten. Have the adapter. <span class="check">CHECK</span></span></li>
+      <li><span><b>Red band or red top</b> means flammable. <span class="check">CHECK</span></span></li>
+      <li><span><b>Read the name</b> printed on it. Cylinder color no longer tells you the refrigerant.</span></li>
+      <li><span><b>One refrigerant only.</b> Recovery cylinders must be rated for flammable refrigerant.</span></li>
+    </ol>
+  </figure>
+
+  <h2>The leak sensor in the unit (RDS)</h2>
+  <ul>
+    <li>It sits <b>low</b> near the indoor coil, because A2L vapor is heavier than air.</li>
+    <li>When it trips, expect the <b>blower to run</b>, the <b>compressor to stop</b>, and electric heat to drop out. Zone dampers open and shutoff valves close on multi-coil systems.</li>
+    <li>If a new system runs the blower nonstop or locks out the compressor, <b>check the RDS first</b>.</li>
+  </ul>
+
+  <h2>Which standard covers what</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Standard</th><th>Covers</th></tr></thead>
+    <tbody>
+      <tr><td class="n">ASHRAE 34</td><td>Names refrigerants and gives the safety class</td></tr>
+      <tr><td class="n">ASHRAE 15 / 15.2</td><td>Safety in the building (15.2 = homes): charge limits, room size</td></tr>
+      <tr><td class="n">UL 60335-2-40</td><td>The AC and heat pump equipment itself, including the RDS and markings</td></tr>
+      <tr><td class="n">UL 60335-2-89</td><td>Commercial refrigeration equipment</td></tr>
+      <tr><td class="n">EPA 608</td><td>Your card still covers A2L. Recover, never vent.</td></tr>
+      <tr><td class="n">DOT 49 CFR</td><td>Hauling cylinders: securing, marking, how much you carry</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Field rules</h2>
+  <div class="dd">
+    <div class="do"><strong>✓ Do</strong><ul>
+      <li>Check the area with your detector before you open the system</li>
+      <li>Get air moving and kill ignition sources</li>
+      <li>Use A2L-rated recovery machine, vacuum pump and detector</li>
+      <li>Charge R-454B as liquid and weigh it in</li>
+      <li>Purge with nitrogen, and braze with nitrogen flowing</li>
+      <li>Haul cylinders upright, strapped, out of the cab</li>
+      <li>Fill out the system label before you leave</li>
+    </ul></div>
+    <div class="dont"><strong>✕ Don't</strong><ul>
+      <li>Top off or convert R-410A with an A2L</li>
+      <li>Mix refrigerants in one recovery cylinder</li>
+      <li>Vent it because it's "low GWP"</li>
+      <li>Work near pilot lights, live heat strips or smoking</li>
+      <li>Stand in smoke if anything burns (it can make hydrogen fluoride)</li>
+    </ul></div>
+  </div>
+
+  <h2>Dates that matter</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Date</th><th>What changed</th></tr></thead>
+    <tbody>
+      <tr><td class="n">Dec 2020</td><td>AIM Act: HFC phase-down, down 85% by 2036</td></tr>
+      <tr><td class="n">Jan 1, 2025</td><td>New home and light commercial AC must be under 700 GWP</td></tr>
+      <tr><td class="n">Jan 1, 2026</td><td>EPA leak repair rules (AIM Act) reach systems with 15 lb or more of an HFC or substitute over 53 GWP. That includes R-454B and R-32. <span class="check">CHECK</span></td></tr>
+      <tr><td class="n">May 2026</td><td>EPA removed the Jan 1, 2026 install deadline for R-410A equipment made before 2025 <span class="check">CHECK</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="key">EPA keeps adjusting these. VRF has its own dates. Check EPA's Technology Transitions page before you tell a customer.</p>
+
+  <p>Go deeper: <a href="../">the full A2L guide</a> · <a href="../lessons/a2l-jobsite-safety/">Lesson 1: jobsite safety</a> · <a href="../quiz/">practice exam</a></p>
+
+  <p class="disc">Independent study aid written by a working HVAC tech. Not affiliated with EPA, ESCO, ASHRAE, UL or any manufacturer. Items marked <span class="check">CHECK</span> are still being confirmed. Rules change. Always follow the equipment maker's instructions and your local code.</p>
+  <p class="src">Sources: ASHRAE 15, 15.2 and 34 · UL 60335-2-40 and 2-89 · EPA Technology Transitions rule · DOT 49 CFR · <a href="https://www.ul.com/news/inspecting-refrigerant-detection-systems-hvac-equipment">UL: Inspecting refrigerant detection systems</a> · <a href="https://hvac-blog.acca.org/where-did-all-the-colors-go-what-contractors-need-to-know-about-the-switch-to-gray-a2l-cylinders/">ACCA: The switch to gray A2L cylinders</a></p>
+</article>
+</body>
+</html>
