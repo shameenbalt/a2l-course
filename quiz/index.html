@@ -52,6 +52,9 @@ button{font:inherit}
 .opt:disabled{cursor:default}
 .explain{border-left:3px solid var(--line);padding-left:12px;font-size:.95rem;margin:0}
 .explain.ok{border-color:var(--good)} .explain.no{border-color:var(--bad)}
+.read{font-size:.88rem;color:var(--muted);margin:6px 0 0;padding-left:15px}
+.read b{color:var(--fg)}
+.meter .r{grid-column:1/-1;font-size:.82rem;color:var(--muted);margin-top:-2px}
 .verdict{font:700 1rem var(--display);text-transform:uppercase;letter-spacing:.05em}
 .verdict.ok{color:var(--good)} .verdict.no{color:var(--bad)}
 .big{font:700 3.6rem/1 var(--display)}
@@ -129,6 +132,7 @@ button{font:inherit}
 <script src="questions.js"></script>
 <script>
 const $=id=>document.getElementById(id);
+const readFor=q=>{const r=q.r||(typeof R!=="undefined"&&R[q.t]);return r?`<p class="read"><b>Read:</b> ${r}</p>`:""};
 let mode="practice",secs=0,count=20,set=[],i=0,answers=[],tick=null,left=0;
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
 function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
@@ -149,7 +153,7 @@ function show(){const q=set[i];$("count").textContent=`Q ${i+1} of ${set.length}
 function draw(){$("timer").textContent="0:"+String(Math.max(left,0)).padStart(2,"0");$("timer").classList.toggle("low",left<=10)}
 function pick(k){if(answers[i]!==undefined)return;clearInterval(tick);answers[i]=k;const q=set[i];
  document.querySelectorAll(".opt").forEach((el,n)=>{el.disabled=true;if(mode==="practice"){if(n===q.a)el.classList.add("right");else if(n===k)el.classList.add("wrong")}else if(n===k)el.classList.add("sel")});
- if(mode==="practice"){const ok=k===q.a;$("feedback").innerHTML=`<p class="verdict ${ok?"ok":"no"}">${ok?"Correct":(k<0?"Time's up":"Not quite")}</p><p class="explain ${ok?"ok":"no"}">${ok?"":"<strong>Answer: "+q.o[q.a]+".</strong> "}${q.e}</p>`;$("feedback").hidden=false}
+ if(mode==="practice"){const ok=k===q.a;$("feedback").innerHTML=`<p class="verdict ${ok?"ok":"no"}">${ok?"Correct":(k<0?"Time's up":"Not quite")}</p><p class="explain ${ok?"ok":"no"}">${ok?"":"<strong>Answer: "+q.o[q.a]+".</strong> "}${q.e}</p>${ok?"":readFor(q)}`;$("feedback").hidden=false}
  $("next").textContent=i===set.length-1?"See score":"Next";$("next").hidden=false;$("next").focus()}
 $("next").onclick=()=>{if(i<set.length-1){i++;show()}else finish()};
 function finish(){$("quiz").hidden=true;$("results").hidden=false;window.scrollTo(0,0);
@@ -157,10 +161,10 @@ function finish(){$("quiz").hidden=true;$("results").hidden=false;window.scrollT
  const pct=Math.round(right/set.length*100);$("score").textContent=`${pct}%`;
  const p=$("passtag");p.textContent=pct>=70?`Pass · ${right} of ${set.length}`:`Keep studying · ${right} of ${set.length}`;p.className="pass "+(pct>=70?"ok":"no");
  const prev=+store("a2l-best")||0;if(pct>prev&&set.length>=10)store("a2l-best",pct);
- $("bytopic").innerHTML=Object.keys(T).filter(k=>by[k]).map(k=>{const[r,n]=by[k],v=Math.round(r/n*100);return`<div class="t"><span>${T[k]}</span><span>${r}/${n}</span></div><div class="m"><i style="width:${v}%;background:var(${v>=70?"--good":"--bad"})"></i></div>`}).join("");
+ $("bytopic").innerHTML=Object.keys(T).filter(k=>by[k]).map(k=>{const[r,n]=by[k],v=Math.round(r/n*100);return`<div class="t"><span>${T[k]}</span><span>${r}/${n}</span></div><div class="m"><i style="width:${v}%;background:var(${v>=70?"--good":"--bad"})"></i></div>${v<70&&typeof R!=="undefined"&&R[k]?`<div class="r">Read: ${R[k]}</div>`:""}`}).join("");
  const missed=set.filter((q,n)=>answers[n]!==q.a);$("retryMissed").hidden=!missed.length;
  $("retryMissed").onclick=()=>build(shuffle(missed.map(m=>Q.find(x=>x.q===m.q))));
- $("review").innerHTML=set.map((q,n)=>{const ok=answers[n]===q.a;return`<details ${ok?"":"open"}><summary><span class="verdict ${ok?"ok":"no"}">${ok?"✓":"✗"}</span> ${q.q}</summary><p class="explain ${ok?"ok":"no"}"><strong>${q.o[q.a]}.</strong> ${answers[n]>=0&&!ok?"You picked: "+q.o[answers[n]]+". ":""}${q.e}</p></details>`}).join("")}
+ $("review").innerHTML=set.map((q,n)=>{const ok=answers[n]===q.a;return`<details ${ok?"":"open"}><summary><span class="verdict ${ok?"ok":"no"}">${ok?"✓":"✗"}</span> ${q.q}</summary><p class="explain ${ok?"ok":"no"}"><strong>${q.o[q.a]}.</strong> ${answers[n]>=0&&!ok?"You picked: "+q.o[answers[n]]+". ":""}${q.e}</p>${ok?"":readFor(q)}</details>`}).join("")}
 $("again").onclick=()=>{$("results").hidden=true;$("setup").hidden=false;window.scrollTo(0,0)};
 </script>
 </body>

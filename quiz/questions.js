@@ -1,7 +1,10 @@
 // A2L question bank. Add a question by copying one line below.
 // t = topic key from T, q = question, o = 4 options, a = index of the right option (0 = first),
 // e = explanation, f:1 = show a CHECK flag (fact still to double-check).
+// R = where to read up on each topic (page numbers in the ESCO Low GWP Refrigerant Safety manual).
+// A question can override it with its own r:"...".
 const T={basics:"Safety class basics",fire:"Burning and limits",refs:"The refrigerants",rules:"EPA rules",detect:"Standards and leak detection",tools:"Tools and cylinders",service:"Safe service"};
+const R={basics:"ESCO manual pp. 21–24 (ASHRAE 34 safety classes) and p. 44 (burning velocity)",fire:"ESCO manual pp. 43–44 (combustion, HF, COF2, MIE, RCL and LFL)",refs:"ESCO manual pp. 13–21 (blends, glide, oils) and p. 53 (common A2Ls)",rules:"ESCO manual p. 6 (environmental rules) and pp. 52–53 (CFR 49, EPA SNAP)",detect:"ESCO manual p. 44 (LFL), p. 47 (mitigation) and p. 52 (standards summary)",tools:"ESCO manual pp. 38–39 (transport, storage), pp. 27–28 (recovery equipment), p. 37 (leak testing)",service:"ESCO manual pp. 40–41 (jobsite safety, labels) and pp. 46–51 (A2L field procedures)"};
 const Q=[
 {t:"basics",q:"In the ASHRAE 34 safety class \"A2L\", what does the letter A mean?",o:["Lower toxicity","Approved for air conditioning","Higher toxicity","Azeotropic blend"],a:0,e:"ASHRAE 34 uses A for lower toxicity and B for higher toxicity. The number and letter after it (2L) describe flammability."},
 {t:"basics",q:"What does \"2L\" mean in A2L?",o:["Lower flammability: it can burn, but the flame spreads slowly","No flame spread at all","Highly flammable, like propane","It has two liquid phases"],a:0,e:"Class 2L is lower flammability. It is part of class 2 (flammable) with a maximum burning velocity of 10 cm/s or less. Class 1 shows no flame spread, and class 3 (propane, R-290) is highly flammable."},
