@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A2L Course Lessons</title>
+<meta name="description" content="A free A2L refrigerant course for HVAC techs: five 10-minute lessons with warm-ups, drawings and quizzes, written by a working tech.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+
+<style>
+:root{
+  --bg:#f4f5f5; --paper:#ffffff; --fg:#1d2326; --muted:#5b666c; --line:#d6dbde; --band:#c8322b; --tint:#fbecea; --good:#1f7a4a; --goodtint:#e3f3ea;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:17px/1.6 var(--body);margin:0}
+article{max-width:680px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+.band{height:10px;background:var(--band);border-radius:3px}
+h1{font:700 clamp(2.2rem,8vw,3.2rem)/.98 var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+h2{font:700 1.45rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:12px 0 0}
+p,ul{margin:0} ul{padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+a{color:var(--fg);text-decoration-color:var(--band);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--band);outline-offset:2px}
+.by{font:500 .8rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.src{font-size:.86rem;color:var(--muted)}
+.lessons{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:l}
+.lessons li{counter-increment:l}
+.card{display:grid;grid-template-columns:44px 1fr;gap:4px 12px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px;text-decoration:none;color:var(--fg)}
+a.card:hover{border-color:var(--band)}
+.card::before{content:counter(l);grid-row:1/4;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:700 1.4rem var(--display);background:var(--line);color:var(--muted)}
+.card.live::before{background:var(--band);color:#fff}
+.card b{font:700 1.2rem/1.15 var(--display);text-transform:uppercase;letter-spacing:.03em}
+.card span{font-size:.9rem;color:var(--muted);line-height:1.45}
+.tag{justify-self:start;font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:3px;border:1px solid var(--line);color:var(--muted)}
+.live .tag{border-color:var(--good);color:var(--good);background:var(--goodtint)}
+.final{background:var(--fg);color:var(--bg);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.final a{color:var(--bg)}
+.final b{font:700 1.3rem var(--display);text-transform:uppercase;letter-spacing:.04em}
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;font-size:.8rem}
+.how div{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 4px;display:flex;flex-direction:column;gap:2px}
+.how i{font-style:normal;font-size:1.4rem}
+</style>
+<link rel="stylesheet" href="../assets/nav.css">
+</head>
+<body>
+<nav class="site-nav" aria-label="Site"><ul><li><a href="../">Guide</a></li><li><a href="../lessons/" aria-current="page">Lessons</a></li><li><a href="../quiz/">Quiz</a></li><li><a href="../cheat-sheet/">Cheat sheet</a></li><li><a href="../about/">About</a></li></ul></nav>
+<article>
+  <div class="band" aria-hidden="true"></div>
+  <h1>A2L Course</h1>
+  <p class="by">By Shameen · 5 lessons · Free while in progress</p>
+  <p>Five short lessons, one for each part of an A2L safety exam. Each one takes about 10 minutes on your phone and ends with a quiz on just that topic.</p>
+  <div class="how" aria-label="How each lesson works">
+    <div><i aria-hidden="true">🤔</i>Warm-up guesses</div><div><i aria-hidden="true">📖</i>Short lesson</div><div><i aria-hidden="true">🗣️</i>Explain it back</div><div><i aria-hidden="true">✅</i>Lesson quiz</div>
+  </div>
+  <ol class="lessons">
+    <li><a class="card live" href="a2l-jobsite-safety/"><b>Jobsite safety</b><span>Tools and cylinders, hauling in the truck, spotting ignition hazards, filling out the system label.</span><em class="tag">Live · Transport · service safety</em></a></li>
+    <li><div class="card"><b>What makes an A2L burn</b><span>Safety classes, LFL, burning velocity, MIE, R-454B vs R-32 vs R-290. The numbers you need, explained like a tech.</span><em class="tag">Coming soon · Flammable safety</em></div></li>
+    <li><div class="card"><b>Read the A2L nameplate</b><span>What the nameplate on a real A2L rooftop unit tells you: the listing, refrigerant, charge per circuit, minimum room area and the A2L symbol.</span><em class="tag">Coming soon · Installation safety</em></div></li>
+    <li><div class="card"><b>Service and repair</b><span>Recovery, evacuation, brazing with nitrogen, charging R-454B, and the leak sensor (RDS).</span><em class="tag">Coming soon · Service safety · core</em></div></li>
+    <li><div class="card"><b>Installing A2L systems</b><span>Line sets and joints, pressure testing, charge limits by room size, and labels.</span><em class="tag">Coming soon · Installation safety</em></div></li>
+  </ol>
+  <div class="final"><b>Final: full practice exam</b><p>Every topic, timed or untimed, scored by topic, with what to reread. <a href="../quiz/">Take the practice exam</a></p></div>
+  <p class="src">Study aid by a working HVAC tech. Not affiliated with EPA, ESCO, ASHRAE, UL or any manufacturer. Exam areas are general A2L safety topics, not any one publisher's test. <a href="../about/">About me</a></p>
+</article>
+</body>
+</html>
