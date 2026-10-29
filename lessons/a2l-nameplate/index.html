@@ -77,6 +77,16 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
 .ign span:last-child{grid-column:1/-1;background:var(--goodtint);border-color:var(--good)}
 .ign i{font-style:normal;font-size:1.5rem}
 
+/* year match */
+.ym{display:grid;grid-template-columns:5.2em 1fr;gap:8px}
+.ym .col{display:flex;flex-direction:column;gap:6px}
+.ym button{font:inherit;font-size:.9rem;text-align:left;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;cursor:pointer;min-height:48px;line-height:1.3}
+#ymY button{font:700 1.15rem var(--display);text-align:center}
+.ym button.sel{border-color:var(--band);box-shadow:0 0 0 2px var(--band)}
+.ym button.miss{background:var(--tint);border-color:var(--band)}
+.ym button.done{background:var(--goodtint);border-color:var(--good);cursor:default}
+.ymsg{font:700 1rem var(--display);text-transform:uppercase;letter-spacing:.04em}
+.ymsg.win{color:var(--good)}
 /* spot the markings */
 .spot-fig svg{max-width:440px;margin:0 auto}
 .count{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.04em;text-align:center}
@@ -184,6 +194,14 @@ svg .hot:focus-visible circle{stroke:var(--amber);stroke-width:4}
   <div class="pick" id="pick"></div>
   </figure>
 
+  <div class="box" id="years">
+    <strong class="h">Match the year to the rule</strong>
+    <p class="why">The year on the plate tells you which rules apply. Tap a year, then the rule that goes with it.</p>
+    <div class="ym"><div class="col" id="ymY"></div><div class="col" id="ymR"></div></div>
+    <p class="ymsg" id="ymMsg" aria-live="polite">0 of 5 matched</p>
+    <p class="src">Dates as of Oct 2026. EPA keeps adjusting these rules, so check EPA's site before telling a customer. The 2026 items are flagged CHECK.</p>
+  </div>
+
   <h2><span class="n">2</span>Spot the A2L markings</h2>
   <p>Nameplates aren't the only clue. Open the side of a new A2L unit and the markings are everywhere. Find the 3 that tell you the refrigerant can burn. Some labels are on every unit, so not every sticker counts.</p>
   <figure class="spot-fig">
@@ -272,6 +290,23 @@ function showP(k){call.innerHTML=`<b>${k+1}. ${P[k][0]}</b><p>${P[k][1]}</p>`;
 hots.forEach(h=>{h.addEventListener("click",()=>showP(+h.dataset.k));h.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showP(+h.dataset.k)}})});
 pick.addEventListener("click",e=>{const b=e.target.closest("button");if(b)showP(+b.dataset.k)});
 showP(0);
+
+/* Year match: tap a year, then its rule. Years stay in order; rules are shuffled. */
+const YM=[["2020","AIM Act passes. EPA starts phasing down HFCs like R-410A."],["2025","New home and light commercial AC must be under 700 GWP. Hello, R-454B and R-32."],["2026","EPA leak repair rules reach systems with 15 lb or more of HFC or a substitute over 53 GWP. (CHECK)"],["May 2026","EPA lets leftover R-410A units made before 2025 still be installed. (CHECK)"],["2036","HFC production and import down 85% from the starting level."]];
+const yY=document.getElementById("ymY"),yR=document.getElementById("ymR"),yMsg=document.getElementById("ymMsg");
+const order=YM.map((_,k)=>k).sort(()=>Math.random()-.5);
+yY.innerHTML=YM.map((m,k)=>`<button type="button" data-k="${k}">${m[0]}</button>`).join("");
+yR.innerHTML=order.map(k=>`<button type="button" data-k="${k}">${YM[k][1]}</button>`).join("");
+let ySel=null,yDone=0;
+yY.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||b.classList.contains("done"))return;
+ yY.querySelectorAll("button").forEach(x=>x.classList.toggle("sel",x===b&&ySel!==+b.dataset.k));ySel=ySel===+b.dataset.k?null:+b.dataset.k});
+yR.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||b.classList.contains("done"))return;
+ if(ySel===null){yMsg.textContent="Tap a year first";return}
+ const yb=yY.querySelector(`button[data-k="${ySel}"]`);
+ if(+b.dataset.k===ySel){[b,yb].forEach(x=>{x.classList.remove("sel","miss");x.classList.add("done");x.disabled=true});ySel=null;yDone++;
+  yMsg.textContent=yDone===YM.length?"All 5 matched ✓ You know your dates":`${yDone} of ${YM.length} matched`;yMsg.classList.toggle("win",yDone===YM.length)}
+ else{b.classList.add("miss");yMsg.textContent="Not that one. Try again";setTimeout(()=>b.classList.remove("miss"),600)}});
+
 
 /* Spot the markings: 3 kinds to find; the other labels are on any unit and don't count. */
 const S={tag:["Red flame tags","Red tags with the flame symbol on the piping and service valves. They warn you the circuit holds flammable refrigerant before you braze or open a port. (CHECK: exact rule being confirmed.)"],
