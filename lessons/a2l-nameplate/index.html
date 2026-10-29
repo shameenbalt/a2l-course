@@ -77,6 +77,25 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
 .ign span:last-child{grid-column:1/-1;background:var(--goodtint);border-color:var(--good)}
 .ign i{font-style:normal;font-size:1.5rem}
 
+/* spot the markings */
+.spot-fig svg{max-width:440px;margin:0 auto}
+.count{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.04em;text-align:center}
+.count.done{color:var(--good)}
+svg .cab{fill:#d9dcde;stroke:#9aa1a6;stroke-width:2} svg .back{fill:#e9ebec}
+svg .coil{fill:#8f979c} svg .fins line{stroke:#b9bfc3;stroke-width:2}
+svg .pipe{fill:none;stroke:#8a5a44;stroke-width:7;stroke-linejoin:round}
+svg .drier{fill:#c3c8cb;stroke:#8f979c} svg .comp{fill:#2f6fd6} svg .complabel{fill:#f1d36b}
+svg .brass{fill:#c9a24a;stroke:#8a6d2a}
+svg .redtag{fill:#e0263f} svg .wd{fill:#fff;stroke:#111;stroke-width:1}
+svg .pink{fill:#e5357a;stroke:#fff;stroke-width:2} svg .blue{fill:#58b9ea}
+svg .white{fill:#fff;stroke:#9aa1a6} svg .orange{fill:#ef7d1a} svg .yellow{fill:#f2cf2e}
+svg text.lt{font:600 7.5px var(--body);fill:#111} svg text.w{fill:#fff} svg text.b{font-size:12px}
+svg .guard line{stroke:#111;stroke-width:1.2;opacity:.35;pointer-events:none}
+svg .spot{cursor:pointer;outline:none}
+svg .spot:focus-visible>*:first-child{stroke:var(--amber);stroke-width:3}
+svg .spot.ok{filter:drop-shadow(0 0 0 #1f7a4a)} svg .spot.ok>*:first-child{stroke:#1f9a5a;stroke-width:3}
+svg .spot.no{opacity:.45} svg .spot.ok .pink{stroke:#1f9a5a;stroke-width:4}
+.reset{align-self:center;font:600 .9rem var(--body);background:none;border:1px solid var(--line);border-radius:6px;padding:8px 14px;color:var(--fg);cursor:pointer}
 /* nameplate */
 .plate-fig svg{max-width:420px;margin:0 auto}
 svg .m0{stop-color:#c9ced2} svg .m1{stop-color:#eef0f2}
@@ -165,7 +184,34 @@ svg .hot:focus-visible circle{stroke:var(--amber);stroke-width:4}
   <div class="pick" id="pick"></div>
   </figure>
 
-  <h2><span class="n">2</span>The 3 lines I check first</h2>
+  <h2><span class="n">2</span>Spot the A2L markings</h2>
+  <p>Nameplates aren't the only clue. Open the side of a new A2L unit and the markings are everywhere. Find the 3 that tell you the refrigerant can burn. Some labels are on every unit, so not every sticker counts.</p>
+  <figure class="spot-fig">
+  <div class="count" id="spotCount" aria-live="polite">Found 0 of 3</div>
+  <svg id="spot" viewBox="0 0 360 300" role="img" aria-label="Drawing of the inside of a two-circuit A2L condensing section, with labels to tap">
+    <rect x="4" y="4" width="352" height="292" rx="8" class="cab"/>
+    <rect x="14" y="14" width="190" height="160" class="back"/>
+    <path class="coil" d="M214,14 H346 L306,176 H236 Z"/>
+    <g class="fins"><line x1="226" y1="30" x2="334" y2="30"/><line x1="230" y1="50" x2="330" y2="50"/><line x1="234" y1="70" x2="325" y2="70"/><line x1="238" y1="90" x2="320" y2="90"/><line x1="242" y1="110" x2="315" y2="110"/><line x1="246" y1="130" x2="310" y2="130"/><line x1="250" y1="150" x2="306" y2="150"/></g>
+    <path class="pipe" d="M236,120 H215 V88"/><path class="pipe" d="M215,140 V200 H90 V226"/><path class="pipe" d="M30,236 H250"/><path class="pipe" d="M270,176 V190"/>
+    <rect x="205" y="88" width="20" height="52" rx="8" class="drier"/>
+    <rect x="244" y="190" width="64" height="88" rx="16" class="comp"/>
+    <rect x="258" y="214" width="34" height="16" class="complabel"/>
+    <rect x="52" y="226" width="22" height="20" rx="3" class="brass"/><rect x="58" y="246" width="10" height="10" class="brass"/>
+    <g class="spot" data-id="tag" tabindex="0" role="button" aria-label="Red tag on the pipe by the service valve"><rect x="88" y="227" width="34" height="18" rx="2" class="redtag"/><g transform="translate(105,236) rotate(45)"><rect x="-5" y="-5" width="10" height="10" class="wd"/></g></g>
+    <g class="spot" data-id="tag" tabindex="0" role="button" aria-label="Red tag below the filter drier"><rect x="200" y="150" width="30" height="18" rx="2" class="redtag"/><g transform="translate(215,159) rotate(45)"><rect x="-5" y="-5" width="10" height="10" class="wd"/></g></g>
+    <g class="spot" data-id="dot" tabindex="0" role="button" aria-label="Pink diamond label"><g transform="translate(52,62) rotate(45)"><rect x="-22" y="-22" width="44" height="44" class="pink"/></g><text x="52" y="60" class="lt w" text-anchor="middle">FLAMMABLE</text><text x="52" y="69" class="lt w" text-anchor="middle">GAS</text><text x="52" y="84" class="lt w b" text-anchor="middle">2</text></g>
+    <g class="spot" data-id="ref" tabindex="0" role="button" aria-label="Blue sticker"><rect x="24" y="104" width="58" height="22" rx="2" class="blue"/><text x="53" y="113" class="lt" text-anchor="middle">R-32</text><text x="53" y="122" class="lt" text-anchor="middle">REFRIGERANT</text></g>
+    <g class="spot" data-id="circ" tabindex="0" role="button" aria-label="White label"><rect x="104" y="22" width="90" height="30" class="white"/><text x="149" y="35" class="lt" text-anchor="middle">REFRIGERANT</text><text x="149" y="46" class="lt" text-anchor="middle">CIRCUIT #2</text></g>
+    <g class="spot" data-id="x-press" tabindex="0" role="button" aria-label="Orange warning label"><rect x="104" y="62" width="90" height="40" class="white"/><rect x="104" y="62" width="90" height="11" class="orange"/><text x="149" y="70.5" class="lt" text-anchor="middle">⚠ WARNING</text><text x="149" y="85" class="lt" text-anchor="middle">Refrigerant under</text><text x="149" y="95" class="lt" text-anchor="middle">pressure</text></g>
+    <g class="spot" data-id="x-hot" tabindex="0" role="button" aria-label="Yellow caution label"><rect x="104" y="112" width="90" height="28" class="white"/><rect x="104" y="112" width="90" height="10" class="yellow"/><text x="149" y="120" class="lt" text-anchor="middle">CAUTION</text><text x="149" y="134" class="lt" text-anchor="middle">HOT PIPING</text></g>
+    <g class="guard"><line x1="40" y1="4" x2="40" y2="296"/><line x1="80" y1="4" x2="80" y2="296"/><line x1="120" y1="4" x2="120" y2="296"/><line x1="160" y1="4" x2="160" y2="296"/><line x1="200" y1="4" x2="200" y2="296"/><line x1="240" y1="4" x2="240" y2="296"/><line x1="280" y1="4" x2="280" y2="296"/><line x1="320" y1="4" x2="320" y2="296"/></g>
+  </svg>
+  <div class="call" id="spotMsg" aria-live="polite"><b>Tap a label or tag</b><p>Start anywhere. A wrong tap costs nothing.</p></div>
+  <button type="button" class="reset" id="spotReset">Start over</button>
+  </figure>
+
+  <h2><span class="n">3</span>The 3 lines I check first</h2>
   <ol class="three">
     <li><b>Refrigerant.</b> Match your gauges, your cylinder and your recovery tank to it. Never top off with something else.</li>
     <li><b>Charge per circuit.</b> Each circuit is its own system. Know the number before you recover or charge.</li>
@@ -178,7 +224,7 @@ svg .hot:focus-visible circle{stroke:var(--amber);stroke-width:4}
   </div>
   <p class="why">Divide ounces by 16, not 10. And on a 2-circuit unit, don't stop at circuit 1.</p>
 
-  <h2><span class="n">3</span>Bonus: the disconnect</h2>
+  <h2><span class="n">4</span>Bonus: the disconnect</h2>
   <div class="tip"><b>⚡ Looks like a breaker. Isn't one.</b> Many new rooftop units come with a molded case switch as the disconnect. Read its label: it says it <b>provides no overcurrent protection</b>. It won't trip on an overload. The breaker or fuses feeding the unit do that job, and they can't be bigger than the nameplate's max overcurrent protection.</div>
 
   <div class="box">
@@ -226,6 +272,22 @@ function showP(k){call.innerHTML=`<b>${k+1}. ${P[k][0]}</b><p>${P[k][1]}</p>`;
 hots.forEach(h=>{h.addEventListener("click",()=>showP(+h.dataset.k));h.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showP(+h.dataset.k)}})});
 pick.addEventListener("click",e=>{const b=e.target.closest("button");if(b)showP(+b.dataset.k)});
 showP(0);
+
+/* Spot the markings: 3 kinds to find; the other labels are on any unit and don't count. */
+const S={tag:["Red flame tags","Red tags with the flame symbol on the piping and service valves. They warn you the circuit holds flammable refrigerant before you braze or open a port. (CHECK: exact rule being confirmed.)"],
+ dot:["DOT flammable gas label","The pink diamond is the DOT hazard label for Division 2.1 flammable gas, the same one you see on an A2L cylinder."],
+ ref:["Refrigerant sticker","Tells you it's R-32 without hunting for the nameplate. Match your gauges, cylinder and recovery tank to it."],
+};
+const X={"circ":"Not an A2L marking, but read it anyway. Two circuits means two separate charges. Know which one you're on, and add both for the unit total.","x-press":"Not an A2L marking. Every refrigerant system has a pressure warning, A1 or A2L.","x-hot":"Not an A2L marking. Hot discharge piping is on every unit."};
+const found=new Set(),spots=[...document.querySelectorAll("#spot .spot")],msg=document.getElementById("spotMsg"),cnt=document.getElementById("spotCount");
+function tapSpot(g){const id=g.dataset.id;
+ if(X[id]){g.classList.add("no");msg.innerHTML=`<b>✕ Not this one</b><p>${X[id]}</p>`;return}
+ found.add(id);spots.filter(x=>x.dataset.id===id).forEach(x=>x.classList.add("ok"));
+ cnt.textContent=found.size===3?"All 3 found ✓":`Found ${found.size} of 3`;cnt.classList.toggle("done",found.size===3);
+ msg.innerHTML=`<b>✓ ${S[id][0]}</b><p>${S[id][1]}</p>`+(found.size===3?`<p><b>Nice work.</b> On a real unit, look for these before you open the system.</p>`:"")}
+spots.forEach(g=>{g.addEventListener("click",()=>tapSpot(g));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tapSpot(g)}})});
+document.getElementById("spotReset").onclick=()=>{found.clear();spots.forEach(g=>g.classList.remove("ok","no"));cnt.textContent="Found 0 of 3";cnt.classList.remove("done");msg.innerHTML="<b>Tap a label or tag</b><p>Start anywhere. A wrong tap costs nothing.</p>"};
+
 </script>
 </body>
 </html>
