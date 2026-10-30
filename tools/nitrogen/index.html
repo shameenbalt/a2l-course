@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nitrogen test log</title>
+<meta name="description" content="Free nitrogen pressure test log for HVAC techs. Saves pressure, outdoor temperature, time and location, then tells you if the test held after correcting for temperature.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Nitrogen test log","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","isAccessibleForFree":true,"description":"Log a nitrogen standing pressure test, then check it later with automatic temperature correction and outdoor temperature lookup by location."}
+</script>
+<style>
+:root{
+  --bg:#f4f5f5; --paper:#ffffff; --fg:#1d2326; --muted:#5b666c; --line:#d6dbde; --band:#c8322b; --tint:#fbecea; --good:#1f7a4a; --goodtint:#e3f3ea;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:17px/1.6 var(--body);margin:0}
+article{max-width:680px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+.band{height:10px;background:var(--band);border-radius:3px}
+h1{font:700 clamp(2.2rem,8vw,3.2rem)/.98 var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+h2{font:700 1.45rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:12px 0 0}
+p,ul{margin:0} ul{padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+a{color:var(--fg);text-decoration-color:var(--band);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--band);outline-offset:2px}
+.by{font:500 .8rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.src{font-size:.86rem;color:var(--muted)}
+
+:root{--amber:#9a5b00;--ambertint:#fdf1dc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--amber:#f0b45a;--ambertint:#33270f}}
+:root[data-theme="dark"]{--amber:#f0b45a;--ambertint:#33270f}
+[hidden]{display:none!important}
+.lede{font-size:1.05rem}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.box h3{font:700 1.2rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:0}
+label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:.95rem}
+label small{font-weight:400;color:var(--muted)}
+input,select,textarea{font:inherit;font-size:1.1rem;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);width:100%;min-width:0}
+input:focus,select:focus{outline:3px solid var(--band);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{font:600 1rem var(--body);padding:12px 14px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;min-height:46px}
+button.go{background:var(--band);border-color:var(--band);color:#fff}
+button.gps{border-color:var(--good);color:var(--good);background:var(--goodtint)}
+button:disabled{opacity:.6;cursor:wait}
+.btns{display:flex;flex-wrap:wrap;gap:8px}.btns button{flex:1 1 auto}
+.msg{font-size:.9rem;color:var(--muted);margin:0}
+.msg.err{color:var(--band)}
+.where{font:500 .85rem var(--mono);color:var(--good)}
+.thumb{background:var(--tint);border-left:4px solid var(--band);padding:10px 12px;border-radius:0 8px 8px 0;font-size:.95rem}
+.test{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.test header{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.test header b{font:700 1.25rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.test header span{font:500 .8rem var(--mono);color:var(--muted)}
+.hist{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.hist li{font:500 .9rem var(--mono);display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line);padding-bottom:4px;flex-wrap:wrap}
+.verdict{border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.verdict b{font:700 1.3rem/1.1 var(--display);text-transform:uppercase}
+.verdict.ok{background:var(--goodtint);color:var(--good)}
+.verdict.bad{background:var(--tint);color:var(--band)}
+.verdict.warn{background:var(--ambertint);color:var(--amber)}
+.verdict span{color:var(--fg);font-size:.95rem}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center}
+.nums div{background:var(--bg);border-radius:6px;padding:6px 4px}
+.nums small{display:block;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.nums strong{font:700 1.3rem var(--mono)}
+details summary{cursor:pointer;font-weight:600}
+.small{font-size:.85rem;color:var(--muted)}
+.tips{display:flex;flex-direction:column;gap:6px}
+.empty{color:var(--muted);font-style:italic}
+
+</style>
+<link rel="stylesheet" href="../../assets/nav.css">
+</head>
+<body>
+<nav class="site-nav" aria-label="Site"><ul><li><a href="../../">Home</a></li><li><a href="../../lessons/">Lessons</a></li><li><a href="../../quiz/">Quiz</a></li><li><a href="../../cheat-sheet/">Cheat sheet</a></li><li><a href="../../about/">About</a></li></ul></nav>
+<article>
+  <div class="band" aria-hidden="true"></div>
+
+  <p class="by">Free tool · Nitrogen</p>
+  <h1>Nitrogen test log</h1>
+  <p class="lede">Pressure test a system, come back tomorrow, and know if it held. This log remembers the pressure, the outdoor temperature, the time and the spot. When you come back, it corrects for the temperature change for you.</p>
+  <p class="msg">Saved on this phone only. Nobody else sees it. Use a plain label like "Lineset 2", not customer or building names.</p>
+
+  <section class="box" id="start">
+    <h3>1. Start a test</h3>
+    <label>Label <small>What are you testing?</small><input id="sLabel" placeholder="Example: Lineset 2, new install" maxlength="60"></label>
+    <div class="row">
+      <label>Pressure (psig)<input id="sP" type="number" inputmode="decimal" placeholder="300"></label>
+      <label>Outdoor temp (°F)<input id="sT" type="number" inputmode="decimal" placeholder="68"></label>
+    </div>
+    <button class="gps" id="sGps" type="button">📍 Use my location for the temp</button>
+    <p class="where" id="sWhere" hidden></p>
+    <p class="msg" id="sMsg" hidden></p>
+    <p class="thumb" id="thumb">At 300 psig, about 6 psi change for every 10°F.</p>
+    <button class="go" id="sSave" type="button">Save and start the clock</button>
+  </section>
+
+  <h2>My tests</h2>
+  <div id="list" style="display:flex;flex-direction:column;gap:12px"><p class="empty">No tests yet. Start one above.</p></div>
+
+  <section class="box" id="forgot">
+    <h3>Forgot the temperature?</h3>
+    <p class="msg" style="color:var(--fg)">Look up what it was outside at a day and hour. Works for about the last 3 months.</p>
+    <div class="row">
+      <label>Day<input id="fD" type="date"></label>
+      <label>Time<input id="fH" type="time" step="3600" value="08:00"></label>
+    </div>
+    <label>Where<select id="fWhere"><option value="here">Where I am now (GPS)</option></select></label>
+    <button class="go" id="fGo" type="button">Look it up</button>
+    <p class="msg" id="fOut" hidden></p>
+  </section>
+
+  <h2>Good to know</h2>
+  <div class="tips">
+    <p>✅ <b>Same gauge, same spot.</b> Read from the same port with the same gauge each time.</p>
+    <p>☀️ <b>Sun lies.</b> A gauge or lineset in full sun reads high. Shade or overcast reads low. The air temp is a best guess, not the pipe temp.</p>
+    <p>📘 <b>Follow the maker.</b> Test pressure and hold time come from the install manual. Don't go over the low-side rating on low-side parts.</p>
+    <p>🧮 <b>The math.</b> Pressure goes with absolute temperature. Expected = (start psig + 14.7) × (new °F + 459.67) ÷ (start °F + 459.67) − 14.7.</p>
+  </div>
+  <p class="small">Weather comes from <a href="https://open-meteo.com/">Open-Meteo</a>, a free weather service. When you tap a GPS button, your rough location (about 1 km) goes to Open-Meteo to get the temperature. It is saved only on this phone. This tool helps you judge a test. It does not replace the manufacturer's test steps.</p>
+  <p>More: <a href="../../cheat-sheet/">Cheat sheet</a> · <a href="../../words/">Words to know</a> · <a href="../../lessons/">Lessons</a></p>
+
+</article>
+<script>
+const KEY="a2l-n2-tests";
+const $=id=>document.getElementById(id);
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}}
+function store(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true}catch(e){return false}}
+let tests=load(), here=null;
+const num=v=>v===""||v==null||isNaN(+v)?null:+v;
+const r1=x=>Math.round(x*10)/10;
+function expected(p1,t1,t2){return (p1+14.7)*(t2+459.67)/(t1+459.67)-14.7}
+function fmt(ts){const d=new Date(ts);return d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})}
+function ago(ts){const h=(Date.now()-ts)/36e5;return h<1?Math.round(h*60)+" min":h<48?r1(h)+" hours":r1(h/24)+" days"}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function gps(){return new Promise((ok,no)=>{if(!navigator.geolocation)return no(new Error("This phone can't share location here."));
+  navigator.geolocation.getCurrentPosition(p=>ok({lat:Math.round(p.coords.latitude*100)/100,lon:Math.round(p.coords.longitude*100)/100}),
+  e=>no(new Error(e.code===1?"Location is blocked. Allow location for this site, or type the temp.":"Couldn't get a GPS fix. Type the temp instead.")),{enableHighAccuracy:false,timeout:15000,maximumAge:300000})})}
+async function tempNow(loc){const u=`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m&temperature_unit=fahrenheit`;
+  const j=await (await fetch(u)).json(); if(j.current==null)throw new Error("no data"); return Math.round(j.current.temperature_2m)}
+async function tempAt(loc,ts){const d=new Date(ts),pad=n=>String(n).padStart(2,"0"),day=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const u=`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=auto&start_date=${day}&end_date=${day}`;
+  const j=await (await fetch(u)).json(); if(!j.hourly)throw new Error(j.reason||"no data"); return Math.round(j.hourly.temperature_2m[d.getHours()])}
+function say(el,t,err){el.hidden=false;el.textContent=t;el.classList.toggle("err",!!err)}
+function mapLink(loc){return `https://www.google.com/maps?q=${loc.lat},${loc.lon}`}
+
+function thumb(){const p=num($("sP").value)??300,t=num($("sT").value)??68;const per=r1(expected(p,t,t+10)-p);
+  $("thumb").textContent=`At ${p} psig and ${t}°F, about ${per} psi change for every 10°F.`}
+$("sP").oninput=thumb;$("sT").oninput=thumb;
+
+$("sGps").onclick=async()=>{const b=$("sGps");b.disabled=true;say($("sMsg"),"Getting your location…");
+  try{here=await gps();$("sWhere").hidden=false;$("sWhere").textContent=`📍 Spot saved (${here.lat}, ${here.lon})`;
+    say($("sMsg"),"Getting the outdoor temp…");
+    try{const t=await tempNow(here);$("sT").value=t;thumb();say($("sMsg"),`Outdoor temp here now: ${t}°F. You can change it if your thermometer says different.`)}
+    catch(e){say($("sMsg"),"Spot saved, but no weather signal. Type the temp, or fill it in later from the saved spot.",true)}}
+  catch(e){say($("sMsg"),e.message,true)} b.disabled=false};
+
+$("sSave").onclick=()=>{const p=num($("sP").value),t=num($("sT").value);
+  if(p==null){say($("sMsg"),"Enter the starting pressure.",true);return}
+  const now=Date.now();
+  tests.unshift({id:now,label:$("sLabel").value.trim()||"Test "+(tests.length+1),start:now,loc:here,tol:2,reads:[{ts:now,p,t}]});
+  if(!store(tests))say($("sMsg"),"This browser won't save. Try a normal (not private) tab.",true);
+  else say($("sMsg"),t==null?"Saved. No temp yet: use \"Fill in temp\" on the test below.":"Saved. Come back later and check it below.");
+  $("sLabel").value="";$("sP").value="";$("sT").value="";here=null;$("sWhere").hidden=true;thumb();render()};
+
+function verdict(test){const a=test.reads[0],b=test.reads[test.reads.length-1];
+  if(test.reads.length<2)return "";
+  if(a.t==null||b.t==null)return `<div class="verdict warn"><b>Need both temps</b><span>Fill in the missing temperature to compare.</span></div>`;
+  const exp=expected(a.p,a.t,b.t),diff=b.p-exp,tol=test.tol??2;
+  const cls=diff< -tol?"bad":diff>tol?"warn":"ok";
+  const head=cls==="ok"?"Holding":cls==="bad"?`Dropped ${r1(-diff)} psi`:"Reading high";
+  const why=cls==="ok"?`Within ${tol} psi of what the temperature change explains.`:cls==="bad"?"That's more than the temperature change explains. Look for a leak.":`${r1(diff)} psi higher than expected. Gauge in the sun, different gauge, or a temp guess off?`;
+  return `<div class="verdict ${cls}"><b>${head}</b><span>${why}</span></div>
+  <div class="nums"><div><small>Expected</small><strong>${r1(exp)}</strong></div><div><small>Actual</small><strong>${b.p}</strong></div><div><small>Difference</small><strong>${diff>0?"+":""}${r1(diff)}</strong></div></div>`}
+
+function notes(test){const a=test.reads[0],b=test.reads[test.reads.length-1];let s=`Nitrogen standing test: ${test.label}. Start ${fmt(a.ts)}: ${a.p} psig at ${a.t??"?"}°F outdoor.`;
+  if(test.reads.length>1){s+=` Check ${fmt(b.ts)}: ${b.p} psig at ${b.t??"?"}°F.`;
+    if(a.t!=null&&b.t!=null){const e=expected(a.p,a.t,b.t);s+=` Temperature-corrected expected ${r1(e)} psig, difference ${r1(b.p-e)} psi (${ago(a.ts).replace(/^/,"")} hold).`}}
+  return s}
+
+function render(){const L=$("list");
+  if(!tests.length){L.innerHTML='<p class="empty">No tests yet. Start one above.</p>'}else
+  L.innerHTML=tests.map(x=>{const a=x.reads[0],miss=x.reads.some(r=>r.t==null);
+    return `<div class="test" data-id="${x.id}">
+    <header><b>${esc(x.label)}</b><span>Started ${fmt(x.start)} · ${ago(x.start)} ago</span></header>
+    ${x.loc?`<p class="where">📍 <a href="${mapLink(x.loc)}" target="_blank" rel="noopener">Test spot on map</a></p>`:""}
+    <ul class="hist">${x.reads.map((r,i)=>`<li><span>${i?"Check":"Start"} ${fmt(r.ts)}</span><span>${r.p} psig · ${r.t==null?"? °F":r.t+"°F"}</span></li>`).join("")}</ul>
+    ${miss&&x.loc?`<button class="gps" data-act="fill" type="button">📍 Fill in missing temp from the weather</button>`:""}
+    ${verdict(x)}
+    <details><summary>Check it now</summary><div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+      <div class="row"><label>Pressure now (psig)<input data-f="p" type="number" inputmode="decimal"></label>
+      <label>Outdoor temp (°F)<input data-f="t" type="number" inputmode="decimal"></label></div>
+      <button class="gps" data-act="gpsT" type="button">📍 Get temp ${x.loc?"at the test spot":"where I am"}</button>
+      <p class="msg" data-f="m" hidden></p>
+      <button class="go" data-act="add" type="button">Save reading and compare</button>
+    </div></details>
+    <details><summary>More</summary><div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+      <label>Allowed difference (psi)<input data-f="tol" type="number" inputmode="decimal" value="${x.tol??2}"></label>
+      <div class="btns"><button data-act="copy" type="button">Copy for my notes</button><button data-act="del" type="button">Delete test</button></div>
+      <p class="msg" data-f="m2" hidden></p>
+    </div></details></div>`}).join("");
+  const sel=$("fWhere");sel.innerHTML='<option value="here">Where I am now (GPS)</option>'+tests.filter(x=>x.loc).map(x=>`<option value="${x.id}">Spot of: ${esc(x.label)}</option>`).join("")}
+
+$("list").addEventListener("click",async e=>{const b=e.target.closest("button[data-act]");if(!b)return;
+  const card=b.closest(".test"),x=tests.find(t=>t.id==card.dataset.id),f=k=>card.querySelector(`[data-f="${k}"]`);
+  const act=b.dataset.act;
+  if(act==="gpsT"){b.disabled=true;say(f("m"),"Getting the temp…");
+    try{const loc=x.loc||await gps();const t=await tempNow(loc);f("t").value=t;say(f("m"),`Outdoor temp now: ${t}°F.`)}catch(err){say(f("m"),err.message.includes("fetch")||err.message==="no data"?"No weather signal. Type the temp.":err.message,true)}
+    b.disabled=false}
+  if(act==="add"){const p=num(f("p").value),t=num(f("t").value);if(p==null){say(f("m"),"Enter the pressure now.",true);return}
+    x.reads.push({ts:Date.now(),p,t});store(tests);render();const c=$("list").querySelector(`[data-id="${x.id}"]`);c&&c.scrollIntoView({block:"nearest"})}
+  if(act==="fill"){b.disabled=true;b.textContent="Looking up…";let fails=0;
+    for(const r of x.reads)if(r.t==null){try{r.t=await tempAt(x.loc,r.ts)}catch(err){fails++}}
+    store(tests);render();if(fails)alert("Couldn't reach the weather service. Try again with signal.")}
+  if(act==="copy"){const s=notes(x);try{await navigator.clipboard.writeText(s);say(f("m2"),"Copied. Paste it in your notes.")}catch(err){say(f("m2"),s)}}
+  if(act==="del"){if(confirm("Delete this test? This can't be undone.")){tests=tests.filter(t=>t!==x);store(tests);render()}}});
+$("list").addEventListener("change",e=>{if(e.target.dataset.f!=="tol")return;const card=e.target.closest(".test"),x=tests.find(t=>t.id==card.dataset.id);
+  const v=num(e.target.value);if(v!=null&&v>=0){x.tol=v;store(tests);render()}});
+
+(()=>{const d=new Date(Date.now()-864e5),pad=n=>String(n).padStart(2,"0");$("fD").value=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`})();
+$("fGo").onclick=async()=>{const b=$("fGo"),o=$("fOut");if(!$("fD").value){say(o,"Pick a day.",true);return}
+  const ts=new Date($("fD").value+"T"+($("fH").value||"08:00")).getTime();if(ts>Date.now()){say(o,"Pick a time that already happened.",true);return}
+  b.disabled=true;say(o,"Looking it up…");
+  try{const w=$("fWhere").value,loc=w==="here"?await gps():tests.find(t=>t.id==w).loc;const t=await tempAt(loc,ts);
+    say(o,`It was about ${t}°F outside on ${fmt(ts)}.`)}
+  catch(err){say(o,/fetch|data/.test(err.message)?"Couldn't reach the weather service, or that day is too far back.":err.message,true)}
+  b.disabled=false};
+thumb();render();
+</script>
+</body>
+</html>

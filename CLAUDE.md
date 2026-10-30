@@ -11,6 +11,7 @@ Shameen is learning to build with Claude. Explain each step in plain words, keep
 - `lessons/`: course map, plus one folder per lesson (warm-up, short lesson with drawings, explain-it-back, lesson quiz link `quiz/?topics=...`).
 - `quiz/index.html`: A2L practice exam with Practice and Exam modes, an optional timer, explanations, a score by topic, retrying missed questions, streaks and XP.
 - `quiz/questions.js`: the question bank. `T` holds the topics; `R` where to reread; `Q` holds the questions (`t` topic, `q` question, `o` options, `a` index of the right option, `e` explanation, `f:1` to show a CHECK flag; also `multi`, `match` and `label` types).
+- `tools/nitrogen/`: nitrogen standing-test log. Saves pressure, outdoor temp, time and rounded GPS spot in localStorage (`a2l-n2-tests`), corrects for temperature, and looks up past outdoor temps from Open-Meteo.
 - `cheat-sheet/`, `words/` (glossary), `about/`: reference pages. `assets/nav.css` is the shared menu.
 - `CHECKS.md`: every fact still to confirm. Add new CHECK items there.
 
