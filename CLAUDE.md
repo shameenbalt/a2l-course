@@ -6,9 +6,13 @@ Shameen is learning to build with Claude. Explain each step in plain words, keep
 
 ## What's here
 
-- `index.html`: "A2L Refrigerants Explained for Techs", the public guide page, written in Shameen's voice. It has a meta description and FAQ schema so search engines and AI answers can find it.
-- `quiz/index.html`: A2L practice exam with Practice and Exam modes, an optional timer, explanations, a score by topic, and retrying missed questions.
-- `quiz/questions.js`: the question bank. `T` holds the topics; `Q` holds the questions (`t` topic, `q` question, `o` 4 options, `a` index of the right option, `e` explanation, `f:1` to show a CHECK flag).
+- `index.html`: landing page for the A2L course (the front door). Reads the question count from `quiz/questions.js`.
+- `guide/index.html`: "A2L Refrigerants Explained for Techs", the public guide page, written in Shameen's voice. It has a meta description and FAQ schema so search engines and AI answers can find it.
+- `lessons/`: course map, plus one folder per lesson (warm-up, short lesson with drawings, explain-it-back, lesson quiz link `quiz/?topics=...`).
+- `quiz/index.html`: A2L practice exam with Practice and Exam modes, an optional timer, explanations, a score by topic, retrying missed questions, streaks and XP.
+- `quiz/questions.js`: the question bank. `T` holds the topics; `R` where to reread; `Q` holds the questions (`t` topic, `q` question, `o` options, `a` index of the right option, `e` explanation, `f:1` to show a CHECK flag; also `multi`, `match` and `label` types).
+- `cheat-sheet/`, `words/` (glossary), `about/`: reference pages. `assets/nav.css` is the shared menu.
+- `CHECKS.md`: every fact still to confirm. Add new CHECK items there.
 
 The site is plain HTML, CSS and JavaScript with no build step. Keep it that way until there's a real need, such as logins.
 

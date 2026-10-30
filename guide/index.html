@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A2L Refrigerants Explained for Techs</title>
+<meta name="description" content="A working HVAC tech explains A2L refrigerants like R-454B and R-32: what A2L means, the EPA 700 GWP rule, leak detection sensors, cylinders, tools and safe service steps.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"A2L Refrigerants Explained for Techs","author":{"@type":"Person","name":"Shameen","jobTitle":"HVAC service technician"},"dateModified":"2026-10-26","about":["A2L refrigerant","R-454B","R-32","UL 60335-2-40","ASHRAE 34"]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does A2L mean?","acceptedAnswer":{"@type":"Answer","text":"A2L is an ASHRAE 34 safety class. A means lower toxicity. 2L means lower flammability: the refrigerant can burn, but its flame spreads at 10 cm/s or less, so it is hard to ignite and burns weakly."}},
+{"@type":"Question","name":"Is R-454B a drop-in for R-410A?","acceptedAnswer":{"@type":"Answer","text":"No. Never top off or convert an R-410A system with R-454B. A2L equipment is built and listed for flammable refrigerant, with leak sensors, labels and charge limits."}},
+{"@type":"Question","name":"Do I need a special certification for A2L refrigerants?","acceptedAnswer":{"@type":"Answer","text":"EPA Section 608 certification still applies. EPA does not issue a separate A2L certificate, but A2L safety training is strongly recommended and many manufacturers and employers require it."}},
+{"@type":"Question","name":"Why does my new A2L system have a leak sensor?","acceptedAnswer":{"@type":"Answer","text":"UL 60335-2-40 requires a refrigerant detection system on most A2L equipment, generally above about 4 lb of charge. When the sensor sees 25% of the lower flammability limit it must start mitigation within 15 seconds, such as running the indoor fan and shutting off the compressor."}},
+{"@type":"Question","name":"Can I still install R-410A equipment?","acceptedAnswer":{"@type":"Answer","text":"In May 2026 EPA finalized a change that removed the January 1, 2026 installation deadline for residential and light commercial R-410A systems made or imported before January 1, 2025, so that stock can be installed until it runs out. Check the current EPA rule for your equipment type."}}
+]}]}
+</script>
+<style>
+/* Layout: single reading column; red band = A2L cylinder band, the only accent. Quick-answer box up top for skimmers and AI answers */
+:root{
+  --bg:#f4f5f5; --paper:#ffffff; --fg:#1d2326; --muted:#5b666c; --line:#d6dbde; --band:#c8322b; --tint:#fbecea;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:17px/1.65 var(--body);margin:0}
+article{max-width:680px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.band{height:10px;background:var(--band);border-radius:3px}
+h1{font:700 clamp(2.3rem,8vw,3.4rem)/.98 var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+h2{font:700 1.65rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.02em;margin:18px 0 0;text-wrap:balance}
+h3{font-size:1.02rem;margin:6px 0 0}
+p,ul,ol{margin:0}
+ul,ol{padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.by{font:500 .8rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.quick{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--band);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.quick strong{font:700 1.1rem var(--display);text-transform:uppercase;letter-spacing:.04em}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 .75rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td:nth-child(3){font-family:var(--mono);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.tip{background:var(--tint);border-radius:6px;padding:12px 16px}
+.check{font:500 .72rem var(--mono);color:var(--band);border:1px solid var(--band);padding:1px 5px;border-radius:3px;white-space:nowrap}
+a{color:var(--fg);text-decoration-color:var(--band);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--band);outline-offset:2px}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{font-weight:600;cursor:pointer}
+details p{margin-top:6px}
+.cta{background:var(--fg);color:var(--bg);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.cta a{color:var(--bg)}
+.src{font-size:.88rem;color:var(--muted)}
+</style>
+<link rel="stylesheet" href="../assets/nav.css">
+</head>
+<body>
+<nav class="site-nav" aria-label="Site"><ul><li><a href="../">Home</a></li><li><a href="../lessons/">Lessons</a></li><li><a href="../quiz/">Quiz</a></li><li><a href="../cheat-sheet/">Cheat sheet</a></li><li><a href="../about/">About</a></li></ul></nav>
+<article>
+  <div class="band" aria-hidden="true"></div>
+  <h1>A2L Refrigerants Explained for Techs</h1>
+  <p class="by">By Shameen · HVAC service tech, 20 years in the field · Updated Oct 26, 2026</p>
+
+  <div class="quick">
+    <strong>Quick answer</strong>
+    <p>A2L refrigerants like <b>R-454B</b> and <b>R-32</b> are the new standard in US air conditioning and heat pumps. "A" means lower toxicity. "2L" means <b>lower flammability</b>: they can burn, but they are hard to light and the flame is slow. They replaced R-410A because EPA limits new AC and heat pump systems to refrigerants under <b>700 GWP</b>. For you on the job, that means leak sensors in the equipment, red-band cylinders with left-hand threads, A2L-rated tools, and no brazing until the system is recovered and purged.</p>
+  </div>
+
+  <p>I've been in HVAC about 20 years. I worked through the R-22 to R-410A change, and this one is bigger, because for the first time the refrigerant in a normal split system or VRF can burn. It's not scary once you know the rules. Here's what I tell newer techs.</p>
+
+  <h2>What does A2L mean?</h2>
+  <p>It's a safety class from <b>ASHRAE Standard 34</b>, the standard that gives every refrigerant its R-number.</p>
+  <ul>
+    <li><b>A or B</b> is toxicity. A is lower toxicity, B is higher.</li>
+    <li><b>1, 2L, 2, 3</b> is flammability. 1 means no flame spread (R-410A, R-22). 3 is highly flammable (R-290 propane).</li>
+    <li><b>2L</b> sits at the bottom of class 2. The flame has to burn at <b>10 cm/s or slower</b> (about 4 inches a second). You need a real ignition source and the right mix in the air for it to light.</li>
+  </ul>
+  <p>So R-410A is A1. R-454B and R-32 are A2L.</p>
+
+  <h2>Common A2L refrigerants</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Refrigerant</th><th>What it is</th><th>GWP (approx.)</th><th>Where you'll see it</th></tr></thead>
+      <tbody>
+        <tr><td><b>R-454B</b></td><td>Blend: R-32 and R-1234yf (about 69/31). Small glide.</td><td>466</td><td>Many new US split systems, rooftops, some VRF</td></tr>
+        <tr><td><b>R-32</b></td><td>Single component, no glide</td><td>675</td><td>Mini-splits, some splits and VRF</td></tr>
+        <tr><td>R-1234yf</td><td>Single component</td><td>&lt;1</td><td>Car AC, part of R-454B</td></tr>
+        <tr><td>R-410A (for comparison)</td><td>Blend: R-32 and R-125. A1, not A2L</td><td>2,088</td><td>The systems you service today</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>R-454B runs at pressures close to R-410A, a bit lower. R-32 runs a bit higher. <span class="check">CHECK</span> GWP numbers above are the AR4 values EPA uses; other sources list slightly different numbers.</p>
+
+  <h2>Why the change happened</h2>
+  <p>The <b>AIM Act of 2020</b> lets EPA phase down HFC production and import by 85% by 2036. Under EPA's <b>Technology Transitions rule</b>, new residential and light commercial AC and heat pump systems made or imported from <b>January 1, 2025</b> have to use a refrigerant under <b>700 GWP</b>. VRF got a later date.</p>
+  <p>In <b>May 2026</b> EPA removed the January 1, 2026 install deadline for R-410A systems made or imported before 2025, so leftover R-410A stock can still be installed until it's gone. Servicing existing R-410A systems was never banned. <span class="check">CHECK</span> EPA keeps adjusting this rule. Look up the current dates for your equipment type before you tell a customer.</p>
+
+  <h2>The leak sensor in the unit (RDS)</h2>
+  <p>This is the part that surprises people on their first A2L job. Equipment is listed to <b>UL 60335-2-40</b>, and most A2L equipment needs a built-in <b>refrigerant detection system</b> (RDS). UL says it's generally expected above about <b>4 lb</b> of charge, which covers almost every split system and VRF.</p>
+  <ul>
+    <li>The sensor sits <b>low</b>, near the bottom of the indoor coil. A2L vapor is heavier than air.</li>
+    <li>At <b>25% of the lower flammability limit</b>, it has to call for mitigation within <b>15 seconds</b> and hold it for at least <b>5 minutes</b>.</li>
+    <li>Typical mitigation: run the indoor blower, open zone dampers, shut off the compressor, kill electric heat, and close shutoff valves on multi-coil systems.</li>
+  </ul>
+  <p class="tip"><b>Field tip:</b> if a brand-new A2L system has the blower running nonstop with no call, or locks out the compressor, check the RDS before you chase anything else. Read the install manual for that sensor's fault codes and wiring.</p>
+
+  <h2>Tools and cylinders</h2>
+  <ul>
+    <li><b>Cylinders</b> are gray with the R-number printed on them. A2L cylinders have a <b>red band</b> around the top.</li>
+    <li>Most A2L cylinders use a <b>left-hand thread</b> valve (CGA 164). Buy the adapter before you need it.</li>
+    <li><b>Recovery machine and vacuum pump:</b> use ones rated for A2L. They're built so switches and motors don't spark.</li>
+    <li><b>Recovery cylinders</b> must be rated for flammable refrigerant.</li>
+    <li><b>Leak detector:</b> use one that lists R-454B or R-32. Bubbles still work to pinpoint.</li>
+    <li>R-32 and R-454B ship as <b>DOT Division 2.1 flammable gas</b>. Know your truck's limits. <span class="check">CHECK</span></li>
+  </ul>
+
+  <h2>Safe service, step by step</h2>
+  <ol>
+    <li>Check the work area with your leak detector first. Make sure there's airflow.</li>
+    <li>Keep ignition sources away: torches, grinders, cigarettes, non-rated tools.</li>
+    <li>Charge <b>R-454B as liquid</b> and weigh it in to the nameplate. Then use the maker's charging chart.</li>
+    <li><b>Never mix</b> refrigerants. R-454B is not a drop-in for R-410A.</li>
+    <li>Before brazing: recover, evacuate, purge with dry nitrogen, and braze with nitrogen flowing.</li>
+    <li>Recover, never vent. Low GWP doesn't make venting legal.</li>
+    <li>If anything burns, ventilate and stay out of the smoke. Burning refrigerant can make <b>hydrogen fluoride</b>.</li>
+  </ol>
+  <p>Charge size is also limited by the size of the room the system serves (the "minimum room area" tables in the install manual). That matters most on ductless and VRF jobs with small rooms.</p>
+
+  <h2>Do you need a new certification?</h2>
+  <p>Your <b>EPA Section 608</b> card still covers it. EPA doesn't issue a separate A2L card. But take an A2L safety course anyway. Many manufacturers and employers require one, and the hands-on parts (cylinders, sensors, recovery) are worth it. <span class="check">CHECK</span></p>
+
+  <h2>Common questions</h2>
+  <details><summary>Is R-454B a drop-in for R-410A?</summary><p>No. Don't top off or convert an R-410A system with R-454B. A2L equipment is built and listed for it, with sensors, labels and charge limits.</p></details>
+  <details><summary>Are A2L refrigerants dangerous?</summary><p>They're mildly flammable and low toxicity. With the right tools and steps they're safe to work on. The risk is a big leak in a small closed room plus a spark or flame, which is exactly what the sensors and room-size limits are there to prevent.</p></details>
+  <details><summary>Can I still buy and install R-410A equipment?</summary><p>Equipment made or imported before 2025 can still be installed under EPA's May 2026 change. New production for residential and light commercial AC has moved to A2L. Check EPA for the current rule.</p></details>
+  <details><summary>Which standard covers what?</summary><p>ASHRAE 34 names and classes the refrigerant. ASHRAE 15 (and 15.2 for homes) covers safety in the building. UL 60335-2-40 covers the equipment itself. Your local mechanical code decides which editions apply.</p></details>
+
+  <div class="cta">
+    <b>Test yourself</b>
+    <p>I built a free A2L practice exam with explanations and a score by topic, in the same style that helped me pass my journeyman test. <a href="../quiz/">Take the A2L practice exam</a></p>
+    <p>New: <a href="../lessons/a2l-jobsite-safety/">Lesson 1: A2L jobsite safety</a> (tools, hauling, hazards and labels).</p>
+  </div>
+
+  <p class="src"><b>Sources:</b> <a href="https://www.ul.com/news/inspecting-refrigerant-detection-systems-hvac-equipment">UL: Inspecting refrigerant detection systems</a> · <a href="https://www.achrnews.com/articles/166226-epa-removes-r-410a-installation-deadline">ACHR News: EPA removes R-410A installation deadline (2026)</a> · <a href="https://achrnews.com/articles/154745-epa-grants-one-year-extension-for-vrf-systems-using-high-gwp-hfcs">ACHR News: VRF extension</a> · <a href="https://hvac-blog.acca.org/where-did-all-the-colors-go-what-contractors-need-to-know-about-the-switch-to-gray-a2l-cylinders/">ACCA: The switch to gray A2L cylinders</a> · ASHRAE Standards 15 and 34 · UL 60335-2-40. This page is a study aid. Always follow the equipment maker's instructions and your local code.</p>
+</article>
+</body>
+</html>
