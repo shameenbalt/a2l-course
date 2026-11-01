@@ -3,7 +3,7 @@
 Facts on the site that still need to be confirmed against an official source.
 When one is confirmed, remove the CHECK flag everywhere it appears (quiz `f:1`, page `CHECK` tags) and move it to "Confirmed" with the source and date.
 
-Last updated: 2026-10-29
+Last updated: 2026-11-01
 
 ## Rules and dates (EPA)
 
@@ -44,6 +44,8 @@ Last updated: 2026-10-29
 |---|---|---|---|
 | 19 | R-454B runs a bit below R-410A pressures, R-32 a bit above | Guide, quiz | Maker P/T charts |
 | 20 | Many manufacturers and employers require A2L training | Guide | Manufacturer training pages |
+| 21 | Boiling points at 1 atm: R-32 about -61°F (-51.7°C), R-454B close to that (bubble point about -60°F) | Guide (Leaks section) | Refrigerant SDS / maker P/T data |
+| 22 | LFL by volume: R-454B about 12%, R-32 about 14% (from about 0.296 and 0.307 kg/m³) | Guide (Leaks section), quiz | ASHRAE 34 tables, SDS |
 
 ## Confirmed
 
