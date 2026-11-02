@@ -96,6 +96,11 @@ These make the site feel like a tech built it, not a template. Reuse them; don't
 | LCD section numbers | `h2 .n` shows as a green LCD readout |
 | Work ticket | Warm-up box: dark header strip, "Not scored", torn-edge bottom |
 | Pegboard board | Course map: lessons hang as tags on hooks. Live = red edge; coming soon = gray. |
+| LCD meter | Cheat sheet "Numbers to know": each number on a green LCD in a dark panel. CHECK tags turn yellow there. |
+| Status lights | Glowing LEDs (green on, red off, amber open) for what equipment does, like the RDS trip |
+| Safety tags | Do / Don't as green SAFETY FIRST and red DANGER tags with a punched hole |
+| Timeline | Dates on a red line with LCD date chips |
+| Cylinder chips | Refrigerant names as little cylinders; red top = flammable |
 
 ## Drawings
 

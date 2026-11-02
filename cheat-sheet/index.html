@@ -70,20 +70,64 @@ svg .spin{fill:var(--band);font-size:24px;font-weight:700}
 .disc{border:1px dashed var(--line);border-radius:6px;padding:10px 12px;font-size:.86rem;color:var(--muted)}
 .print{align-self:flex-start;font:700 1rem var(--display);text-transform:uppercase;letter-spacing:.05em;background:var(--fg);color:var(--bg);border:0;border-radius:6px;padding:10px 16px;cursor:pointer}
 @media print{body{background:#fff;font-size:12px}.print{display:none}article{padding:0;gap:10px}.num b{font-size:1.4rem}}
+
+/* jobsite look */
+.lhero .lart{width:96px}
+.meter{background:#1e2528;border:3px solid #3a4348;border-radius:10px;padding:10px;gap:8px}
+.meter .num{background:#0c1a11;border:0;border-radius:6px;box-shadow:inset 0 2px 6px rgba(0,0,0,.6);padding:10px 10px 9px}
+.meter .num b{font:500 1.55rem/1.05 var(--mono);color:#7cfc9a;text-shadow:0 0 8px rgba(124,252,154,.45);letter-spacing:-.02em}
+.meter .num span{color:#b7c1c6;font-size:.8rem}
+.meter .check{color:#f2c230;border-color:#f2c230}
+.grid .h{gap:2px;align-items:center}
+.grid .fl{width:20px;height:20px;color:var(--band)}
+.grid .h:nth-child(2) .fl{color:var(--muted)}
+.cyl{display:inline-block;font:700 .9rem var(--mono);background:#b8c1c6;color:#1d2326;border-radius:10px 10px 3px 3px;padding:3px 8px;white-space:nowrap;border-top:5px solid #6b7479}
+.cyl.a2l{border-top-color:#c8322b}
+.cyl.a3{border-top-color:#c8322b;background:#e9d2cf}
+.leds{background:#1e2528;border:3px solid #3a4348;border-radius:10px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;color:#e6e9eb;font-size:.92rem}
+.ledh{grid-column:1/-1;font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:#9ba6ac}
+.leds span{display:flex;align-items:center;gap:8px}.leds b{font-family:var(--mono);font-weight:500}
+.led{flex:none;width:14px;height:14px;border-radius:50%;border:2px solid #0c1112}
+.led.g{background:#46e07a;box-shadow:0 0 10px #46e07a}.led.r{background:#ff4b3e;box-shadow:0 0 10px #ff4b3e}.led.a{background:#f2c230;box-shadow:0 0 10px #f2c230}
+@media (prefers-reduced-motion:no-preference){.led{animation:blink 2.4s ease-in-out infinite}.leds span:nth-child(3) .led{animation-delay:.3s}.leds span:nth-child(4) .led{animation-delay:.6s}.leds span:nth-child(5) .led{animation-delay:.9s}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.55}}
+.dd>div{position:relative;border-radius:6px 6px 14px 14px;padding:0 14px 14px;overflow:hidden;box-shadow:0 3px 0 var(--line)}
+.dd strong{margin:0 -14px 4px;padding:22px 14px 8px;color:#fff;text-align:center;letter-spacing:.1em}
+.dd .do strong{background:var(--good)}.dd .dont strong{background:var(--band)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dd strong{color:#15191b}}
+:root[data-theme="dark"] .dd strong{color:#15191b}
+.dd>div::before{content:"";position:absolute;top:6px;left:50%;margin-left:-7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid rgba(0,0,0,.25)}
+.tl{list-style:none;padding:0 0 0 14px;margin:0;display:flex;flex-direction:column;gap:14px;border-left:3px solid var(--band);margin-left:6px}
+.tl li{position:relative;display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding-left:8px}
+.tl li::before{content:"";position:absolute;left:-24px;top:7px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:3px solid var(--band)}
+.tl p{font-size:.93rem}
+@media print{.lhero{background:#fff!important;color:#000}.lhero h1{color:#000}.lhero .lart,.hazard{display:none}.meter,.leds{background:#fff;border-color:#999}.meter .num{background:#fff;box-shadow:none;border:1px solid #999}.meter .num b{color:#000;text-shadow:none}.meter .num span,.leds{color:#000}.lcd{background:#fff;color:#000;box-shadow:none;border:1px solid #999}.lcd b{color:#000;text-shadow:none}.led{animation:none}}
 </style>
 <link rel="stylesheet" href="../assets/nav.css">
+<link rel="stylesheet" href="../assets/jobsite.css">
 </head>
 <body>
 <nav class="site-nav" aria-label="Site"><ul><li><a href="../">Home</a></li><li><a href="../lessons/">Lessons</a></li><li><a href="../quiz/">Quiz</a></li><li><a href="../cheat-sheet/" aria-current="page">Cheat sheet</a></li><li><a href="../about/">About</a></li></ul></nav>
 <article>
-  <div class="band" aria-hidden="true"></div>
-  <h1>A2L Cheat Sheet</h1>
-  <p class="by">By Shameen · HVAC service tech · Updated Oct 27, 2026</p>
+  <header class="lhero"><div class="txt">
+    <p class="crumb">Free tool · keep it on your phone</p>
+    <h1>A2L Cheat Sheet</h1>
+    <p class="by">By Shameen · HVAC service tech</p>
+    <div class="lcds"><span class="lcd"><b>08</b>key numbers</span><span class="lcd"><b>10/27</b>updated</span></div>
+  </div><svg class="lart" viewBox="0 0 104 150" aria-hidden="true"><g transform="rotate(5 52 80)">
+<rect x="10" y="20" width="84" height="122" rx="6" fill="#8a6a45"/><rect x="18" y="32" width="68" height="102" rx="2" fill="#fbfaf6"/>
+<rect x="34" y="12" width="36" height="16" rx="4" fill="#9aa4a9" stroke="#5f696e" stroke-width="2"/>
+<rect x="26" y="42" width="38" height="5" rx="1" fill="#c8322b"/>
+<rect x="26" y="54" width="52" height="3" fill="#7d878c"/><rect x="26" y="62" width="44" height="3" fill="#7d878c"/>
+<text x="26" y="84" style="fill:#1d2326;font:700 15px 'IBM Plex Mono',monospace">700</text><text x="62" y="84" style="fill:#7d878c;font:600 8px 'IBM Plex Mono',monospace">GWP</text>
+<text x="26" y="104" style="fill:#1d2326;font:700 15px 'IBM Plex Mono',monospace">25%</text><text x="62" y="104" style="fill:#7d878c;font:600 8px 'IBM Plex Mono',monospace">LFL</text>
+<text x="26" y="124" style="fill:#1d2326;font:700 15px 'IBM Plex Mono',monospace">80%</text><text x="62" y="124" style="fill:#7d878c;font:600 8px 'IBM Plex Mono',monospace">FILL</text>
+</g></svg><div class="hazard" aria-hidden="true"></div></header>
   <p>Everything I want in my head on an A2L job, on one page. Pull it up on the roof or print it for the truck.</p>
   <button class="print" type="button" onclick="window.print()">Print it</button>
 
   <h2>Numbers to know</h2>
-  <div class="nums">
+  <div class="nums meter">
     <div class="num"><b>≤10 cm/s</b><span>Flame speed that makes it "2L" (about 4 in/s)</span></div>
     <div class="num"><b>700 GWP</b><span>Cap for new home and light commercial AC, made from Jan 1, 2025</span></div>
     <div class="num"><b>25% LFL</b><span>Where the unit's leak sensor (RDS) must react</span></div>
@@ -96,7 +140,7 @@ svg .spin{fill:var(--band);font-size:24px;font-weight:700}
 
   <h2>Safety classes (ASHRAE 34)</h2>
   <div class="grid" role="table" aria-label="ASHRAE 34 safety classes with example refrigerants">
-    <div class="h" role="columnheader"></div><div class="h">1<br>no flame</div><div class="h">2L<br>slow</div><div class="h">2<br>flammable</div><div class="h">3<br>very</div>
+    <div class="h" role="columnheader"></div><div class="h"><svg class="fl" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 19L17 9" stroke="currentColor" stroke-width="2"/></svg>1<br>no flame</div><div class="h"><svg class="fl" viewBox="0 0 24 24" aria-hidden="true"><path transform="translate(12 22) scale(0.55) translate(-12 -22)" d="M12 22c-5 0-7-3-7-7 0-5 5-6 5-12 3 2 9 6 9 12 0 4-3 7-7 7z" fill="currentColor"/></svg>2L<br>slow</div><div class="h"><svg class="fl" viewBox="0 0 24 24" aria-hidden="true"><path transform="translate(12 22) scale(0.8) translate(-12 -22)" d="M12 22c-5 0-7-3-7-7 0-5 5-6 5-12 3 2 9 6 9 12 0 4-3 7-7 7z" fill="currentColor"/></svg>2<br>flammable</div><div class="h"><svg class="fl" viewBox="0 0 24 24" aria-hidden="true"><path transform="translate(12 22) scale(1) translate(-12 -22)" d="M12 22c-5 0-7-3-7-7 0-5 5-6 5-12 3 2 9 6 9 12 0 4-3 7-7 7z" fill="currentColor"/></svg>3<br>very</div>
     <div class="h">A<br>lower tox</div><div><b>A1</b>R-410A<br>R-22</div><div class="hot"><b>A2L</b>R-454B<br>R-32</div><div><b>A2</b>R-152a</div><div class="fire"><b>A3</b>R-290<br>R-600a</div>
     <div class="h">B<br>higher tox</div><div><b>B1</b>R-123</div><div class="hot"><b>B2L</b>R-717<br>ammonia</div><div class="na"><b>B2</b>rare</div><div class="na"><b>B3</b>rare</div>
   </div>
@@ -106,10 +150,10 @@ svg .spin{fill:var(--band);font-size:24px;font-weight:700}
   <div class="tbl"><table>
     <thead><tr><th>Refrigerant</th><th>Class</th><th>GWP</th><th>Notes</th></tr></thead>
     <tbody>
-      <tr><td><b>R-454B</b></td><td>A2L</td><td class="n">466</td><td>Blend (R-32 + R-1234yf). Charge as liquid. Pressures a bit under R-410A.</td></tr>
-      <tr><td><b>R-32</b></td><td>A2L</td><td class="n">675</td><td>Single component. Mini-splits. Pressures a bit over R-410A.</td></tr>
-      <tr><td>R-410A</td><td>A1</td><td class="n">2,088</td><td>What you service now. Never mix with A2L.</td></tr>
-      <tr><td>R-290</td><td>A3</td><td class="n">3</td><td>Propane. Small charges only.</td></tr>
+      <tr><td><span class="cyl a2l">R-454B</span></td><td>A2L</td><td class="n">466</td><td>Blend (R-32 + R-1234yf). Charge as liquid. Pressures a bit under R-410A.</td></tr>
+      <tr><td><span class="cyl a2l">R-32</span></td><td>A2L</td><td class="n">675</td><td>Single component. Mini-splits. Pressures a bit over R-410A.</td></tr>
+      <tr><td><span class="cyl">R-410A</span></td><td>A1</td><td class="n">2,088</td><td>What you service now. Never mix with A2L.</td></tr>
+      <tr><td><span class="cyl a3">R-290</span></td><td>A3</td><td class="n">3</td><td>Propane. Small charges only.</td></tr>
     </tbody>
   </table></div>
   <p class="key">GWP values are the AR4 numbers EPA uses. <span class="check">CHECK</span> <a href="../words/#gwp">What GWP means on the job</a></p>
@@ -138,6 +182,13 @@ svg .spin{fill:var(--band);font-size:24px;font-weight:700}
   </figure>
 
   <h2>The leak sensor in the unit (RDS)</h2>
+  <div class="leds" aria-label="What the unit does when the leak sensor trips">
+    <p class="ledh">RDS tripped · what the unit does</p>
+    <span><i class="led g"></i>Blower <b>ON</b></span>
+    <span><i class="led r"></i>Compressor <b>OFF</b></span>
+    <span><i class="led r"></i>Electric heat <b>OFF</b></span>
+    <span><i class="led a"></i>Zone dampers <b>OPEN</b></span>
+  </div>
   <ul>
     <li>It sits <b>low</b> near the indoor coil, because A2L vapor is heavier than air.</li>
     <li>When it trips, expect the <b>blower to run</b>, the <b>compressor to stop</b>, and electric heat to drop out. Zone dampers open and shutoff valves close on multi-coil systems.</li>
@@ -159,7 +210,7 @@ svg .spin{fill:var(--band);font-size:24px;font-weight:700}
 
   <h2>Field rules</h2>
   <div class="dd">
-    <div class="do"><strong>✓ Do</strong><ul>
+    <div class="do"><strong>Safety first · Do</strong><ul>
       <li>Check the area with your detector before you open the system</li>
       <li>Get air moving and kill ignition sources</li>
       <li>Use A2L-rated recovery machine, vacuum pump and detector</li>
@@ -168,7 +219,7 @@ svg .spin{fill:var(--band);font-size:24px;font-weight:700}
       <li>Haul cylinders upright, strapped, out of the cab</li>
       <li>Fill out the system label before you leave</li>
     </ul></div>
-    <div class="dont"><strong>✕ Don't</strong><ul>
+    <div class="dont"><strong>Danger · Don't</strong><ul>
       <li>Top off or convert R-410A with an A2L</li>
       <li>Mix refrigerants in one recovery cylinder</li>
       <li>Vent it because it's "low GWP"</li>
@@ -178,15 +229,12 @@ svg .spin{fill:var(--band);font-size:24px;font-weight:700}
   </div>
 
   <h2>Dates that matter</h2>
-  <div class="tbl"><table>
-    <thead><tr><th>Date</th><th>What changed</th></tr></thead>
-    <tbody>
-      <tr><td class="n">Dec 2020</td><td>AIM Act: HFC phase-down, down 85% by 2036</td></tr>
-      <tr><td class="n">Jan 1, 2025</td><td>New home and light commercial AC must be under 700 GWP</td></tr>
-      <tr><td class="n">Jan 1, 2026</td><td>EPA leak repair rules (AIM Act) reach systems with 15 lb or more of an HFC or substitute over 53 GWP. That includes R-454B and R-32. <span class="check">CHECK</span></td></tr>
-      <tr><td class="n">May 2026</td><td>EPA removed the Jan 1, 2026 install deadline for R-410A equipment made before 2025 <span class="check">CHECK</span></td></tr>
-    </tbody>
-  </table></div>
+  <ol class="tl">
+    <li><span class="lcd"><b>Dec 2020</b></span><p>AIM Act: HFC phase-down, down 85% by 2036</p></li>
+    <li><span class="lcd"><b>Jan 1, 2025</b></span><p>New home and light commercial AC must be under 700 GWP</p></li>
+    <li><span class="lcd"><b>Jan 1, 2026</b></span><p>EPA leak repair rules (AIM Act) reach systems with 15 lb or more of an HFC or substitute over 53 GWP. That includes R-454B and R-32. <span class="check">CHECK</span></p></li>
+    <li><span class="lcd"><b>May 2026</b></span><p>EPA removed the Jan 1, 2026 install deadline for R-410A equipment made before 2025 <span class="check">CHECK</span></p></li>
+  </ol>
   <p class="key">EPA keeps adjusting these. VRF has its own dates. Check EPA's Technology Transitions page before you tell a customer.</p>
 
   <p>Go deeper: <a href="../guide/">the full A2L guide</a> · <a href="../words/">Words to know</a> · <a href="../lessons/">Lessons</a> · <a href="../quiz/">practice exam</a> · <a href="../tools/nitrogen/">Nitrogen test log</a> · <a href="../tools/recovery-tank/">Recovery tank fill check</a></p>
