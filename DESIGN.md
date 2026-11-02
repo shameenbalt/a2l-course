@@ -2,7 +2,7 @@
 
 How this site looks and feels. Read this before you build or change a page, so every page matches.
 
-Last updated: 2026-11-02
+Last updated: 2026-11-02 (jobsite pieces added)
 
 ## The feel
 
@@ -79,6 +79,18 @@ Sizes:
 | `.steps` | Numbered cards in a 2-column grid | Lessons |
 | Tool tiles | 2-column grid of cards with an emoji, title, one line | Home page "Free tools" |
 | Verdict box | Green (good), red (bad) or amber (warn) block with a big uppercase word | Nitrogen log |
+
+## Jobsite pieces (home page, 2026-11-02)
+
+These make the site feel like a tech built it, not a template. Reuse them; don't add generic cards.
+
+| Piece | What it is |
+|---|---|
+| `.scene` | Dark pegboard wall and diamond-plate floor with drawn tools you tap (gauge set, tank on a scale, N2 cylinder). Needles sweep in, the scale LCD counts up. Always dark, in both modes. |
+| `.panel` | Instrument panel: green LCD readouts for numbers (IBM Plex Mono, `#7cfc9a` on `#0c1a11`) |
+| `.hazard` | Yellow and black hazard tape. Only as the edge under a scene, once per page. |
+| Hang tags | Cards with a red edge and a punched hole, tilted a hair. Use for short "why" points. |
+| Line icons | Small drawn icons in the red accent (gauge, clipboard, cylinder, scale). No emoji for tools. |
 
 ## Drawings
 
