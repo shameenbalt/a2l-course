@@ -37,6 +37,9 @@ Last updated: 2026-11-01
 | 16 | R-32 and R-454B ship as DOT Division 2.1 flammable gas | Guide, cheat sheet, Lesson 1, quiz | 49 CFR 172.101, refrigerant SDS |
 | 17 | Techs carrying cylinders usually fall under DOT "materials of trade" limits | Lesson 1, quiz | 49 CFR 173.6 |
 | 18 | No DOT rule requires a leak alarm in a service truck | Lesson 1, quiz | 49 CFR, FMCSA |
+| 23 | Recovery tanks (DOT 4BA/4BW) need a retest every 5 years | Recovery tank tool | 49 CFR 180.209, cylinder makers |
+| 24 | R-410A, R-32, R-454B and R-452B need a recovery tank rated at least 400 psig | Recovery tank tool | AHRI Guideline K, cylinder makers |
+| 25 | Hot-day check: also limit fill to 80% of tank volume at 130°F (stricter than 80% of WC for refrigerants lighter than water) | Recovery tank tool | 49 CFR 173.304a, cylinder makers |
 
 ## Smaller claims
 
