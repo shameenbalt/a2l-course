@@ -120,6 +120,7 @@ Shameen wants the site to feel alive. Every page loads `assets/motion.css` and `
 - The home scene moves in layers (wall vs tools) with the mouse or phone tilt. The gauges wobble and the N2 tank puffs.
 - Lesson header drawings sway like they hang on a hook. LCDs flicker on. Hazard tape crawls.
 - Keep it quick (under 0.8s) and never block reading. The quiz page skips the scroll reveal (`data-no-reveal` on body).
+- Scroll: a thin green-to-red pressure bar along the top fills as you read. Headings slide in and their LCD number pops. Line drawings draw themselves when they come into view. The lesson header wall drifts slower than the page. On the home page, the gauge needles move as you scroll (low side pulls down, high side climbs).
 - All of it turns off with `prefers-reduced-motion`.
 
 ## Writing

@@ -12,6 +12,20 @@
       var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0;
       el.style.setProperty("--d",Math.min(sib%4,3)*0.08+"s");el.classList.add("rv");io.observe(el)});
   }
+  /* 1b. headings slide in; drawings below the fold draw their lines as they come into view */
+  if(!document.body.hasAttribute("data-no-reveal")&&"IntersectionObserver" in window){
+    Q("article h2").forEach(function(h){if(h.getBoundingClientRect().top<innerHeight*.9)return;h.classList.add("rvh");io.observe(h)});
+    Q("figure svg").forEach(function(svg){
+      if(svg.getBoundingClientRect().top<innerHeight*.9)return;var k=0;
+      [].slice.call(svg.querySelectorAll("path,line,rect,circle,ellipse,polyline,polygon")).forEach(function(el){
+        var cs=getComputedStyle(el);if(cs.stroke==="none"||cs.fill!=="none"||cs.strokeDasharray!=="none"||!el.getTotalLength)return;
+        var L;try{L=el.getTotalLength()}catch(e){return}if(!L||L<8)return;
+        el.style.strokeDasharray=L;el.style.strokeDashoffset=L;el.classList.add("draw");el.style.setProperty("--dd",Math.min(k++,8)*0.07+"s")});
+      var fig=svg.closest("figure");
+      var o=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+        [].slice.call(svg.querySelectorAll(".draw")).forEach(function(el){el.style.strokeDashoffset=0});o.disconnect()})},{rootMargin:"0px 0px -15% 0px"});
+      o.observe(fig||svg)});
+  }
   /* 2. tilt toward the mouse, press in on touch */
   Q(".tools a,.why div,.panel b,.steps li,.board .card,.ign span,.nums .num,.dd>div,.mock,.how div,.me,.lessons .card").forEach(function(el){
     el.classList.add("tilt");var base=null;
@@ -25,6 +39,19 @@
     el.addEventListener("pointerdown",function(e){if(e.pointerType!=="mouse")el.classList.add("press")});
     ["pointerup","pointercancel"].forEach(function(n){el.addEventListener(n,function(){el.classList.remove("press")})});
   });
+  /* 2b. pressure bar along the top fills as you scroll; lesson header wall drifts slower than the page */
+  var bar=document.createElement("div");bar.className="pbar";bar.setAttribute("aria-hidden","true");document.body.appendChild(bar);
+  var hero=document.querySelector(".lhero"),scn=document.querySelector(".scene"),ndl=scn?[].slice.call(scn.querySelectorAll(".ndl")):[],
+      base=ndl.map(function(n){return parseFloat(n.style.getPropertyValue("--a"))||0});
+  if(scn)setTimeout(function(){scn.classList.add("live")},1800);
+  var ticking=false;
+  function onScroll(){ticking=false;var h=document.documentElement,max=h.scrollHeight-h.clientHeight,y=h.scrollTop,k=max>0?Math.min(1,y/max):0;
+    bar.style.transform="scaleX("+k+")";
+    if(hero)hero.style.backgroundPositionY=(y*0.35)+"px";
+    if(scn&&scn.classList.contains("live")){var r=scn.getBoundingClientRect();if(r.bottom>0){var t=Math.min(1,y/600);
+      /* scroll down: low side pulls down, high side and nitrogen climb */
+      ndl.forEach(function(n,i){n.style.setProperty("--a",(base[i]+[-60,70,50][i%3]*t)+"deg")})}}}
+  addEventListener("scroll",function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});onScroll();
   /* 3. home scene in layers: wall moves one way, tools the other (mouse, or phone tilt where allowed) */
   var sc=document.querySelector(".scene");
   if(sc){
