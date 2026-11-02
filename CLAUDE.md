@@ -12,6 +12,7 @@ Shameen is learning to build with Claude. Explain each step in plain words, keep
 - `quiz/index.html`: A2L practice exam with Practice and Exam modes, an optional timer, explanations, a score by topic, retrying missed questions, streaks and XP.
 - `quiz/questions.js`: the question bank. `T` holds the topics; `R` where to reread; `Q` holds the questions (`t` topic, `q` question, `o` options, `a` index of the right option, `e` explanation, `f:1` to show a CHECK flag; also `multi`, `match` and `label` types).
 - `tools/nitrogen/`: nitrogen standing-test log. Saves pressure, outdoor temp, time and rounded GPS spot in localStorage (`a2l-n2-tests`), corrects for temperature, and looks up past outdoor temps from Open-Meteo.
+- `tools/recovery-tank/`: recovery cylinder fill check. Typed-in WC, TW, scale (lb + oz), psig, test date. Stop point = TW + lower of 80% WC and 80% of volume at 130°F (liquid density table in the page). Drawn example stamp and scale with made-up numbers. Warnings: overfill, liquid full, psig, A2L tank, retest, mixing.
 - `cheat-sheet/`, `words/` (glossary), `about/`: reference pages. `assets/nav.css` is the shared menu.
 - `CHECKS.md`: every fact still to confirm. Add new CHECK items there.
 
