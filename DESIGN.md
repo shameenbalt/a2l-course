@@ -91,6 +91,11 @@ These make the site feel like a tech built it, not a template. Reuse them; don't
 | `.hazard` | Yellow and black hazard tape. Only as the edge under a scene, once per page. |
 | Hang tags | Cards with a red edge and a punched hole, tilted a hair. Use for short "why" points. |
 | Line icons | Small drawn icons in the red accent (gauge, clipboard, cylinder, scale). No emoji for tools. |
+| Lesson header `.lhero` | Pegboard banner with title, LCD "01/05 lesson" and "08 min", a drawing of the lesson's tool, hazard tape along the bottom. Shared in `assets/jobsite.css`. |
+| Reading gauge | Small pressure gauge, bottom right. Needle climbs as you read; tap it to jump to the quiz. Added by `assets/jobsite.js` on any page with an `a.go` link. |
+| LCD section numbers | `h2 .n` shows as a green LCD readout |
+| Work ticket | Warm-up box: dark header strip, "Not scored", torn-edge bottom |
+| Pegboard board | Course map: lessons hang as tags on hooks. Live = red edge; coming soon = gray. |
 
 ## Drawings
 
