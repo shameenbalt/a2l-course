@@ -1,0 +1,119 @@
+# DESIGN.md
+
+How this site looks and feels. Read this before you build or change a page, so every page matches.
+
+Last updated: 2026-11-02
+
+## The feel
+
+A jobsite safety tag, not a tech startup. Bold, clear and plain. One red accent, like the red band on an A2L cylinder. Lots of white space and short lines. It has to be easy to read on a phone in a mechanical room, in bright sun, or at night.
+
+What we avoid:
+- Gradients, glows, stock photos and fake 3D.
+- Purple-and-blue "AI" colors.
+- Long walls of text. If a paragraph is over 4 lines on a phone, cut it or add a drawing.
+- Real job photos from the employer (see CLAUDE.md "Keep out"). Draw it instead.
+
+## Colors
+
+Every page sets these on `:root` and swaps them for dark mode. Use the token, never a raw color.
+
+| Token | Light | Dark | Use it for |
+|---|---|---|---|
+| `--bg` | `#f4f5f5` | `#15191b` | Page background |
+| `--paper` | `#ffffff` | `#1c2225` | Cards and boxes |
+| `--fg` | `#1d2326` | `#e6e9eb` | Main text |
+| `--muted` | `#5b666c` | `#9ba6ac` | Small print, labels |
+| `--line` | `#d6dbde` | `#323b40` | Borders, dividers |
+| `--band` | `#c8322b` | `#e2564e` | The red accent: top band, buttons, links underline, CHECK tags, warnings |
+| `--tint` | `#fbecea` | `#33201f` | Light red background for warnings and stories |
+| `--good` | `#1f7a4a` | `#5fcf8f` | Right answers, "holding", OK |
+| `--goodtint` | `#e3f3ea` | `#183026` | Light green background |
+| `--amber` | `#9a5b00` | `#f0b45a` | Caution, "check this" (use sparingly) |
+
+Dark mode pattern (copy it as is):
+
+```css
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){ /* dark tokens */ color-scheme:dark}}
+:root[data-theme="dark"]{ /* same dark tokens */ color-scheme:dark}
+```
+
+Red means "pay attention". Don't use it for decoration. Green means right or safe.
+
+Note: the quiz page uses a slightly older set (`--card`, `--soft`, `--pick`, `--flame`, `--bad`). Bring it onto this set the next time the quiz gets a big change.
+
+## Fonts
+
+Loaded from Google Fonts in each page head.
+
+| Token | Font | Use it for |
+|---|---|---|
+| `--display` | Barlow Condensed 600/700 | Headings, buttons, menu. Always UPPERCASE with a little letter spacing. |
+| `--body` | IBM Plex Sans 400/600 | Everything you read. 17px, line height 1.6. |
+| `--mono` | IBM Plex Mono 500 | Numbers, pressures, dates, the small "by" line, CHECK tags. |
+
+Sizes:
+- `h1`: `clamp(2.2rem, 8vw, 3.2rem)`, line height .98
+- `h2`: 1.45rem, with a numbered red square (`<span class="n">1</span>`) in lessons
+- Small print: .85 to .92rem in `--muted`
+
+## Layout
+
+- One column, max 680px wide, centered. Side padding 16px (plus the phone's safe area).
+- `article` is a flex column with 16px gap. Don't add margins between sections; the gap does it.
+- Every page starts with the red `.band` bar, then a small mono `.by` line, then the `h1`.
+- Must work at 400px wide with no sideways scroll. Two-column grids are fine at 400px; three only for short numbers.
+- Tap targets at least 44px tall.
+- Corners: 6px on boxes, 8px on buttons and inputs, 10px on big cards.
+
+## Pieces we reuse
+
+| Piece | What it looks like | Where |
+|---|---|---|
+| `.band` | 10px red bar at the top | Every page |
+| `.site-nav` | Sticky menu, uppercase, red underline on the current page | `assets/nav.css`, every page |
+| `.box` | White card, thin border | Lessons, tools |
+| `.story` | Red left border, italic. A field story in my voice. | Lessons |
+| `.check` | Small red mono tag "CHECK" for facts not yet confirmed | Anywhere. Also list it in CHECKS.md. |
+| `.why` | Small muted text under an answer | Quiz, lessons |
+| `.steps` | Numbered cards in a 2-column grid | Lessons |
+| Tool tiles | 2-column grid of cards with an emoji, title, one line | Home page "Free tools" |
+| Verdict box | Green (good), red (bad) or amber (warn) block with a big uppercase word | Nitrogen log |
+
+## Drawings
+
+- Inline SVG, drawn for this site. No copied manufacturer art.
+- Use theme classes so they flip in dark mode: `svg text{fill:var(--fg)}`, `.mut`, `.red`, `.ok`, `.amb`, `.body`.
+- Made-up values only (model, serial, charge). Label them as examples.
+- Things you can tap are `<g role="button" tabindex="0">` with a keyboard handler.
+- Give every drawing an `aria-label` or a caption that says what it shows.
+
+## Motion
+
+- Small and quick: 150 to 250ms. Only to show something changed (right answer, card opens).
+- Confetti only for a real win (finishing a quiz).
+- Respect `prefers-reduced-motion`.
+
+## Writing
+
+- First person, my voice: "I check the nameplate first."
+- Short sentences. One idea per paragraph.
+- Name the real mistake techs make, and why.
+- Put a date on any rule.
+
+## Lesson page order
+
+1. Warm-up: 3 quick guesses, not scored
+2. Field story
+3. Short sections, each with a drawing or a game
+4. Explain it back in your own words
+5. Lesson quiz link: `quiz/?topics=...`
+
+## Before you publish
+
+- [ ] Check it at 400px wide, in light and dark mode
+- [ ] No sideways scroll, no console errors
+- [ ] Every `hidden` element really hides (add `[hidden]{display:none}` if a class sets `display`)
+- [ ] All links work
+- [ ] New unconfirmed facts are tagged CHECK and listed in CHECKS.md
+- [ ] Nothing from the employer

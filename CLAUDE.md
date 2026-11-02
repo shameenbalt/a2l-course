@@ -14,6 +14,7 @@ Shameen is learning to build with Claude. Explain each step in plain words, keep
 - `tools/nitrogen/`: nitrogen standing-test log. Saves pressure, outdoor temp, time and rounded GPS spot in localStorage (`a2l-n2-tests`), corrects for temperature, and looks up past outdoor temps from Open-Meteo.
 - `tools/recovery-tank/`: recovery cylinder fill check. Typed-in WC, TW, scale (lb + oz), psig, test date. Stop point = TW + lower of 80% WC and 80% of volume at 130°F (liquid density table in the page). Drawn example stamp and scale with made-up numbers. Warnings: overfill, liquid full, psig, A2L tank, retest, mixing.
 - `cheat-sheet/`, `words/` (glossary), `about/`: reference pages. `assets/nav.css` is the shared menu.
+- `DESIGN.md`: colors, fonts, layout, reusable pieces and the publish checklist. Read it before building or changing a page.
 - `CHECKS.md`: every fact still to confirm. Add new CHECK items there.
 
 The site is plain HTML, CSS and JavaScript with no build step. Keep it that way until there's a real need, such as logins.
