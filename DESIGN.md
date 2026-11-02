@@ -110,11 +110,17 @@ These make the site feel like a tech built it, not a template. Reuse them; don't
 - Things you can tap are `<g role="button" tabindex="0">` with a keyboard handler.
 - Give every drawing an `aria-label` or a caption that says what it shows.
 
-## Motion
+## Motion and 3D (updated 2026-11-02)
 
-- Small and quick: 150 to 250ms. Only to show something changed (right answer, card opens).
-- Confetti only for a real win (finishing a quiz).
-- Respect `prefers-reduced-motion`.
+Shameen wants the site to feel alive. Every page loads `assets/motion.css` and `assets/motion.js`.
+
+- Cards flip up into place in 3D as you scroll (only things below the first screen).
+- Cards tilt toward the mouse on a computer, and press in when you tap them on a phone.
+- Red buttons are chunky and push down when tapped.
+- The home scene moves in layers (wall vs tools) with the mouse or phone tilt. The gauges wobble and the N2 tank puffs.
+- Lesson header drawings sway like they hang on a hook. LCDs flicker on. Hazard tape crawls.
+- Keep it quick (under 0.8s) and never block reading. The quiz page skips the scroll reveal (`data-no-reveal` on body).
+- All of it turns off with `prefers-reduced-motion`.
 
 ## Writing
 

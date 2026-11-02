@@ -72,6 +72,7 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
 @media (prefers-reduced-motion:no-preference){#liq{transition:all .3s ease}}
 </style>
 <link rel="stylesheet" href="../../assets/nav.css">
+<link rel="stylesheet" href="../../assets/motion.css">
 </head>
 <body>
 <nav class="site-nav" aria-label="Site"><ul><li><a href="../../">Home</a></li><li><a href="../../lessons/">Lessons</a></li><li><a href="../../quiz/">Quiz</a></li><li><a href="../../cheat-sheet/">Cheat sheet</a></li><li><a href="../../about/">About</a></li></ul></nav>
@@ -253,5 +254,6 @@ document.querySelectorAll("input,select").forEach(e=>{e.addEventListener("input"
 $("ex").onclick=()=>{Object.entries({ref:"R-410A",wc:"48.0",tw:"26.9",glb:"52",goz:"4",psi:"400",test:"2024-06",flam:"unknown",unit:"lb",inTank:""}).forEach(([k,v])=>$(k).value=v);$("goz").hidden=false;$("stdOnly").checked=false;calc();$("h-out").scrollIntoView({behavior:"smooth",block:"start"})};
 calc();
 </script>
+<script src="../../assets/motion.js" defer></script>
 </body>
 </html>

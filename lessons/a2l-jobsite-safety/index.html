@@ -79,6 +79,7 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
 
 </style>
 <link rel="stylesheet" href="../../assets/nav.css">
+<link rel="stylesheet" href="../../assets/motion.css">
 <link rel="stylesheet" href="../../assets/jobsite.css">
 </head>
 <body>
@@ -247,5 +248,6 @@ box.addEventListener("click",ev=>{const b=ev.target.closest(".opt");if(!b)return
  wrap.querySelectorAll(".opt").forEach((el,n)=>{el.disabled=true;if(n===w.a)el.classList.add("right");else if(el===b)el.classList.add("wrong")});
  wrap.querySelector(".why").hidden=false});
 </script>
+<script src="../../assets/motion.js" defer></script>
 </body>
 </html>

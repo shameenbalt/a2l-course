@@ -136,6 +136,7 @@ svg .hot:focus-visible circle{stroke:var(--amber);stroke-width:4}
 .math .tot b{color:var(--band)}
 </style>
 <link rel="stylesheet" href="../../assets/nav.css">
+<link rel="stylesheet" href="../../assets/motion.css">
 <link rel="stylesheet" href="../../assets/jobsite.css">
 </head>
 <body>
@@ -335,5 +336,6 @@ spots.forEach(g=>{g.addEventListener("click",()=>tapSpot(g));g.addEventListener(
 document.getElementById("spotReset").onclick=()=>{found.clear();spots.forEach(g=>g.classList.remove("ok","no"));cnt.textContent="Found 0 of 3";cnt.classList.remove("done");msg.innerHTML="<b>Tap a label or tag</b><p>Start anywhere. A wrong tap costs nothing.</p>"};
 
 </script>
+<script src="../../assets/motion.js" defer></script>
 </body>
 </html>

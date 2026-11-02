@@ -44,6 +44,7 @@ a:focus-visible{outline:3px solid var(--band);outline-offset:2px}
 .more a{font:700 1rem var(--display);text-transform:uppercase;letter-spacing:.04em;text-decoration:none;border:1px solid var(--line);background:var(--paper);border-radius:6px;padding:8px 12px}
 </style>
 <link rel="stylesheet" href="../assets/nav.css">
+<link rel="stylesheet" href="../assets/motion.css">
 </head>
 <body>
 <nav class="site-nav" aria-label="Site"><ul><li><a href="../">Home</a></li><li><a href="../lessons/">Lessons</a></li><li><a href="../quiz/">Quiz</a></li><li><a href="../cheat-sheet/">Cheat sheet</a></li><li><a href="../about/">About</a></li></ul></nav>
@@ -68,5 +69,6 @@ function filter(){const v=q.value.trim().toLowerCase();let c=0;cards.forEach((el
  n.textContent=v?`${c} of ${W.length} terms`:`${W.length} terms`;document.getElementById("none").hidden=c>0}
 q.addEventListener("input",filter);filter();
 </script>
+<script src="../assets/motion.js" defer></script>
 </body>
 </html>
