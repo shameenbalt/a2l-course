@@ -40,6 +40,8 @@ Last updated: 2026-11-01
 | 23 | Recovery tanks (DOT 4BA/4BW) need a retest every 5 years | Recovery tank tool | 49 CFR 180.209, cylinder makers |
 | 24 | R-410A, R-32, R-454B and R-452B need a recovery tank rated at least 400 psig | Recovery tank tool | AHRI Guideline K, cylinder makers |
 | 25 | Hot-day check: also limit fill to 80% of tank volume at 130°F (stricter than 80% of WC for refrigerants lighter than water) | Recovery tank tool | 49 CFR 173.304a, cylinder makers |
+| 26 | PT chart numbers (computed with CoolProp 8.0, 2026-11-03) match maker PT charts within about 1 to 2 psi, especially R-454B, R-452B and R-407C bubble/dew | PT chart tool | Chemours, Honeywell, Arkema PT charts |
+| 27 | Newer refrigerant cylinders are mostly one gray color, with a red band or top for flammable ones (so color alone does not identify the refrigerant) | PT chart tool | AHRI Guideline N (2020 and later) |
 
 ## Smaller claims
 
