@@ -102,6 +102,16 @@ These make the site feel like a tech built it, not a template. Reuse them; don't
 | Timeline | Dates on a red line with LCD date chips |
 | Cylinder chips | Refrigerant names as little cylinders; red top = flammable |
 
+## Video hero (home page, 2026-11-03)
+
+The home page headline sits on a short looping video (`.vhero`), the one exception to "no stock photos". Rules for it:
+
+- Made-up AI scene only (Higgsfield), never a real job. No words, numbers or screens in the shot: AI scrambles them.
+- Current clip: A2L vapor creeping low along a dark mechanical room floor, a gloved tech with a leak probe, amber light.
+- Files in `assets/video/`: `hero.webm` and `hero.mp4` (muted, about 4 s seamless loop, 960 wide, under 200 KB each) and `hero-poster.jpg`.
+- Always dark in both modes, with a dark fade so the white headline pops.
+- Plays only on screen. Reduced motion or data saver shows the still poster instead.
+
 ## Drawings
 
 - Inline SVG, drawn for this site. No copied manufacturer art.

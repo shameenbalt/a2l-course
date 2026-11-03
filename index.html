@@ -75,6 +75,16 @@ body{font-size:17px}
 .schools{background:var(--fg);color:var(--bg);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:6px}.schools a{color:var(--bg)}
 .schools b{font:700 1.3rem var(--display);text-transform:uppercase;letter-spacing:.04em}
 
+/* Cinematic video hero: always dark, like the scene. Video sits behind the words. */
+.vhero{position:relative;margin:0 -16px;min-height:min(78vh,520px);display:flex;align-items:flex-end;overflow:hidden;background:#0d1214 url(assets/video/hero-poster.jpg) center/cover;color:#f2f4f5;isolation:isolate}
+@media (min-width:600px){.vhero{margin:0;border-radius:10px;min-height:440px}}
+.vhero-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%;z-index:-2}
+.vhero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,11,13,.15) 0%,rgba(8,11,13,.35) 40%,rgba(8,11,13,.88) 100%),linear-gradient(90deg,rgba(8,11,13,.55),rgba(8,11,13,0) 70%)}
+.vhero-t{display:flex;flex-direction:column;gap:14px;padding:28px 16px 22px}
+@media (min-width:600px){.vhero-t{padding:32px 28px 28px}}
+.vhero h1{color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+.vhero .eyebrow{color:#ff7a70}
+.vhero .lede{color:#d5dbde}
 .scene-wrap{margin:0 -16px;background:#1e2528;border-radius:0}
 @media (min-width:600px){.scene-wrap{margin:0;border-radius:10px;overflow:hidden}}
 .scene{display:block;width:100%;height:auto;max-width:620px;margin:0 auto}
@@ -119,9 +129,17 @@ details p{margin-top:6px;color:var(--muted)}
 <article>
   <div class="band" aria-hidden="true"></div>
   <section class="hero" style="display:flex;flex-direction:column;gap:14px">
-    <p class="eyebrow">Free A2L course for HVAC techs</p>
-    <h1>Learn A2L the way techs actually work</h1>
-    <p class="lede">R-454B and R-32 are on every new truck now. Short lessons, hands-on games and a practice exam, written by a tech with 20 years in the field. Built for your phone.</p>
+    <div class="vhero">
+      <video class="vhero-v" muted loop playsinline preload="metadata" poster="assets/video/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+        <source src="assets/video/hero.webm" type="video/webm">
+        <source src="assets/video/hero.mp4" type="video/mp4">
+      </video>
+      <div class="vhero-t">
+        <p class="eyebrow">Free A2L course for HVAC techs</p>
+        <h1>Learn A2L the way techs actually work</h1>
+        <p class="lede">R-454B and R-32 are on every new truck now. Short lessons, hands-on games and a practice exam, written by a tech with 20 years in the field. Built for your phone.</p>
+      </div>
+    </div>
     <div class="scene-wrap">
 <svg class="scene" viewBox="0 0 360 252" role="group" aria-label="Tap a tool: practice exam, recovery tank check or nitrogen log">
 <defs>
@@ -344,6 +362,16 @@ try{document.getElementById("nQ").textContent=Q.length}catch(e){}
   requestAnimationFrame(()=>requestAnimationFrame(()=>sc.classList.add("go")));
   count(lcd,36,v=>v.toFixed(2).padStart(5,"0"),1800);
   document.querySelectorAll(".panel b").forEach(b=>{const n=parseInt(b.textContent,10);if(n>0)count(b,n,v=>String(Math.round(v)),1200)});
+})();
+</script>
+<script>
+/* Hero video: play only when on screen; skip for reduced motion or data saver (poster shows instead). */
+(function(){var v=document.querySelector('.vhero-v');if(!v)return;
+var still=matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData);
+if(still){v.removeAttribute('loop');v.preload='none';return}
+v.preload='auto';
+var go=function(){var p=v.play();if(p&&p.catch)p.catch(function(){})};
+if('IntersectionObserver'in window){new IntersectionObserver(function(e){e[0].isIntersecting?go():v.pause()}).observe(v)}else go();
 })();
 </script>
 <script src="assets/motion.js" defer></script>
