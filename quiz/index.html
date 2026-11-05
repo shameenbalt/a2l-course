@@ -53,6 +53,18 @@ button{font:inherit;color:inherit}
 .stat span{font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .stat.flame b{color:var(--flame)}
 .lvl{display:flex;flex-direction:column;gap:6px}
+.ready{border:2px dashed var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.ready.on{border-style:solid;border-color:var(--good);background:var(--good-bg)}
+.ready .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ready .top b{font:800 1.15rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.04em}
+.ready .slots{display:flex;gap:6px}
+.ready .slots i{width:38px;height:38px;border-radius:50%;border:3px solid var(--line);display:grid;place-items:center;font:700 .72rem var(--mono);font-style:normal;color:var(--muted);background:var(--card)}
+.ready .slots i.hit{border-color:var(--good);background:var(--good);color:#fff}
+.ready p{margin:0;font-size:.92rem}
+.ready button{align-self:flex-start;font:700 .95rem var(--display);text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;min-height:44px;border-radius:8px;border:1px solid var(--fg);background:transparent;color:var(--fg);cursor:pointer}
+.rnote{border-radius:10px;padding:12px 14px;font-size:.95rem;background:var(--soft)}
+.rnote.ok{background:var(--good-bg)}
+.rnote b{display:block;font:800 1.15rem var(--display);text-transform:uppercase;letter-spacing:.04em}
 .lvl .top{display:flex;justify-content:space-between;font-size:.9rem}
 .lvl .top b{font:700 1.05rem var(--display);text-transform:uppercase;letter-spacing:.04em}
 .track{height:10px;background:var(--soft);border-radius:5px;overflow:hidden}
@@ -175,6 +187,11 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
       <div class="top"><b id="lvl-name">Apprentice</b><span class="small" id="lvl-next"></span></div>
       <div class="track"><i id="lvl-bar"></i></div>
     </div>
+    <div class="ready" id="ready">
+      <div class="top"><b id="ready-t">Test-day ready?</b><span class="slots" id="ready-s"></span></div>
+      <p id="ready-p"></p>
+      <button type="button" id="ready-go">Set up a full exam</button>
+    </div>
     <div class="label">Mode</div>
     <div class="row" role="group" aria-label="Mode">
       <button class="chip" id="m-practice" aria-pressed="true" data-mode="practice">Practice: see the answer each time</button>
@@ -221,6 +238,7 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
     <div class="ring" id="ring"><div id="score">0%</div></div>
     <div class="pass" id="passtag"></div>
     <p class="cheer" id="cheer"></p>
+    <div class="rnote" id="rnote" hidden></div>
     <div class="player">
       <div class="stat"><b id="r-xp">0</b><span>XP earned</span></div>
       <div class="stat flame"><b id="r-streak">0</b><span>Best run</span></div>
@@ -245,7 +263,7 @@ const LEVELS=[[0,"Apprentice"],[300,"Helper"],[800,"Service Tech"],[1500,"Lead T
 const CHEERS={hi:["Sharp work. You know this stuff.","That's how a lead tech does it.","Strong round. Keep that streak alive."],mid:["Solid pass. Hit the red topics next.","Good work. A little reading and you're there."],lo:["Every miss is a page to read. You've got this.","Good start. Retry the misses and watch it climb."]};
 const readFor=q=>{const r=q.r||(typeof R!=="undefined"&&R[q.t]);return r?`<p class="read"><b>Read:</b> ${r}</p>`:""};
 const typeOf=q=>q.type||"single";
-let mode="practice",secs=0,count=20,set=[],i=0,res=[],tick=null,left=0,state=null,xp=0,run=0,bestRun=0;
+let mode="practice",secs=0,count=20,set=[],i=0,res=[],tick=null,left=0,state=null,xp=0,run=0,bestRun=0,full=false;
 
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
 function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
@@ -262,6 +280,19 @@ function drawProfile(){const p=profile();$("s-days").textContent=liveDays(p);$("
  const {cur,nxt}=level(p.xp);$("lvl-name").textContent=cur[1];
  $("lvl-next").textContent=nxt?`${nxt[0]-p.xp} XP to ${nxt[1]}`:"Top level";
  $("lvl-bar").style.width=(nxt?Math.round((p.xp-cur[0])/(nxt[0]-cur[0])*100):100)+"%"}
+/* ---------- test-day ready: two full timed exams at 85% or better ---------- */
+const READY_PCT=85,READY_RUNS=2;
+function readyRuns(){try{return JSON.parse(store("a2l-ready")||"[]")}catch(e){return[]}}
+function drawReady(){const r=readyRuns(),n=Math.min(r.length,READY_RUNS),on=n>=READY_RUNS;
+ $("ready").classList.toggle("on",on);
+ $("ready-s").innerHTML=Array.from({length:READY_RUNS},(_,k)=>r[k]?`<i class="hit">${r[k].p}%</i>`:`<i>${k+1}</i>`).join("");
+ $("ready-t").textContent=on?"You're test-day ready":"Test-day ready?";
+ $("ready-p").textContent=on?"Two full timed exams at 85% or better. Book the real test, and keep a run going every few days so it stays fresh.":
+  n?`${n} of ${READY_RUNS} done. One more full timed exam at ${READY_PCT}% or better and you're ready to book the real test.`:
+  `Take a full exam: Exam mode, a timer, all questions. Score ${READY_PCT}% or better twice and you're ready to book the real test.`;
+ $("ready-go").hidden=on}
+$("ready-go").onclick=()=>{["m-exam","t-60","n-all"].forEach(id=>$(id).click());$("start").scrollIntoView({block:"center",behavior:motion?"smooth":"auto"});$("start").focus({preventScroll:true})};
+drawReady();
 drawProfile();
 /* ?topics=tools,service limits the round to those topics (lesson pages link here) */
 const pick=(new URLSearchParams(location.search).get("topics")||"").split(",").filter(k=>T[k]);
@@ -279,7 +310,7 @@ function prep(q){const t=typeOf(q);
  return q}
 function build(list){set=list.map(prep);i=0;res=[];xp=0;run=0;bestRun=0;
  $("setup").hidden=true;$("results").hidden=true;$("quiz").hidden=false;hud();show();window.scrollTo(0,0)}
-$("start").onclick=()=>build(shuffle(POOL).slice(0,Math.min(count,POOL.length)));
+$("start").onclick=()=>{full=mode==="exam"&&secs>0&&count>=999&&!pick.length;build(shuffle(POOL).slice(0,Math.min(count,POOL.length)))};
 
 function hud(){$("h-streak").textContent="🔥 "+run;$("h-xp").textContent="⚡ "+xp+" XP";
  $("dots").innerHTML=set.map((_,n)=>{let c=n===i?"now":"";if(res[n])c=mode==="practice"?(res[n].ok?"ok":"no"):"done";return`<i class="${c}"></i>`}).join("")}
@@ -377,10 +408,17 @@ function finish(){$("quiz").hidden=true;$("results").hidden=false;window.scrollT
  const pt=$("passtag");pt.textContent=pct>=70?`Pass · ${right} of ${set.length}`:`Keep studying · ${right} of ${set.length}`;pt.className="pass "+(pct>=70?"ok":"no");
  const pool=pct>=85?CHEERS.hi:pct>=70?CHEERS.mid:CHEERS.lo;$("cheer").textContent=pool[Math.floor(Math.random()*pool.length)];
  if(pct>=70)setTimeout(()=>celebrate(8),300);
+ const rn=$("rnote");rn.hidden=!full;rn.className="rnote";
+ if(full){const runs=readyRuns();
+  if(pct>=READY_PCT){runs.push({d:today(),p:pct});store("a2l-ready",JSON.stringify(runs.slice(-READY_RUNS)));
+   if(runs.length>=READY_RUNS){rn.className="rnote ok";rn.innerHTML=`<b>You're test-day ready</b>That's ${READY_RUNS} full timed exams at ${READY_PCT}% or better. Go book the real test.`;setTimeout(()=>celebrate(12),900)}
+   else rn.innerHTML=`<b>Test-day check: ${runs.length} of ${READY_RUNS}</b>That one counts. One more full timed exam at ${READY_PCT}% or better and you're ready.`}
+  else rn.innerHTML=`<b>Full exam: ${pct}%</b>${READY_PCT}% or better counts toward test-day ready. Retry the misses, read the red topics, then run it again.`}
+ drawReady();
  $("bytopic").innerHTML=Object.keys(T).filter(k=>by[k]).map(k=>{const[r,n]=by[k],v=Math.round(r/n*100);return`<div class="t"><span>${T[k]}</span><span>${r}/${n}</span></div><div class="m"><i data-w="${v}" style="background:var(${v>=70?"--good":"--bad"})"></i></div>${v<70&&typeof R!=="undefined"&&R[k]?`<div class="r">Read: ${R[k]}</div>`:""}`}).join("");
  requestAnimationFrame(()=>$("bytopic").querySelectorAll("i[data-w]").forEach(el=>el.style.width=el.dataset.w+"%"));
  const missed=set.filter((q,n)=>!res[n].ok);$("retryMissed").hidden=!missed.length;
- $("retryMissed").onclick=()=>build(shuffle(missed.map(m=>Q.find(x=>x.q===m.q))));
+ $("retryMissed").onclick=()=>(full=false,build(shuffle(missed.map(m=>Q.find(x=>x.q===m.q)))));
  $("review").innerHTML=set.map((q,n)=>{const ok=res[n].ok;return`<details ${ok?"":"open"}><summary><span class="verdict ${ok?"ok":"no"}" style="display:inline">${ok?"✓":"✗"}</span> ${q.q}</summary><p class="explain"><strong>Answer:</strong> ${answerText(q)}</p>${!ok&&typeOf(q)==="single"&&res[n].pick>=0?`<p class="explain">You picked: ${q.o[res[n].pick]}</p>`:""}<p class="explain">${q.e}</p>${ok?"":readFor(q)}</details>`}).join("");
  drawProfile()}
 $("again").onclick=()=>{$("results").hidden=true;$("setup").hidden=false;drawProfile();window.scrollTo(0,0)};
