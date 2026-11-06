@@ -207,6 +207,7 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
     <div class="row" role="group" aria-label="Number of questions">
       <button class="chip" id="n-10" aria-pressed="false" data-n="10">10</button>
       <button class="chip" id="n-20" aria-pressed="true" data-n="20">20</button>
+      <button class="chip" id="n-50" aria-pressed="false" data-n="50">50 (real test size)</button>
       <button class="chip" id="n-all" aria-pressed="false" data-n="999">All</button>
     </div>
     <div class="label">Topics</div>
@@ -287,11 +288,11 @@ function drawReady(){const r=readyRuns(),n=Math.min(r.length,READY_RUNS),on=n>=R
  $("ready").classList.toggle("on",on);
  $("ready-s").innerHTML=Array.from({length:READY_RUNS},(_,k)=>r[k]?`<i class="hit">${r[k].p}%</i>`:`<i>${k+1}</i>`).join("");
  $("ready-t").textContent=on?"You're test-day ready":"Test-day ready?";
- $("ready-p").textContent=on?"Two full timed exams at 85% or better. Book the real test, and keep a run going every few days so it stays fresh.":
+ $("ready-p").textContent=on?"Two full timed 50-question exams at 85% or better. Book the real test, and keep a run going every few days so it stays fresh.":
   n?`${n} of ${READY_RUNS} done. One more full timed exam at ${READY_PCT}% or better and you're ready to book the real test.`:
-  `Take a full exam: Exam mode, a timer, all questions. Score ${READY_PCT}% or better twice and you're ready to book the real test.`;
+  `Take a full exam like the real one: Exam mode, a timer, 50 questions. The real test passes at 70%. Score ${READY_PCT}% or better here twice and you're ready to book the real test.`;
  $("ready-go").hidden=on}
-$("ready-go").onclick=()=>{["m-exam","t-60","n-all"].forEach(id=>$(id).click());$("start").scrollIntoView({block:"center",behavior:motion?"smooth":"auto"});$("start").focus({preventScroll:true})};
+$("ready-go").onclick=()=>{["m-exam","t-60","n-50"].forEach(id=>$(id).click());$("start").scrollIntoView({block:"center",behavior:motion?"smooth":"auto"});$("start").focus({preventScroll:true})};
 drawReady();
 drawProfile();
 /* ?topics=tools,service limits the round to those topics (lesson pages link here) */
@@ -310,7 +311,7 @@ function prep(q){const t=typeOf(q);
  return q}
 function build(list){set=list.map(prep);i=0;res=[];xp=0;run=0;bestRun=0;
  $("setup").hidden=true;$("results").hidden=true;$("quiz").hidden=false;hud();show();window.scrollTo(0,0)}
-$("start").onclick=()=>{full=mode==="exam"&&secs>0&&count>=999&&!pick.length;build(shuffle(POOL).slice(0,Math.min(count,POOL.length)))};
+$("start").onclick=()=>{full=mode==="exam"&&secs>0&&count>=50&&!pick.length;build(shuffle(POOL).slice(0,Math.min(count,POOL.length)))};
 
 function hud(){$("h-streak").textContent="🔥 "+run;$("h-xp").textContent="⚡ "+xp+" XP";
  $("dots").innerHTML=set.map((_,n)=>{let c=n===i?"now":"";if(res[n])c=mode==="practice"?(res[n].ok?"ok":"no"):"done";return`<i class="${c}"></i>`}).join("")}
