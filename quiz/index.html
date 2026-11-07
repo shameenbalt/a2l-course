@@ -254,6 +254,7 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
     <button class="btn" id="retryMissed">Retry the ones I missed</button>
     <button class="btn ghost" id="again">New test</button>
     <a class="fbk" href="https://docs.google.com/forms/d/e/1FAIpQLSeymKkjPrQHHr0pM77o9VCrE515HC6KNHwgqJa5W0n1x92hsw/viewform" target="_blank" rel="noopener"><b>Beta: 1-minute feedback</b><span>Tell me what confused you, what you liked and what you'd add. It helps me make this better.</span></a>
+    <p class="small">When you finish, your score and topics are sent to me with no name or email, so I can see what people miss.</p>
     <h2>Review</h2>
     <div class="review" id="review"></div>
   </section>
@@ -299,6 +300,11 @@ function drawReady(){const r=readyRuns(),n=Math.min(r.length,READY_RUNS),on=n>=R
 $("ready-go").onclick=()=>{["m-exam","t-60","n-50"].forEach(id=>$(id).click());$("start").scrollIntoView({block:"center",behavior:motion?"smooth":"auto"});$("start").focus({preventScroll:true})};
 drawReady();
 drawProfile();
+/* finish alert: sends score, mode, size and topics (no name, no email) to Shameen's "Quiz finished" Google Form */
+function ping(pct,right,by){try{
+ const m=(mode==="exam"?"Exam":"Practice")+(secs?`, ${secs}s timer`:", no timer")+(full?", full exam":"")+(pick.length?", lesson quiz":"");
+ const f=new URLSearchParams({"entry.494636071":pct+"%","entry.314842871":m,"entry.579923746":`${right} of ${set.length}`,"entry.561322288":Object.keys(by).sort((a,b)=>by[a][0]/by[a][1]-by[b][0]/by[b][1]).map(k=>`${T[k]} ${by[k][0]}/${by[k][1]}`).join(", ")});
+ fetch("https://docs.google.com/forms/d/e/1FAIpQLSeahDRcETTlqqJd2WS43iuahmCzZV405wTOeWf60nfAXP0WVw/formResponse",{method:"POST",mode:"no-cors",body:f}).catch(()=>{})}catch(e){}}
 /* ?topics=tools,service limits the round to those topics (lesson pages link here) */
 const pick=(new URLSearchParams(location.search).get("topics")||"").split(",").filter(k=>T[k]);
 const POOL=pick.length?Q.filter(q=>pick.includes(q.t)):Q;
@@ -420,6 +426,7 @@ function finish(){$("quiz").hidden=true;$("results").hidden=false;window.scrollT
    else rn.innerHTML=`<b>Test-day check: ${runs.length} of ${READY_RUNS}</b>That one counts. One more full timed exam at ${READY_PCT}% or better and you're ready.`}
   else rn.innerHTML=`<b>Full exam: ${pct}%</b>${READY_PCT}% or better counts toward test-day ready. Retry the misses, read the red topics, then run it again.`}
  drawReady();
+ ping(pct,right,by);
  $("bytopic").innerHTML=Object.keys(T).filter(k=>by[k]).map(k=>{const[r,n]=by[k],v=Math.round(r/n*100);return`<div class="t"><span>${T[k]}</span><span>${r}/${n}</span></div><div class="m"><i data-w="${v}" style="background:var(${v>=70?"--good":"--bad"})"></i></div>${v<70&&typeof R!=="undefined"&&R[k]?`<div class="r">Read: ${R[k]}</div>`:""}`}).join("");
  requestAnimationFrame(()=>$("bytopic").querySelectorAll("i[data-w]").forEach(el=>el.style.width=el.dataset.w+"%"));
  const missed=set.filter((q,n)=>!res[n].ok);$("retryMissed").hidden=!missed.length;
