@@ -51,6 +51,11 @@ body{font-size:17px}
 .mock .o.right{background:var(--goodtint);border-color:var(--good)}
 .mock .gain{font:700 1rem var(--display);color:var(--good);text-transform:uppercase;letter-spacing:.04em}
 .mock-cap{text-align:center;font-size:.85rem;color:var(--muted);margin-top:-6px}
+.srv{display:grid;grid-template-columns:minmax(0,160px) 1fr;gap:16px;align-items:center}
+.srv video{width:100%;aspect-ratio:9/16;border-radius:16px;border:3px solid var(--fg);background:#1d2326;display:block}
+.srv p{margin:0 0 10px;color:var(--muted)}
+.srv b{display:block;font:700 1.15rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;color:var(--fg);margin-bottom:6px}
+@media (max-width:380px){.srv{grid-template-columns:1fr}.srv video{max-width:220px;margin:0 auto}}
 .why{display:grid;gap:8px}
 @media (min-width:560px){.why{grid-template-columns:1fr 1fr 1fr}}
 .why b{font:700 1.15rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em}
@@ -303,6 +308,12 @@ details p{margin-top:6px;color:var(--muted)}
     <span class="gain">Correct · +25 XP</span>
   </div>
   <p class="mock-cap">What a practice question looks like. Streaks and XP keep you coming back.</p>
+
+  <h2>Your service report</h2>
+  <div class="srv">
+    <video src="assets/video/service-report.mp4" poster="assets/video/service-report-poster.jpg" muted loop playsinline controls preload="none" aria-label="18-second clip: the service report you get after the practice exam"></video>
+    <div><b>Finish a test, get a ticket</b><p>Gauge readings by topic, what to fix first, and how close you are to test day. Written up like a service call, with you as the unit.</p><a class="btn alt" href="quiz/">Try it</a></div>
+  </div>
 
   <h2>Why this course</h2>
   <div class="why">
