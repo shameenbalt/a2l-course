@@ -115,7 +115,7 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
 <nav class="site-nav" aria-label="Site"><ul><li><a href="../../">Home</a></li><li><a href="../../lessons/" aria-current="page">Lessons</a></li><li><a href="../../quiz/">Quiz</a></li><li><a href="../../cheat-sheet/">Cheat sheet</a></li><li><a href="../../about/">About</a></li></ul></nav>
 <article>
   <header class="lhero"><div class="txt">
-    <p class="crumb"><a href="../">Lessons</a> · Lesson 2 · Part 1</p>
+    <p class="crumb"><a href="../">Lessons</a> · Lesson 2</p>
     <h1>What makes an A2L burn</h1>
     <p class="by">By Shameen · HVAC service tech · Nov 9, 2026</p>
     <div class="lcds"><span class="lcd"><b>02</b>/05 lesson</span><span class="lcd"><b>08</b>min</span></div>
@@ -133,7 +133,7 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
   </div>
 
   <p>A lot of techs think the safety class is the engineers' business. We just match the refrigerant on the data plate and go. I used to look at it that way too. But when I sat down with the standard, my biggest takeaway was simple: <b>the class is about safety.</b> It tells you how toxic the gas is, how easily it burns, what PPE to wear, and what to watch out for so the guy next to you goes home too.</p>
-  <p>This is Part 1. It covers the safety classes, how refrigerants get their names, and why the oil in the system matters as much as the gas. Part 2 gets into the numbers behind the burn.</p>
+  <p>This lesson covers the safety classes, how refrigerants get their names, why the oil matters as much as the gas, and how the lab decides what burns. More gets added as I study.</p>
 
   <h2><span class="n">1</span>The letter and the number</h2>
   <p>Every refrigerant gets a safety class from <b>ASHRAE Standard 34</b>. Its international twin is <b>ISO 817</b>. The edition I studied is ANSI/ASHRAE 34-2019 / ISO 817-2020. <span class="check">CHECK</span> newer edition</p>
@@ -227,6 +227,31 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
     <p>Something nobody in charge ever told me: think about your future self. When I'm working on a unit, I ask how I want it running five, seven, ten years from now. Maybe you're the one who gets the call when it doesn't.</p>
   </div>
 
+  <h2><span class="n">4</span>They test it. They don't guess.</h2>
+  <p>The classes aren't made up out of thin air. Each refrigerant gets tested in a lab. The flammability test ASHRAE uses is a modified version of <b>ASTM E681</b>: a glass flask, a set mix of refrigerant and air, a spark, and a camera watching whether the flame spreads. <span class="check">CHECK</span> test details</p>
+  <p>Three lab numbers decide where a refrigerant lands:</p>
+  <ul>
+    <li><b>LFL (lower flammability limit):</b> the least refrigerant in the air that can carry a flame through an even mix. Below it, the flame can't spread. R-32 is about 14% by volume, R-454B about 12%.</li>
+    <li><b>Heat of combustion:</b> how much heat comes off when it burns.</li>
+    <li><b>Burning velocity:</b> how fast the flame moves. This is what split old class 2 in two. A class 2 refrigerant with a flame of 10 cm/s or less is <b>2L</b>, "mildly flammable." Mild here means gentle by nature: it's hard to light and the flame is slow, not that it's safe.</li>
+  </ul>
+
+  <h3 class="sub">"Even A1 can burn"</h3>
+  <p>A1 means no flame spread <i>under the test conditions</i>: about 140°F at normal air pressure. It doesn't mean it can never burn. Push it past that, like high pressure mixed with air, and some A1 refrigerants can become combustible. That's one more reason you <b>never pressure test with refrigerant and air. Use dry nitrogen.</b> And in a torch flame, any of them breaks down into toxic gas. <span class="check">CHECK</span> R-410A specifics</p>
+
+  <h3 class="sub">The lab isn't your mechanical room</h3>
+  <p>Same as equipment ratings: the lab is a perfect, controlled setup, and the field never is. The LFL test uses an <b>even mix</b> of refrigerant and air. A real leak isn't even. It sinks and pools at the floor. So a room can be far below the LFL on average while the bottom few inches, right where the pilot light sits, are above it.</p>
+
+  <h3 class="sub">Do I really need to know this?</h3>
+  <p>Honestly, on most calls you're thinking about airflow and the compressor, not refrigerant science. I get it. Call this need-to-know. But you use these lab numbers every day without seeing them:</p>
+  <table class="tbl">
+    <tr><th>Lab number</th><th>Where it shows up on my job</th></tr>
+    <tr><td>LFL</td><td>The leak sensor (RDS) trips at about 25% of LFL. The nameplate's minimum room area comes from the LFL and the charge. <span class="check">CHECK</span></td></tr>
+    <tr><td>LFL + pooling</td><td>Why I kill pilots and open the door before I open the system.</td></tr>
+    <tr><td>Burning velocity</td><td>Why A2L charges can be bigger than A3 charges in the same room.</td></tr>
+    <tr><td>Test limits</td><td>Why I pressure test with nitrogen only, and recover before I braze.</td></tr>
+  </table>
+
   <div class="box tagcard">
     <strong class="h">Explain it back</strong>
     <p>Before the quiz, say this out loud like you're training a new helper. If you stumble, reread that part.</p>
@@ -236,18 +261,19 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
       <li>Use the rule of 90 to tell me what's in R-32.</li>
       <li>What does the B in R-454B mean? (Hint: not toxicity.)</li>
       <li>Why won't a deep vacuum fix wet POE oil, and what do you do instead?</li>
+      <li>What is the LFL, and why can a leak burn near the floor even when the room is below it?</li>
     </ol>
   </div>
 
-  <a class="go" href="../../quiz/?topics=basics,oil">Take the lesson quiz</a>
-  <p class="src">Quiz covers: safety class basics, refrigerant names, and oil, moisture and acid. Missed ones link back to the reading.</p>
+  <a class="go" href="../../quiz/?topics=basics,oil,fire">Take the lesson quiz</a>
+  <p class="src">Quiz covers: safety class basics, refrigerant names, oil and acid, and burning and limits. Missed ones link back to the reading.</p>
 
   <div class="next">
-    <strong>Coming in Part 2</strong>
-    <p>The numbers behind the burn: LFL (how much in the air before it can burn), burning velocity, MIE (how big a spark it takes), what it turns into when it does burn (HF and carbonyl fluoride), and RCL (how much is allowed in a room). I'm writing it after my next study session.</p>
+    <strong>Still coming</strong>
+    <p>MIE (how big a spark it takes), what it turns into when it does burn (HF and carbonyl fluoride), and RCL (how much is allowed in a room). I'm writing it after my next study sessions.</p>
   </div>
 
-  <p class="src">Sources to check: ANSI/ASHRAE Standard 34 and ISO 817 (designations and safety classes), your compressor maker's oil handling bulletin (open time, oil type, acid test). Items marked <span class="check">CHECK</span> are still being confirmed. Rules and standards change, so always follow the equipment maker's instructions and your local code. Study aid only.</p>
+  <p class="src">Sources to check: ANSI/ASHRAE Standard 34 and ISO 817 (designations, safety classes, flammability test), ASTM E681, your compressor maker's oil handling bulletin (open time, oil type, acid test). Items marked <span class="check">CHECK</span> are still being confirmed. Rules and standards change, so always follow the equipment maker's instructions and your local code. Study aid only.</p>
 </article>
 <script src="../../assets/jobsite.js" defer></script>
 

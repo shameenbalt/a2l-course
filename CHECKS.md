@@ -58,6 +58,8 @@ Last updated: 2026-11-09
 |---|---|---|---|
 | 28 | POE oil should not be open to the air more than about 15 minutes | Lesson 2 section 3, quiz (oil), glossary | Compressor maker oil bulletins (Copeland, Danfoss) |
 | 29 | Edition of ASHRAE 34 to cite (studied 34-2019 / ISO 817-2020; a newer edition may be current) | Lesson 2 section 1 | ASHRAE store / standard page |
+| 31 | ASHRAE 34 flammability test = modified ASTM E681 flask test at about 60°C (140°F), normal air pressure | Lesson 2 section 4, quiz | ASHRAE 34 / ASTM E681 |
+| 32 | Some A1 refrigerants (e.g. R-410A, R-22, R-134a) can be combustible at high pressure mixed with air | Lesson 2 section 4, quiz | Refrigerant SDS (Chemours, Honeywell) |
 | 30 | Safety class thresholds: A/B split at OEL 400 ppm; 2L max burning velocity 10 cm/s | Lesson 2 section 1, quiz | ASHRAE 34 |
 
 ## Confirmed
