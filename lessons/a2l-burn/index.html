@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What Makes an A2L Burn: Safety Classes, R-Numbers and Oil</title>
+<meta name="description" content="Lesson 2 for HVAC techs: ASHRAE 34 safety classes (A1, A2L, A3, B2L), how to read an R-number with the rule of 90, and why a deep vacuum won't fix wet POE oil. With a warm-up and quiz.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LearningResource","name":"What Makes an A2L Burn, Part 1: Safety Classes, R-Numbers and Oil","author":{"@type":"Person","name":"Shameen","jobTitle":"HVAC service technician"},"dateModified":"2026-11-09","educationalLevel":"Trade","learningResourceType":"Lesson","about":["A2L refrigerant","ASHRAE 34","refrigerant safety class","refrigerant designation","POE oil"]}
+</script>
+<style>
+/* Same look as the guide: one reading column, red A2L cylinder band as the only accent */
+:root{
+  --bg:#f4f5f5; --paper:#ffffff; --fg:#1d2326; --muted:#5b666c; --line:#d6dbde; --band:#c8322b; --tint:#fbecea; --good:#1f7a4a; --goodtint:#e3f3ea; --amber:#d99a1e;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;--amber:#e8b04a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191b;--paper:#1c2225;--fg:#e6e9eb;--muted:#9ba6ac;--line:#323b40;--band:#e2564e;--tint:#33201f;--good:#5fcf8f;--goodtint:#183026;--amber:#e8b04a;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:17px/1.65 var(--body);margin:0}
+article{max-width:680px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.band{height:10px;background:var(--band);border-radius:3px}
+.crumb{font:500 .8rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+h1{font:700 clamp(2.2rem,8vw,3.2rem)/.98 var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+h2{font:700 1.6rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.02em;margin:18px 0 0;text-wrap:balance}
+h2 .n{color:var(--band);margin-right:.25em}
+p,ul,ol{margin:0}
+ul,ol{padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.by{font:500 .8rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.box.top{border-top:4px solid var(--band)}
+.box strong.h{font:700 1.15rem var(--display);text-transform:uppercase;letter-spacing:.04em}
+.tip{background:var(--tint);border-radius:6px;padding:12px 16px}
+.story{border-left:4px solid var(--band);padding:4px 0 4px 14px;font-style:italic}
+.check{font:500 .72rem var(--mono);color:var(--band);border:1px solid var(--band);padding:1px 5px;border-radius:3px;white-space:nowrap;font-style:normal}
+a{color:var(--fg);text-decoration-color:var(--band);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--band);outline-offset:2px}
+/* warm-up */
+.wq{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.wq:first-of-type{border-top:0;padding-top:0}
+.wq p.q{font-weight:600}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{font:inherit;font-size:.95rem;text-align:left;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;cursor:pointer;min-height:44px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--goodtint);border-color:var(--good)}
+.opt.wrong{background:var(--tint);border-color:var(--band)}
+.why{font-size:.92rem;color:var(--muted)}
+.why b{color:var(--fg)}
+/* label sample */
+.label{font-family:var(--mono);font-size:.85rem;border:2px solid var(--fg);border-radius:6px;padding:12px 14px;background:var(--paper);display:grid;grid-template-columns:auto 1fr;gap:6px 12px}
+.label .t{grid-column:1/-1;text-align:center;font-weight:600;letter-spacing:.08em;border-bottom:1px solid var(--line);padding-bottom:6px}
+.label span:nth-child(odd):not(.t){color:var(--muted);text-transform:uppercase;font-size:.75rem;padding-top:2px}
+.go{display:block;text-align:center;background:var(--band);color:#fff;font:700 1.25rem var(--display);text-transform:uppercase;letter-spacing:.05em;text-decoration:none;border-radius:8px;padding:14px}
+.go:hover{filter:brightness(1.08)}
+.src{font-size:.88rem;color:var(--muted)}
+/* figures: inline SVG drawn with the page tokens so they flip with dark mode */
+figure{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px 12px 12px;display:flex;flex-direction:column;gap:8px}
+figure svg{width:100%;height:auto;display:block;font-family:var(--body)}
+figcaption{font-size:.9rem;color:var(--muted);line-height:1.5}
+svg text{fill:var(--fg)} svg .sm{font-size:12.5px} svg .mut{fill:var(--muted)} svg .ok{fill:var(--good);font-weight:600} svg .red-t{fill:var(--band);font-weight:600}
+svg .chip{fill:var(--fg)} svg .chipt{fill:var(--paper);font:700 19px var(--display);text-anchor:middle}
+svg .trk{fill:var(--line)} svg .amb{fill:var(--amber)} svg .red{fill:var(--band)}
+svg .body{fill:var(--bg);stroke:var(--fg);stroke-width:2} svg .win{fill:var(--line)} svg .tire{fill:var(--fg)}
+svg .lead,svg .vent line,svg .coil line{stroke:var(--muted);stroke-width:1.5} svg .rack{stroke:var(--muted);stroke-width:4}
+svg .arw{fill:none;stroke:var(--fg);stroke-width:2} svg .fgf{fill:var(--fg)} svg .spin{fill:var(--band);font-size:26px;font-weight:700}
+svg .strap{stroke:var(--amber);stroke-width:5} svg .xx{fill:var(--band);font-size:34px;font-weight:700}
+svg .room{fill:none;stroke:var(--fg);stroke-width:2} svg .g0{stop-color:var(--amber);stop-opacity:.05} svg .g1{stop-color:var(--amber);stop-opacity:.55}
+svg .pilotbox{fill:var(--fg)} svg .flame{fill:#f28a2e}
+h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.03em;margin:4px 0 0}
+.steps{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;counter-reset:s}
+.steps li{counter-increment:s;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:2px;position:relative}
+.steps li::before{content:counter(s);position:absolute;top:8px;right:10px;font:700 1.3rem var(--display);color:var(--band)}
+.steps .ic{font-size:1.8rem;line-height:1.2}.steps span:last-child{font-size:.88rem;color:var(--muted)}
+.ign{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ign span{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.92rem;display:flex;flex-direction:column;gap:2px;line-height:1.35}
+.ign span:last-child{grid-column:1/-1;background:var(--goodtint);border-color:var(--good)}
+.ign i{font-style:normal;font-size:1.5rem}
+
+
+/* Lesson 2: safety class grid and R-number pieces */
+.grid{display:grid;grid-template-columns:44px repeat(4,1fr);gap:4px;font-size:.8rem;line-height:1.3}
+.grid .hd{font:700 .95rem var(--display);text-transform:uppercase;text-align:center;color:var(--muted);align-self:end}
+.grid .rw{font:700 1.5rem var(--display);display:flex;align-items:center;justify-content:center;background:var(--fg);color:var(--paper);border-radius:6px}
+.grid .c{border-radius:6px;padding:7px 5px;min-height:64px;display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);background:var(--paper)}
+.grid .c b{font:700 1.15rem/1 var(--display)}
+.grid .c.f2l{background:color-mix(in srgb,var(--amber) 22%,var(--paper))}
+.grid .c.f2{background:color-mix(in srgb,#f28a2e 32%,var(--paper))}
+.grid .c.f3{background:color-mix(in srgb,var(--band) 40%,var(--paper))}
+.grid .c.rare{opacity:.6}
+.grid .c.me{outline:3px solid var(--band);outline-offset:-1px}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--paper);border:1px solid var(--line);border-radius:6px}
+.tbl th,.tbl td{text-align:left;padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+.tbl th{font:700 1rem var(--display);text-transform:uppercase;letter-spacing:.03em;border-top:0}
+.tbl td:first-child{font-family:var(--mono);white-space:nowrap}
+.dec{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch}
+.dec span{flex:1 1 70px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px;text-align:center;display:flex;flex-direction:column;gap:2px}
+.dec b{font:500 1.6rem/1 var(--mono);color:var(--band)}
+.dec i{font-style:normal;font-size:.8rem;color:var(--muted)}
+.build{display:flex;flex-direction:column;gap:10px}
+.build .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.build .row>span{font:500 .75rem var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);width:100%}
+.build button{font:700 1.3rem var(--display);min-width:56px;min-height:48px;border-radius:6px;border:2px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;flex:1}
+.build button[aria-pressed="true"]{border-color:var(--band);background:var(--tint)}
+.build .out{background:var(--bg);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.build .out b.cls{font:700 2rem/1 var(--display)}
+.next{border:2px dashed var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.next strong{font:700 1.15rem var(--display);text-transform:uppercase;letter-spacing:.04em}
+</style>
+<link rel="stylesheet" href="../../assets/nav.css">
+<link rel="stylesheet" href="../../assets/motion.css">
+<link rel="stylesheet" href="../../assets/jobsite.css">
+</head>
+<body>
+<nav class="site-nav" aria-label="Site"><ul><li><a href="../../">Home</a></li><li><a href="../../lessons/" aria-current="page">Lessons</a></li><li><a href="../../quiz/">Quiz</a></li><li><a href="../../cheat-sheet/">Cheat sheet</a></li><li><a href="../../about/">About</a></li></ul></nav>
+<article>
+  <header class="lhero"><div class="txt">
+    <p class="crumb"><a href="../">Lessons</a> · Lesson 2</p>
+    <h1>What makes an A2L burn</h1>
+    <p class="by">By Shameen · HVAC service tech · Nov 9, 2026</p>
+    <div class="lcds"><span class="lcd"><b>02</b>/05 lesson</span><span class="lcd"><b>08</b>min</span></div>
+  </div><svg class="lart" viewBox="0 0 104 150" aria-hidden="true">
+<path d="M52 18c10 16 30 30 30 62a30 30 0 0 1-60 0c0-16 8-24 14-34 2 10 6 14 10 16 4-14 4-30 6-44z" fill="#f28a2e"/>
+<path d="M52 70c6 8 14 14 14 26a14 14 0 0 1-28 0c0-8 4-12 8-16 1 4 3 6 5 7 1-6 1-12 1-17z" fill="#f2c230"/>
+<rect x="18" y="122" width="68" height="22" rx="4" fill="#1e2528" stroke="#e6e9eb" stroke-width="2"/>
+<text x="52" y="139" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="17" style="fill:#e6e9eb">A2L</text>
+</svg><div class="hazard" aria-hidden="true"></div></header>
+
+  <div class="box top">
+    <strong class="h">Warm-up: 3 quick guesses</strong>
+    <p class="why">Guess before you read. Getting one wrong is fine. It makes the answer stick when you get to it below. Nothing here is scored.</p>
+    <div id="warm"></div>
+  </div>
+
+  <p>A lot of techs think the safety class is the engineers' business. We just match the refrigerant on the data plate and go. I used to look at it that way too. But when I sat down with the standard, my biggest takeaway was simple: <b>the class is about safety.</b> It tells you how toxic the gas is, how easily it burns, what PPE to wear, and what to watch out for so the guy next to you goes home too.</p>
+  <p>This lesson covers the safety classes, how refrigerants get their names, why the oil matters as much as the gas, and how the lab decides what burns, and how much refrigerant a room can take. More gets added as I study.</p>
+
+  <h2><span class="n">1</span>The letter and the number</h2>
+  <p>Every refrigerant gets a safety class from <b>ASHRAE Standard 34</b>. Its international twin is <b>ISO 817</b>. The edition I studied is ANSI/ASHRAE 34-2019 / ISO 817-2020. <span class="check">CHECK</span> newer edition</p>
+  <figure>
+    <div class="grid" role="table" aria-label="ASHRAE 34 safety classes: A or B for toxicity, 1, 2L, 2 or 3 for flammability, with an example refrigerant in each">
+      <span></span><span class="hd">1</span><span class="hd">2L</span><span class="hd">2</span><span class="hd">3</span>
+      <span class="rw">A</span>
+      <span class="c"><b>A1</b>R-410A<br>R-22, R-134a</span>
+      <span class="c f2l me"><b>A2L</b>R-454B<br>R-32</span>
+      <span class="c f2"><b>A2</b>R-152a</span>
+      <span class="c f3"><b>A3</b>R-290<br>propane</span>
+      <span class="rw">B</span>
+      <span class="c"><b>B1</b>R-123</span>
+      <span class="c f2l"><b>B2L</b>R-717<br>ammonia</span>
+      <span class="c f2 rare"><b>B2</b>rare in HVAC</span>
+      <span class="c f3 rare"><b>B3</b>rare in HVAC</span>
+    </div>
+    <figcaption><b>Letter = how toxic.</b> A is lower toxicity, B is higher. <b>Number = how it burns.</b> 1 no flame spread, 2L lower flammability, 2 flammable, 3 highly flammable. Eight classes in all.</figcaption>
+  </figure>
+  <ul>
+    <li><b>A or B:</b> the cutoff is the occupational exposure limit (OEL), the amount a worker can breathe day after day. 400 ppm or more is A. Under 400 ppm is B.</li>
+    <li><b>1:</b> no flame spreads in the test.</li>
+    <li><b>2L:</b> it can burn, but the flame crawls: 10 cm/s or less (about 4 inches a second). Hard to light, weak flame.</li>
+    <li><b>2:</b> burns, faster flame.</li>
+    <li><b>3:</b> lights easily and burns hot, like propane. It can light at a low amount in the air, or it puts out a lot of heat when it burns.</li>
+  </ul>
+
+
+  <div class="box">
+    <strong class="h">Build a refrigerant class</strong>
+    <p class="why">Pick a letter and a number. See what that class means on the job.</p>
+    <div class="build">
+      <div class="row" id="bL"><span>Letter = toxicity</span><button type="button" data-v="A" aria-pressed="true">A</button><button type="button" data-v="B" aria-pressed="false">B</button></div>
+      <div class="row" id="bN"><span>Number = flammability</span><button type="button" data-v="1" aria-pressed="false">1</button><button type="button" data-v="2L" aria-pressed="true">2L</button><button type="button" data-v="2" aria-pressed="false">2</button><button type="button" data-v="3" aria-pressed="false">3</button></div>
+      <div class="out" id="bOut" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="tip"><b>Don't mix up the two numbers.</b> The number in the safety class (the 3 in A3) is flammability. The R-number on the tank (R-290, R-600a, R-410A) is not. It comes from the chemistry. R-410A has a big number and doesn't burn. R-32 has a small one and does.</div>
+
+  <h3 class="sub">What the class changes for me</h3>
+  <table class="tbl">
+    <tr><th>Class</th><th>On the job</th></tr>
+    <tr><td>A1</td><td>Still pools low and pushes out oxygen. Still makes toxic gas in a flame. Gloves and goggles.</td></tr>
+    <tr><td>A2L</td><td>All of that, plus: kill ignition sources, keep air moving, A2L-rated tools, detector running.</td></tr>
+    <tr><td>A3</td><td>Tiny charges only. Treat every leak like a gas leak.</td></tr>
+    <tr><td>B</td><td>Breathing it is the danger. Know the exits, ventilation and respirator plan before you open anything.</td></tr>
+  </table>
+
+  <h2><span class="n">2</span>Read the R-number</h2>
+  <p>The name on the tank is called the <b>designation</b>. ASHRAE 34 assigns it, and it's built from the refrigerant's chemical formula. So the name actually tells you what's in the molecule, if you know the trick.</p>
+  <h3 class="sub">The rule of 90</h3>
+  <p>For simple refrigerants (two or three digits), add 90. The three digits you get are the number of <b>carbon</b>, <b>hydrogen</b> and <b>fluorine</b> atoms.</p>
+  <div class="dec" aria-label="R-32 plus 90 is 122: 1 carbon, 2 hydrogen, 2 fluorine">
+    <span><i>R-32 + 90</i><b>122</b></span>
+    <span><i>Carbon</i><b>1</b></span>
+    <span><i>Hydrogen</i><b>2</b></span>
+    <span><i>Fluorine</i><b>2</b></span>
+  </div>
+  <p>R-32 is CH₂F₂. Try R-134a: 134 + 90 = 224, so 2 carbon, 2 hydrogen, 4 fluorine. Try R-22: 22 + 90 = 112, so 1 carbon, 1 hydrogen, 2 fluorine, and the leftover spot is chlorine. That chlorine is why R-22 hurt the ozone layer.</p>
+
+  <h3 class="sub">The series</h3>
+  <table class="tbl">
+    <tr><th>Number</th><th>What it is</th></tr>
+    <tr><td>R-4xx</td><td>Zeotropic blend (has glide). R-410A, R-454B, R-452B.</td></tr>
+    <tr><td>R-5xx</td><td>Azeotropic blend (acts like one refrigerant). R-502, R-507A.</td></tr>
+    <tr><td>R-6xx</td><td>Organic, like hydrocarbons. R-600a isobutane.</td></tr>
+    <tr><td>R-7xx</td><td>Inorganic. 700 + the molecule's weight: ammonia R-717, CO₂ R-744.</td></tr>
+    <tr><td>R-1xxx</td><td>Four digits = a double bond. The HFOs, like R-1234yf.</td></tr>
+  </table>
+
+  <h3 class="sub">The letters</h3>
+  <ul>
+    <li><b>Capital letter after a blend</b> (R-454<b>A</b>, <b>B</b>, <b>C</b>): same ingredients, different recipe. R-454B is R-32 and R-1234yf at about 69/31. The B has nothing to do with toxicity.</li>
+    <li><b>Small letter</b> (R-134<b>a</b>, R-1234<b>yf</b>): same atoms, arranged a different way.</li>
+    <li><b>Prefix</b> (HFC-134a, HCFC-22): same refrigerant as R-134a or R-22. The prefix just tells you the chemical family. You'll see it in rules and on spec sheets.</li>
+  </ul>
+
+  <h2><span class="n">3</span>Keep the oil dry</h2>
+  <p>The same page that teaches the names also hammers on oil, and I'm glad it does. R-454B and R-32 systems run POE oil, just like R-410A. POE pulls water out of the air. Here's what I wrote down:</p>
+  <ol>
+    <li><b>15 minutes.</b> Don't leave POE open to the air for more than about 15 minutes. That goes for the compressor, the piping, and the oil jug. Past that you're working backwards. <span class="check">CHECK</span> your compressor maker's number</li>
+    <li><b>A deep vacuum won't fix wet POE.</b> You hear this in the field all the time: "just pull a good vacuum and it'll dry out." A vacuum pulls free water out of the system. It can't undo water that has already reacted with POE. That reaction makes acid, and the acid stays.</li>
+    <li><b>Moisture + air + other contaminants = trouble.</b> Mix them with heat and you get a chemical reaction: acid and sludge that eat windings and plug metering devices.</li>
+    <li><b>If you suspect acid, test the oil.</b> An acid test kit costs less than a compressor. Don't guess by smell.</li>
+    <li><b>Contaminated oil has to come out.</b> Flush where it's allowed, change the oil, new filter driers, then retest. Follow the equipment maker. Some systems, like many VRF, don't allow add-on driers or flush chemicals in the field piping.</li>
+  </ol>
+
+  <div class="story">
+    <p>Real talk: you'll get pressure to hurry. Sometimes it's sales, sometimes it's your supervisor. Take your time anyway, and be ready to explain why. Cap the lines, keep the oil sealed, do the acid test. Ten extra minutes now beats a callback and a second compressor. We all want the company to make money. But I'd rather be known as the sharp tech whose jobs don't come back.</p>
+    <p>Something nobody in charge ever told me: think about your future self. When I'm working on a unit, I ask how I want it running five, seven, ten years from now. Maybe you're the one who gets the call when it doesn't.</p>
+  </div>
+
+  <h2><span class="n">4</span>They test it. They don't guess.</h2>
+  <p>The classes aren't made up out of thin air. Each refrigerant gets tested in a lab. The flammability test ASHRAE uses is a modified version of <b>ASTM E681</b>: a glass flask, a set mix of refrigerant and air, a spark, and a camera watching whether the flame spreads. <span class="check">CHECK</span> test details</p>
+  <p>Three lab numbers decide where a refrigerant lands:</p>
+  <ul>
+    <li><b>LFL (lower flammability limit):</b> the least refrigerant in the air that can carry a flame through an even mix. It's given as a percent of the air by volume. Below it, the flame can't <i>propagate</i>, meaning spread out from where it started. Memory hook: <b>Lowest Fire Level</b>, like the least wood that still keeps a campfire going. R-32 is about 14% by volume, R-454B about 12%.</li>
+    <li><b>Heat of combustion:</b> how much heat comes off when it burns.</li>
+    <li><b>Burning velocity:</b> how fast the flame moves. This is what split old class 2 in two. A class 2 refrigerant with a flame of 10 cm/s or less is <b>2L</b>, "mildly flammable." Mild here means gentle by nature: it's hard to light and the flame is slow, not that it's safe.</li>
+  </ul>
+
+  <h3 class="sub">"Even A1 can burn"</h3>
+  <p>A1 means no flame spread <i>under the test conditions</i>: about 140°F at normal air pressure. It doesn't mean it can never burn. Push it past that, like high pressure mixed with air, and some A1 refrigerants can become combustible. That's one more reason you <b>never pressure test with refrigerant and air. Use dry nitrogen.</b> And in a torch flame, any of them breaks down into toxic gas. <span class="check">CHECK</span> R-410A specifics</p>
+
+  <h3 class="sub">The lab isn't your mechanical room</h3>
+  <p>Same as equipment ratings: the lab is a perfect, controlled setup, and the field never is. The LFL test uses an <b>even mix</b> of refrigerant and air. A real leak isn't even. It sinks and pools at the floor. So a room can be far below the LFL on average while the bottom few inches, right where the pilot light sits, are above it.</p>
+
+  <h3 class="sub">Do I really need to know this?</h3>
+  <p>Honestly, on most calls you're thinking about airflow and the compressor, not refrigerant science. I get it. Call this need-to-know. But you use these lab numbers every day without seeing them:</p>
+  <table class="tbl">
+    <tr><th>Lab number</th><th>Where it shows up on my job</th></tr>
+    <tr><td>LFL</td><td>The leak sensor (RDS) trips at about 25% of LFL. The nameplate's minimum room area comes from the LFL and the charge. <span class="check">CHECK</span></td></tr>
+    <tr><td>LFL + pooling</td><td>Why I kill pilots and open the door before I open the system.</td></tr>
+    <tr><td>Burning velocity</td><td>Why A2L charges can be bigger than A3 charges in the same room.</td></tr>
+    <tr><td>Test limits</td><td>Why I pressure test with nitrogen only, and recover before I braze.</td></tr>
+  </table>
+
+  <h2><span class="n">5</span>How much is too much in a room: RCL</h2>
+  <p><b>RCL (refrigerant concentration limit)</b> is the most refrigerant allowed in an occupied space. Memory hook: <b>Room's Cap Limit</b>, like the max occupancy sign on the wall.</p>
+  <p>ASHRAE works out three limits and the RCL is the <b>lowest</b> of them. The tightest one wins:</p>
+  <div class="dec" aria-label="The three limits behind RCL">
+    <span><i>Toxicity</i><b>ATEL</b></span>
+    <span><i>Oxygen</i><b>ODL</b></span>
+    <span><i>Fire</i><b>FCL</b></span>
+  </div>
+  <ul>
+    <li><b>ATEL (acute toxicity exposure limit):</b> how much you can breathe in a short burst before it hurts you. Hook: <b>too much, too fast</b>.</li>
+    <li><b>ODL (oxygen deprivation limit):</b> how much refrigerant before it pushes out enough oxygen to hurt you (asphyxiation).</li>
+    <li><b>FCL (flammable concentration limit):</b> a safety margin under the LFL, so a leak in the room stays well short of burning. <span class="check">CHECK</span> exact %</li>
+  </ul>
+  <p>You'll also see <b>IDLH (immediately dangerous to life or health)</b>, a level where you could be killed or badly hurt, or not be able to get yourself out. Hook: <b>I Don't Linger Here</b>. If you're anywhere near it, you leave.</p>
+  <div class="story">
+    <p>A real one from my own work. An R-410A VRF system, well over 100 lb of charge. The indoor unit sat above the ceiling tiles in a small bathroom. The evap fittings were opened, and refrigerant rushed out for about 20 minutes. On VRF, a leak at one indoor unit can pull from the whole system, so that wasn't just one coil's worth.</p>
+  </div>
+  <h3 class="sub">Run the numbers on that bathroom</h3>
+  <ul>
+    <li>Room about 5 × 8 × 8 ft = about <b>320 ft³</b>.</li>
+    <li>R-410A's RCL is about <b>26 lb per 1,000 ft³</b>, which works out to about 14% of the air. For this room that's only about <b>8 lb</b>. <span class="check">CHECK</span></li>
+    <li>8 lb of R-410A vapor takes up about 45 ft³, roughly a seventh of that room. At 14% refrigerant, oxygen drops to about 18%, already under OSHA's 19.5% line.</li>
+    <li>In a 20-minute rush from a 100+ lb system, you're likely far past that, and worst of all up in the ceiling cavity where your head is.</li>
+  </ul>
+  <p><b>What I'd do now:</b> isolate the unit with the service valves first, before opening anything. If it gets away from you, stop, step out, and ventilate. Don't stay in the room trying to save the charge. This is also why ASHRAE 15 checks a VRF system's charge against the <b>smallest room it serves</b>.</p>
+  <p>Where this hits my job: RCL and the charge size decide how much refrigerant a system can have for the room it serves. That's why the nameplate lists a minimum room area, and why a big leak in a small room is a bigger deal than the same leak on a roof.</p>
+
+  <div class="box tagcard">
+    <strong class="h">Explain it back</strong>
+    <p>Before the quiz, say this out loud like you're training a new helper. If you stumble, reread that part.</p>
+    <ol>
+      <li>What does the letter mean in A2L, and what does the 2L mean?</li>
+      <li>Name one refrigerant in A1, A2L, A3 and B2L.</li>
+      <li>Use the rule of 90 to tell me what's in R-32.</li>
+      <li>What does the B in R-454B mean? (Hint: not toxicity.)</li>
+      <li>Why won't a deep vacuum fix wet POE oil, and what do you do instead?</li>
+      <li>What is the LFL, and why can a leak burn near the floor even when the room is below it?</li>
+      <li>What three limits go into the RCL, and which one wins?</li>
+    </ol>
+  </div>
+
+  <a class="go" href="../../quiz/?topics=basics,oil,fire">Take the lesson quiz</a>
+  <p class="src">Quiz covers: safety class basics, refrigerant names, oil and acid, and burning and limits. Missed ones link back to the reading.</p>
+
+  <div class="next">
+    <strong>Still coming</strong>
+    <p>MIE (how big a spark it takes) and what it turns into when it does burn (HF and carbonyl fluoride). I'm writing it after my next study sessions.</p>
+  </div>
+
+  <p class="src">Sources to check: ANSI/ASHRAE Standard 34 and ISO 817 (designations, safety classes, flammability test), ASTM E681, your compressor maker's oil handling bulletin (open time, oil type, acid test). Items marked <span class="check">CHECK</span> are still being confirmed. Rules and standards change, so always follow the equipment maker's instructions and your local code. Study aid only.</p>
+</article>
+<script src="../../assets/jobsite.js" defer></script>
+
+<script>
+/* Warm-up: tap to reveal, no score. Answers are covered in sections 1, 2 and 3. */
+const W=[
+ {q:"Ammonia is class B2L. What does the B tell you?",o:["It burns","It's more toxic","It's a blend"],a:1,e:"<b>Higher toxicity.</b> The letter is toxicity, the number is how it burns. See section 1."},
+ {q:"What does the B in R-454B mean?",o:["Higher toxicity","It's the second recipe of that blend","It's a backup refrigerant"],a:1,e:"<b>Recipe version.</b> R-454A, B and C use the same two refrigerants in different amounts. See section 2."},
+ {q:"POE oil in a system got wet. Will a long, deep vacuum fix it?",o:["Yes, pull it below 500 microns and it's dry","No, water that reacted with the oil left acid behind","Only if you heat the compressor"],a:1,e:"<b>No.</b> The vacuum pulls free water, not the acid it already made. Test it and change it. See section 3."}];
+const box=document.getElementById("warm");
+box.innerHTML=W.map((w,k)=>`<div class="wq"><p class="q">${k+1}. ${w.q}</p><div class="opts">${w.o.map((o,n)=>`<button class="opt" data-w="${k}" data-n="${n}">${o}</button>`).join("")}</div><p class="why" hidden>${w.e}</p></div>`).join("");
+box.addEventListener("click",ev=>{const b=ev.target.closest(".opt");if(!b)return;const w=W[+b.dataset.w],wrap=b.closest(".wq");
+ wrap.querySelectorAll(".opt").forEach((el,n)=>{el.disabled=true;if(n===w.a)el.classList.add("right");else if(el===b)el.classList.add("wrong")});
+ wrap.querySelector(".why").hidden=false});
+
+/* Build a class: letter x number -> meaning */
+(function(){const L={A:"Lower toxicity (exposure limit 400 ppm or more).",B:"Higher toxicity (exposure limit under 400 ppm). Breathing it is a real danger."};
+const N={"1":"No flame spread.","2L":"Lower flammability: hard to light, slow flame (10 cm/s or less).","2":"Flammable: burns with a faster flame.","3":"Highly flammable: lights easily and burns hot."};
+const EX={A1:"R-410A, R-22, R-134a",A2L:"R-454B, R-32, R-1234yf",A2:"R-152a",A3:"R-290 propane, R-600a isobutane",B1:"R-123 (chillers)",B2L:"R-717 ammonia",B2:"rare in HVAC",B3:"rare in HVAC"};
+const DO={A1:"Gloves and goggles. It still pools low, pushes out oxygen, and makes toxic gas in a flame.",A2L:"Kill ignition sources, keep air moving, A2L-rated tools, detector on.",A2:"Treat it like a flammable gas: no ignition sources, rated tools, ventilation.",A3:"Tiny charges only. Treat any leak like a gas leak.",B1:"Plan ventilation, exits and respirator before you open it.",B2L:"Respirator plan and ventilation first, and keep ignition sources away.",B2:"Toxic and flammable: ventilation, respirator, no ignition sources.",B3:"Toxic and highly flammable: specialist work only."};
+let l="A",n="2L";const out=document.getElementById("bOut");
+function draw(){const c=l+n;out.innerHTML=`<b class="cls">${c}</b><span>${L[l]} ${N[n]}</span><span><b>Example:</b> ${EX[c]}</span><span><b>On the job:</b> ${DO[c]}</span>`}
+function wire(id,set){document.getElementById(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));set(b.dataset.v);draw()})}
+wire("bL",v=>l=v);wire("bN",v=>n=v);draw()})();
+</script>
+<script src="../../assets/motion.js" defer></script>
+</body>
+</html>
