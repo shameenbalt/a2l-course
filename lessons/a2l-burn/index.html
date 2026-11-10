@@ -133,7 +133,7 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
   </div>
 
   <p>A lot of techs think the safety class is the engineers' business. We just match the refrigerant on the data plate and go. I used to look at it that way too. But when I sat down with the standard, my biggest takeaway was simple: <b>the class is about safety.</b> It tells you how toxic the gas is, how easily it burns, what PPE to wear, and what to watch out for so the guy next to you goes home too.</p>
-  <p>This lesson covers the safety classes, how refrigerants get their names, why the oil matters as much as the gas, and how the lab decides what burns. More gets added as I study.</p>
+  <p>This lesson covers the safety classes, how refrigerants get their names, why the oil matters as much as the gas, and how the lab decides what burns, and how much refrigerant a room can take. More gets added as I study.</p>
 
   <h2><span class="n">1</span>The letter and the number</h2>
   <p>Every refrigerant gets a safety class from <b>ASHRAE Standard 34</b>. Its international twin is <b>ISO 817</b>. The edition I studied is ANSI/ASHRAE 34-2019 / ISO 817-2020. <span class="check">CHECK</span> newer edition</p>
@@ -231,7 +231,7 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
   <p>The classes aren't made up out of thin air. Each refrigerant gets tested in a lab. The flammability test ASHRAE uses is a modified version of <b>ASTM E681</b>: a glass flask, a set mix of refrigerant and air, a spark, and a camera watching whether the flame spreads. <span class="check">CHECK</span> test details</p>
   <p>Three lab numbers decide where a refrigerant lands:</p>
   <ul>
-    <li><b>LFL (lower flammability limit):</b> the least refrigerant in the air that can carry a flame through an even mix. Below it, the flame can't spread. R-32 is about 14% by volume, R-454B about 12%.</li>
+    <li><b>LFL (lower flammability limit):</b> the least refrigerant in the air that can carry a flame through an even mix. It's given as a percent of the air by volume. Below it, the flame can't <i>propagate</i>, meaning spread out from where it started. Memory hook: <b>Lowest Fire Level</b>, like the least wood that still keeps a campfire going. R-32 is about 14% by volume, R-454B about 12%.</li>
     <li><b>Heat of combustion:</b> how much heat comes off when it burns.</li>
     <li><b>Burning velocity:</b> how fast the flame moves. This is what split old class 2 in two. A class 2 refrigerant with a flame of 10 cm/s or less is <b>2L</b>, "mildly flammable." Mild here means gentle by nature: it's hard to light and the flame is slow, not that it's safe.</li>
   </ul>
@@ -252,6 +252,22 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
     <tr><td>Test limits</td><td>Why I pressure test with nitrogen only, and recover before I braze.</td></tr>
   </table>
 
+  <h2><span class="n">5</span>How much is too much in a room: RCL</h2>
+  <p><b>RCL (refrigerant concentration limit)</b> is the most refrigerant allowed in an occupied space. Memory hook: <b>Room's Cap Limit</b>, like the max occupancy sign on the wall.</p>
+  <p>ASHRAE works out three limits and the RCL is the <b>lowest</b> of them. The tightest one wins:</p>
+  <div class="dec" aria-label="The three limits behind RCL">
+    <span><i>Toxicity</i><b>ATEL</b></span>
+    <span><i>Oxygen</i><b>ODL</b></span>
+    <span><i>Fire</i><b>FCL</b></span>
+  </div>
+  <ul>
+    <li><b>ATEL (acute toxicity exposure limit):</b> how much you can breathe in a short burst before it hurts you. Hook: <b>too much, too fast</b>.</li>
+    <li><b>ODL (oxygen deprivation limit):</b> how much refrigerant before it pushes out enough oxygen to hurt you (asphyxiation).</li>
+    <li><b>FCL (flammable concentration limit):</b> a safety margin under the LFL, so a leak in the room stays well short of burning. <span class="check">CHECK</span> exact %</li>
+  </ul>
+  <p>You'll also see <b>IDLH (immediately dangerous to life or health)</b>, a level where you could be killed or badly hurt, or not be able to get yourself out. Hook: <b>I Don't Linger Here</b>. If you're anywhere near it, you leave.</p>
+  <p>Where this hits my job: RCL and the charge size decide how much refrigerant a system can have for the room it serves. That's why the nameplate lists a minimum room area, and why a big leak in a small room is a bigger deal than the same leak on a roof.</p>
+
   <div class="box tagcard">
     <strong class="h">Explain it back</strong>
     <p>Before the quiz, say this out loud like you're training a new helper. If you stumble, reread that part.</p>
@@ -262,6 +278,7 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
       <li>What does the B in R-454B mean? (Hint: not toxicity.)</li>
       <li>Why won't a deep vacuum fix wet POE oil, and what do you do instead?</li>
       <li>What is the LFL, and why can a leak burn near the floor even when the room is below it?</li>
+      <li>What three limits go into the RCL, and which one wins?</li>
     </ol>
   </div>
 
@@ -270,7 +287,7 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
 
   <div class="next">
     <strong>Still coming</strong>
-    <p>MIE (how big a spark it takes), what it turns into when it does burn (HF and carbonyl fluoride), and RCL (how much is allowed in a room). I'm writing it after my next study sessions.</p>
+    <p>MIE (how big a spark it takes) and what it turns into when it does burn (HF and carbonyl fluoride). I'm writing it after my next study sessions.</p>
   </div>
 
   <p class="src">Sources to check: ANSI/ASHRAE Standard 34 and ISO 817 (designations, safety classes, flammability test), ASTM E681, your compressor maker's oil handling bulletin (open time, oil type, acid test). Items marked <span class="check">CHECK</span> are still being confirmed. Rules and standards change, so always follow the equipment maker's instructions and your local code. Study aid only.</p>
