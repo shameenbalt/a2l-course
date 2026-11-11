@@ -26,6 +26,8 @@ Last updated: 2026-11-09
 | 10 | RCL vs LFL relationship | Quiz | ASHRAE 15 / ASHRAE 34 |
 | 11 | Joints inside the occupied space must be permanent (brazed or listed mechanical) | Quiz | UL 60335-2-40 / ASHRAE 15 |
 | 12 | Pressure test: stay under the low-side rating on low-side parts | Lesson 3, quiz | Manufacturer install manuals (IOM) |
+| 38 | Minimum room area on multi-circuit units is based on the largest single circuit charge | Quiz (plate) | UL 60335-2-40 |
+| 39 | Rooftop A2L units: two sensors (airstream + compressor section); on leak: compressors off, supply fan on, electric heat off | Quiz (detect) | Manufacturer IOM, UL 60335-2-40 |
 
 ## Cylinders, tools and hauling
 
@@ -63,8 +65,6 @@ Last updated: 2026-11-09
 | 33 | RCL = lowest of ATEL, ODL and FCL; FCL is a set percent of LFL (25%?) | Lesson 2 section 5, quiz, glossary | ASHRAE 34 |
 | 34 | R-410A RCL about 26 lb/1,000 ft³ (about 0.42 kg/m³, about 14% by volume); ASHRAE 15 checks VRF charge against the smallest room served | Lesson 2 section 5 | ASHRAE 34 table, ASHRAE 15 |
 | 30 | Safety class thresholds: A/B split at OEL 400 ppm; 2L max burning velocity 10 cm/s | Lesson 2 section 1, quiz | ASHRAE 34 |
-| 35 | Minimum room area on multi-circuit units is based on the largest single circuit charge | Quiz (plate) | UL 60335-2-40 |
-| 36 | Rooftop A2L units: two sensors (airstream + compressor section); on leak: compressors off, supply fan on, electric heat off | Quiz (detect) | Manufacturer IOM, UL 60335-2-40 |
 
 ## Confirmed
 
