@@ -7,7 +7,7 @@
 <meta name="description" content="Lesson 2 for HVAC techs: ASHRAE 34 safety classes (A1, A2L, A3, B2L), how to read an R-number with the rule of 90, and why a deep vacuum won't fix wet POE oil. With a warm-up and quiz.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LearningResource","name":"What Makes an A2L Burn, Part 1: Safety Classes, R-Numbers and Oil","author":{"@type":"Person","name":"Shameen","jobTitle":"HVAC service technician"},"dateModified":"2026-11-09","educationalLevel":"Trade","learningResourceType":"Lesson","about":["A2L refrigerant","ASHRAE 34","refrigerant safety class","refrigerant designation","POE oil"]}
+{"@context":"https://schema.org","@type":"LearningResource","name":"What Makes an A2L Burn, Part 1: Safety Classes, R-Numbers and Oil","author":{"@type":"Person","name":"Shameen","jobTitle":"HVAC service technician"},"dateModified":"2026-11-11","educationalLevel":"Trade","learningResourceType":"Lesson","about":["A2L refrigerant","ASHRAE 34","refrigerant safety class","refrigerant designation","POE oil"]}
 </script>
 <style>
 /* Same look as the guide: one reading column, red A2L cylinder band as the only accent */
@@ -133,7 +133,7 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
   </div>
 
   <p>A lot of techs think the safety class is the engineers' business. We just match the refrigerant on the data plate and go. I used to look at it that way too. But when I sat down with the standard, my biggest takeaway was simple: <b>the class is about safety.</b> It tells you how toxic the gas is, how easily it burns, what PPE to wear, and what to watch out for so the guy next to you goes home too.</p>
-  <p>This lesson covers the safety classes, how refrigerants get their names, why the oil matters as much as the gas, and how the lab decides what burns, and how much refrigerant a room can take. More gets added as I study.</p>
+  <p>This lesson covers the safety classes, how refrigerants get their names, why the oil matters as much as the gas, and how the lab decides what burns, how much refrigerant a room can take, and what it takes to light it.</p>
 
   <h2><span class="n">1</span>The letter and the number</h2>
   <p>Every refrigerant gets a safety class from <b>ASHRAE Standard 34</b>. Its international twin is <b>ISO 817</b>. The edition I studied is ANSI/ASHRAE 34-2019 / ISO 817-2020. <span class="check">CHECK</span> newer edition</p>
@@ -279,6 +279,39 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
   <p><b>What I'd do now:</b> isolate the unit with the service valves first, before opening anything. If it gets away from you, stop, step out, and ventilate. Don't stay in the room trying to save the charge. This is also why ASHRAE 15 checks a VRF system's charge against the <b>smallest room it serves</b>.</p>
   <p>Where this hits my job: RCL and the charge size decide how much refrigerant a system can have for the room it serves. That's why the nameplate lists a minimum room area, and why a big leak in a small room is a bigger deal than the same leak on a roof.</p>
 
+  <h2><span class="n">6</span>Spark, heat and smoke</h2>
+  <p>So far: what class it is, how much it takes to burn, and how much a room can hold. This last part is what it takes to <b>light</b> it, how hot it <b>burns</b>, and what the <b>smoke</b> does to you.</p>
+
+  <h3 class="sub">MIE: how big a spark</h3>
+  <p><b>MIE (minimum ignition energy)</b> is the smallest electrical spark that can light a refrigerant and air mix. It's measured in millijoules (mJ). The bigger the MIE, the harder it is to light.</p>
+  <div class="dec" aria-label="Rough minimum ignition energy: propane about a quarter of a millijoule, R-32 tens of millijoules, R-1234yf thousands">
+    <span><i>Propane (A3)</i><b>~0.25</b><i>mJ</i></span>
+    <span><i>R-32 (A2L)</i><b>~30+</b><i>mJ</i></span>
+    <span><i>R-1234yf (A2L)</i><b>1,000s</b><i>mJ</i></span>
+  </div>
+  <p class="src">Rough numbers to show the gap, not exact values. <span class="check">CHECK</span></p>
+  <p>Most 2Ls are hard to light because their MIE is high, and they also need a lot of refrigerant in the air (above the LFL) before they can burn at all. Everyday stuff like a cordless drill, a toaster, a hair dryer or an electric heater generally won't light a 2L. <span class="check">CHECK</span> But "generally" isn't "never." An open flame, a pilot light or a glowing hot surface is a different story. Treat those as real ignition sources every time.</p>
+
+  <h3 class="sub">HOC: how hot it burns</h3>
+  <p><b>Heat of combustion (HOC)</b> is how much heat comes off when it burns. 2Ls give off a lot less heat than A3s like propane, so if one does light, the fire is less likely to keep itself going and spread.</p>
+
+  <h3 class="sub">The smoke: HF and COF2</h3>
+  <p>This part applies to <b>every</b> fluorocarbon refrigerant: CFCs, HCFCs, HFCs, and yes, A1s like R-22, R-134a and R-410A. When any of them burns or breaks down on a hot surface, it can make:</p>
+  <ul>
+    <li><b>HF (hydrogen fluoride):</b> turns into hydrofluoric acid on anything wet, like your eyes, throat and lungs. In air it can show up as white fumes.</li>
+    <li><b>COF2 (carbonyl fluoride):</b> a short-lived toxic gas. It reacts with moisture and turns into more HF.</li>
+  </ul>
+  <p>The good news: these byproducts usually smell sharp and sting your nose and throat, so you get a warning. If you smell that, <b>get out, ventilate, and get medical attention</b> if anyone breathed it in. Don't push through it to finish the job.</p>
+  <p>Field example: this is one reason you don't sweat out an old filter drier with a torch. Heating it puts leftover refrigerant and oil in the flame. It also drives the trapped water and acid back into the system. Recover the charge, cut the drier out with a tubing cutter, and braze the new one in with nitrogen flowing.</p>
+
+  <h3 class="sub">Where the danger actually shows up</h3>
+  <table class="tbl">
+    <tr><th>Risk</th><th>When it happens</th></tr>
+    <tr><td>Fire</td><td>A leak lights off while the unit is running. A leak lights off during service. Refrigerant gets released in a building fire.</td></tr>
+    <tr><td>Toxic</td><td>A cylinder leaks in your service vehicle. A big leak floods a small, closed space while you're working.</td></tr>
+  </table>
+  <p>For the PPE and hazards of the exact refrigerant you're using, check its <b>SDS (safety data sheet)</b>. The supplier has it, and you can usually pull it up on your phone.</p>
+
   <div class="box tagcard">
     <strong class="h">Explain it back</strong>
     <p>Before the quiz, say this out loud like you're training a new helper. If you stumble, reread that part.</p>
@@ -290,16 +323,12 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
       <li>Why won't a deep vacuum fix wet POE oil, and what do you do instead?</li>
       <li>What is the LFL, and why can a leak burn near the floor even when the room is below it?</li>
       <li>What three limits go into the RCL, and which one wins?</li>
+      <li>Why is an A2L harder to light than propane, and what toxic gases can any refrigerant make in a flame?</li>
     </ol>
   </div>
 
   <a class="go" href="../../quiz/?topics=basics,oil,fire">Take the lesson quiz</a>
   <p class="src">Quiz covers: safety class basics, refrigerant names, oil and acid, and burning and limits. Missed ones link back to the reading.</p>
-
-  <div class="next">
-    <strong>Still coming</strong>
-    <p>MIE (how big a spark it takes) and what it turns into when it does burn (HF and carbonyl fluoride). I'm writing it after my next study sessions.</p>
-  </div>
 
   <p class="src">Sources to check: ANSI/ASHRAE Standard 34 and ISO 817 (designations, safety classes, flammability test), ASTM E681, your compressor maker's oil handling bulletin (open time, oil type, acid test). Items marked <span class="check">CHECK</span> are still being confirmed. Rules and standards change, so always follow the equipment maker's instructions and your local code. Study aid only.</p>
 </article>
