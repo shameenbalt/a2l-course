@@ -296,24 +296,47 @@ h3.sub{font:700 1.2rem var(--display);text-transform:uppercase;letter-spacing:.0
   <p><b>Heat of combustion (HOC)</b> is how much heat comes off when it burns. 2Ls give off a lot less heat than A3s like propane, so if one does light, the fire is less likely to keep itself going and spread.</p>
 
   <figure>
-  <svg viewBox="0 0 360 290" role="img" aria-label="Two cylinders side by side. Left: A3 propane R-290 with a big flame, flammable, flame speed about 46 cm/s. Right: A2L R-32 with a small flame, mildly flammable, flame speed about 7 cm/s.">
-    <g transform="translate(40,0)">
-      <path d="M40 40c18 26 46 40 46 82a46 46 0 0 1-92 0c0-24 12-36 22-52 3 14 9 20 15 24 6-20 6-34 9-54z" fill="#f28a2e"/>
-      <path d="M40 112c8 10 20 18 20 34a20 20 0 0 1-40 0c0-10 6-16 11-22 2 6 4 8 7 10 1-8 1-14 2-22z" fill="#f2c230"/>
-      <path class="body" d="M10 240V178q0-18 30-18t30 18v62z"/><path d="M10 182v-4q0-18 30-18t30 18v4z" fill="#f28a2e"/>
-      <text x="40" y="214" text-anchor="middle" class="chipt" style="fill:var(--fg)">A3</text>
+  <svg viewBox="0 0 360 330" role="img" aria-label="Two gray refrigerant cylinders with red flammable bands. Left: R-290 propane, A3, with a big flame, flammable, flame speed about 46 cm/s. Right: R-32, A2L, with a small flame, mildly flammable, flame speed about 7 cm/s.">
+    <defs><linearGradient id="steel" x1="0" x2="1"><stop offset="0" stop-color="#8f999e"/><stop offset=".35" stop-color="#d3d9dc"/><stop offset="1" stop-color="#7d878c"/></linearGradient></defs>
+    <g transform="translate(40,4)">
+      <path d="M40 22c20 28 50 44 50 90a50 50 0 0 1-100 0c0-26 13-40 24-56 3 15 10 22 16 26 7-22 7-38 10-60z" fill="#f28a2e"/>
+      <path d="M40 100c9 11 22 20 22 37a22 22 0 0 1-44 0c0-11 7-18 12-24 2 7 5 9 8 11 1-9 1-15 2-24z" fill="#f2c230"/>
     </g>
-    <g transform="translate(220,0)">
-      <path d="M40 120c6 8 14 14 14 26a14 14 0 0 1-28 0c0-8 4-12 8-16 1 4 3 6 5 7 1-6 1-11 1-17z" fill="#f28a2e"/>
-      <path class="body" d="M10 240V178q0-18 30-18t30 18v62z"/><path d="M10 182v-4q0-18 30-18t30 18v4z" class="red"/>
-      <text x="40" y="214" text-anchor="middle" class="chipt" style="fill:var(--fg)">A2L</text>
+    <g transform="translate(220,4)">
+      <path d="M40 104c7 9 15 15 15 28a15 15 0 0 1-30 0c0-9 4-13 9-17 1 4 3 6 5 7 1-6 1-12 1-18z" fill="#f28a2e"/>
     </g>
-    <text x="80" y="18" text-anchor="middle" class="sm" font-weight="600">R-290 propane</text>
-    <text x="260" y="18" text-anchor="middle" class="sm" font-weight="600">R-32</text>
-    <text x="80" y="262" text-anchor="middle" class="sm red-t">Flammable</text>
-    <text x="80" y="280" text-anchor="middle" class="sm mut">flame ~46 cm/s</text>
-    <text x="260" y="262" text-anchor="middle" class="sm" font-weight="600">Mildly flammable</text>
-    <text x="260" y="280" text-anchor="middle" class="sm mut">flame ~7 cm/s</text>
+    <g transform="translate(40,140)">
+      <rect x="6" y="122" width="68" height="10" rx="2" fill="url(#steel)" stroke="#5f686d"/>
+      <path d="M4 124V44q0-16 36-20 36 4 36 20v80z" fill="url(#steel)" stroke="#5f686d" stroke-width="1.5"/>
+      <path d="M4 44q0-16 36-20 36 4 36 20v10H4z" fill="#c8322b"/>
+      <path d="M4 54h72" stroke="#8e2420" stroke-width="1.5"/>
+      <rect x="16" y="68" width="48" height="40" rx="3" fill="#f4f5f5" stroke="#9aa3a8"/>
+      <text x="40" y="84" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" style="fill:#1e2528">R-290</text>
+      <text x="40" y="100" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" font-weight="700" style="fill:#c8322b">A3</text>
+      <path d="M14 30V6q0-4 4-4h44q4 0 4 4v24" fill="none" stroke="#7d878c" stroke-width="5"/>
+      <path d="M22 10h12v10H22zM46 10h12v10H46z" fill="var(--paper)"/>
+      <rect x="34" y="12" width="12" height="16" rx="2" fill="#4a5256"/>
+      <circle cx="40" cy="12" r="6" fill="#4a5256" stroke="#2c3236"/>
+      <path d="M8 60v58" stroke="#ffffff" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(220,140)">
+      <rect x="6" y="122" width="68" height="10" rx="2" fill="url(#steel)" stroke="#5f686d"/>
+      <path d="M4 124V44q0-16 36-20 36 4 36 20v80z" fill="url(#steel)" stroke="#5f686d" stroke-width="1.5"/>
+      <path d="M4 44q0-16 36-20 36 4 36 20v10H4z" fill="#c8322b"/>
+      <path d="M4 54h72" stroke="#8e2420" stroke-width="1.5"/>
+      <rect x="16" y="68" width="48" height="40" rx="3" fill="#f4f5f5" stroke="#9aa3a8"/>
+      <text x="40" y="84" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" style="fill:#1e2528">R-32</text>
+      <text x="40" y="100" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" font-weight="700" style="fill:#c8322b">A2L</text>
+      <path d="M14 30V6q0-4 4-4h44q4 0 4 4v24" fill="none" stroke="#7d878c" stroke-width="5"/>
+      <path d="M22 10h12v10H22zM46 10h12v10H46z" fill="var(--paper)"/>
+      <rect x="34" y="12" width="12" height="16" rx="2" fill="#4a5256"/>
+      <circle cx="40" cy="12" r="6" fill="#4a5256" stroke="#2c3236"/>
+      <path d="M8 60v58" stroke="#ffffff" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <text x="80" y="302" text-anchor="middle" class="sm red-t">Flammable</text>
+    <text x="80" y="320" text-anchor="middle" class="sm mut">flame ~46 cm/s</text>
+    <text x="260" y="302" text-anchor="middle" class="sm" font-weight="600">Mildly flammable</text>
+    <text x="260" y="320" text-anchor="middle" class="sm mut">flame ~7 cm/s</text>
   </svg>
   <figcaption>Same idea, very different fire. A2Ls burn slower and give off far less heat than propane, so if one does light, it's a much smaller event. Numbers are rough. <span class="check">CHECK</span> Idea from a <a href="https://www.copeland.com/">Copeland</a> A2L graphic, drawn fresh here.</figcaption>
   </figure>
