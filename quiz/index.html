@@ -166,6 +166,9 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
 @media (prefers-reduced-motion:no-preference){.track i,.meter .m i{transition:width .6s ease}}
 @media (max-width:420px){.match{grid-template-columns:1fr}.slot{grid-template-columns:1fr;gap:2px}}
 
+/* email gate: score shows after an email is given (once per device) */
+#results.locked>*:not(#gate){display:none!important}
+#results:not(.locked)>#gate{display:none}
 /* feedback that unlocks "Unk's Service Report" */
 .fb{border:2px dashed var(--band);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--soft)}
 .fb h3{margin:0;font:800 1.35rem/1.05 var(--display);text-transform:uppercase;letter-spacing:.03em}
@@ -305,6 +308,15 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
   </section>
 
   <section id="results" class="card" hidden>
+    <form class="fb" id="gate" novalidate>
+      <h3><small>YOUR SCORE IS READY</small>Where should I send your results?</h3>
+      <p>Put in your email to see your score, your topics and the answer review. You only do this once on this phone.</p>
+      <div class="f"><label for="gt-nm">First name</label><input type="text" id="gt-nm" autocomplete="given-name"></div>
+      <div class="f"><label for="gt-em">Email</label><input type="email" id="gt-em" autocomplete="email" inputmode="email" required></div>
+      <p class="err" id="gt-er" hidden></p>
+      <button class="btn" type="submit">Show my score</button>
+      <p class="small">Your email goes only to me. I'll only email you about A2L study and classes, and I never sell or share it. Ask me to stop anytime.</p>
+    </form>
     <div class="ring" id="ring"><div id="score">0%</div></div>
     <div class="pass" id="passtag"></div>
     <p class="cheer" id="cheer"></p>
@@ -500,10 +512,9 @@ function finish(){$("quiz").hidden=true;$("results").hidden=false;window.scrollT
  let days=liveDays(p);if(p.last!==today()){days=days+1;store("a2l-days",days);store("a2l-last",today())}
  $("r-xp").textContent="+"+xp;$("r-streak").textContent=bestRun;$("r-days").textContent=days;
  const ring=$("ring");ring.style.setProperty("--c",pct>=70?"var(--good)":"var(--bad)");
- countUp(pct,v=>{$("score").textContent=v+"%";ring.style.setProperty("--p",v)});
+ const reveal=()=>{countUp(pct,v=>{$("score").textContent=v+"%";ring.style.setProperty("--p",v)});if(pct>=70)setTimeout(()=>celebrate(8),300)};
  const pt=$("passtag");pt.textContent=pct>=70?`Pass · ${right} of ${set.length}`:`Keep studying · ${right} of ${set.length}`;pt.className="pass "+(pct>=70?"ok":"no");
  const pool=pct>=85?CHEERS.hi:pct>=70?CHEERS.mid:CHEERS.lo;$("cheer").textContent=pool[Math.floor(Math.random()*pool.length)];
- if(pct>=70)setTimeout(()=>celebrate(8),300);
  const rn=$("rnote");rn.hidden=!full;rn.className="rnote";
  if(full){const runs=readyRuns();
   if(pct>=READY_PCT){runs.push({d:today(),p:pct});store("a2l-ready",JSON.stringify(runs.slice(-READY_RUNS)));
@@ -520,7 +531,21 @@ function finish(){$("quiz").hidden=true;$("results").hidden=false;window.scrollT
  const missed=set.filter((q,n)=>!res[n].ok);$("retryMissed").hidden=!missed.length;
  $("retryMissed").onclick=()=>(full=false,build(shuffle(missed.map(m=>Q.find(x=>x.q===m.q)))));
  $("review").innerHTML=set.map((q,n)=>{const ok=res[n].ok;return`<details ${ok?"":"open"}><summary><span class="verdict ${ok?"ok":"no"}" style="display:inline">${ok?"✓":"✗"}</span> ${q.q}</summary><p class="explain"><strong>Answer:</strong> ${answerText(q)}</p>${!ok&&typeOf(q)==="single"&&res[n].pick>=0?`<p class="explain">You picked: ${q.o[res[n].pick]}</p>`:""}<p class="explain">${q.e}</p>${ok?"":readFor(q)}</details>`}).join("");
- drawProfile()}
+ drawProfile();
+ if(store("a2l-email")||store("a2l-remind")){$("results").classList.remove("locked");reveal()}
+ else{$("results").classList.add("locked");gateReveal=reveal;$("gt-nm").value=store("a2l-name")||""}}
+
+/* ---------- email gate: posts name + email to the A2L Course Feedback form, then shows the score ---------- */
+let gateReveal=null;
+$("gate").onsubmit=e=>{e.preventDefault();
+ const nm=$("gt-nm").value.trim(),em=$("gt-em").value.trim(),er=$("gt-er");
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){er.textContent=em?"That email doesn't look right. Check it and try again.":"Put in your email to see your score.";er.hidden=false;$("gt-em").focus();return}
+ er.hidden=true;
+ const f=new URLSearchParams({"entry.2048055631":nm,"entry.1503156930":em});
+ try{fetch(FB_URL,{method:"POST",mode:"no-cors",body:f}).catch(()=>{})}catch(err){}
+ store("a2l-email","1");if(nm)store("a2l-name",nm);
+ $("fb-nm").value=nm;$("fb-em").value=em;
+ $("results").classList.remove("locked");window.scrollTo(0,0);if(gateReveal){gateReveal();gateReveal=null}};
 
 /* ---------- feedback form -> unlocks Unk's Service Report ----------
    Posts to Shameen's "A2L Course Feedback" Google Form. Once sent on this device, the report shows after every run. */
