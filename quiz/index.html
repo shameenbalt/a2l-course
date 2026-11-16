@@ -301,6 +301,7 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
       <p class="kind label" id="kind"></p>
       <p class="q" id="qtext"></p>
     </div>
+    <div id="ra-slot"></div>
     <div id="area"></div>
     <button class="btn" id="check" hidden>Check</button>
     <div id="feedback" hidden></div>
@@ -427,6 +428,7 @@ function hud(){$("h-streak").textContent="🔥 "+run;$("h-xp").textContent="⚡ 
 function show(){const q=set[i],t=typeOf(q);state={t};
  $("count").textContent=`Question ${i+1} of ${set.length}`;$("topic").textContent=T[q.t];
  $("kind").textContent=KIND[t];$("kind").className="kind label";
+ if(window.RA){RA.stop();const sl=$("ra-slot");if(!sl.firstChild){const b=RA.makeBtn();b.onclick=()=>{const opts=[...$("area").querySelectorAll(".opt span")].map((o,k)=>L[k]+". "+o.textContent+".").join(" ");RA.toggle($("qtext").textContent.replace(/CHECK$/,"")+" "+(opts||RA.readable($("area"))),b)};sl.appendChild(b)}}
  $("qtext").innerHTML=q.q+(q.f?' <span class="flag" title="Rule or number to double-check against the current source">CHECK</span>':"");
  const qb=$("qbody");qb.classList.remove("pop");void qb.offsetWidth;qb.classList.add("pop");
  $("feedback").hidden=true;$("next").hidden=true;$("check").hidden=t==="single";$("check").disabled=true;
@@ -613,5 +615,6 @@ function loop(){ctx.clearRect(0,0,innerWidth,innerHeight);parts=parts.filter(p=>
  raf=parts.length?requestAnimationFrame(loop):0;if(!raf)ctx.clearRect(0,0,innerWidth,innerHeight)}
 </script>
 <script src="../assets/motion.js" defer></script>
+<script src="../assets/readaloud.js" defer></script>
 </body>
 </html>
