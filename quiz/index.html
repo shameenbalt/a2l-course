@@ -166,6 +166,12 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
 @media (prefers-reduced-motion:no-preference){.track i,.meter .m i{transition:width .6s ease}}
 @media (max-width:420px){.match{grid-template-columns:1fr}.slot{grid-template-columns:1fr;gap:2px}}
 
+/* job history + fresh questions */
+.hist{border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.hist summary{font-weight:600;cursor:pointer;min-height:32px;display:flex;align-items:center}
+.hist ol{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.hist li{display:flex;justify-content:space-between;gap:8px;font-size:.92rem;border-top:1px solid var(--line);padding-top:6px}
+.hist li b{font-variant-numeric:tabular-nums}.hist li b.ok{color:var(--good)}.hist li b.no{color:var(--bad)}
 /* save my place */
 .resume{border:2px solid var(--flame,#e0702f);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;margin:6px 0 4px}
 .resume p{margin:0;display:flex;flex-direction:column;gap:2px}.resume span{color:var(--muted);font-size:.95rem}
@@ -293,6 +299,8 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
     <div class="label">Topics</div>
     <div class="topics" id="topiclist"></div>
     <button class="btn" id="start">Start</button>
+    <p class="small" id="fresh"></p>
+    <details class="hist" id="hist" hidden><summary>Job history: your finished tests</summary><ol id="hist-list"></ol></details>
     <p class="small">How points work: 10 XP per right answer, plus a bonus for every 3 in a row. Study a little every day to keep your day streak going.</p>
     <p class="small">Study aid only. Rules and standards change. Always follow the equipment maker's instructions and your local code.</p>
   </section>
@@ -443,7 +451,24 @@ $("resume-go").onclick=()=>{const s=readSpot();if(!s)return offerSpot();
  hud();show();window.scrollTo(0,0)};
 $("resume-new").onclick=()=>{clearSpot();$("resume").hidden=true};
 offerSpot();
-$("start").onclick=()=>{full=mode==="exam"&&secs>0&&count>=50&&!pick.length;build(shuffle(POOL).slice(0,Math.min(count,POOL.length)))};
+/* ---------- fresh questions + job history (kept on this device) ----------
+   a2l-seen: {question text: {n: times seen, ok: right last time, at: ms}}. New tests take
+   never-seen questions first, then last-missed, then the ones seen longest ago. */
+const SEEN="a2l-seen",HIST="a2l-history";
+const readJ=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||"null")||d}catch(e){return d}};
+const writeJ=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+function freshPick(n){const seen=readJ(SEEN,{}),rank=q=>{const r=seen[q.q];return!r?0:!r.ok?1:2},age=q=>(seen[q.q]||{}).at||0;
+ const order=shuffle(POOL).sort((a,b)=>rank(a)-rank(b)||(rank(a)===2?age(a)-age(b):0));
+ return shuffle(order.slice(0,Math.min(n,POOL.length)))}
+function logRun(pct,right){const seen=readJ(SEEN,{}),now=Date.now();
+ set.forEach((q,n)=>{const r=seen[q.q]||{n:0};seen[q.q]={n:r.n+1,ok:!!(res[n]&&res[n].ok),at:now}});writeJ(SEEN,seen);
+ const h=readJ(HIST,[]);h.unshift({at:now,mode,secs,n:set.length,right,pct,full});writeJ(HIST,h.slice(0,30))}
+function drawHist(){const seen=readJ(SEEN,{}),fresh=POOL.filter(q=>!seen[q.q]).length,h=readJ(HIST,[]);
+ $("fresh").textContent=fresh===POOL.length?"":fresh?`New questions first: ${fresh} of ${POOL.length} you haven't seen yet.`:`You've seen all ${POOL.length}. New tests start with the ones you missed.`;
+ $("hist").hidden=!h.length;
+ $("hist-list").innerHTML=h.map(r=>{const d=new Date(r.at);return`<li><span>${d.toLocaleDateString("en-US",{month:"short",day:"numeric"})} ${d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})} · ${r.full?"Full exam":r.mode==="exam"?"Exam":"Practice"} · ${r.n} q</span><b class="${r.pct>=70?"ok":"no"}">${r.right}/${r.n} · ${r.pct}%</b></li>`}).join("")}
+drawHist();
+$("start").onclick=()=>{full=mode==="exam"&&secs>0&&count>=50&&!pick.length;build(freshPick(count))};
 
 function hud(){$("h-streak").textContent="🔥 "+run;$("h-xp").textContent="⚡ "+xp+" XP";
  $("dots").innerHTML=set.map((_,n)=>{let c=n===i?"now":"";if(res[n])c=mode==="practice"?(res[n].ok?"ok":"no"):"done";return`<i class="${c}"></i>`}).join("")}
@@ -548,7 +573,7 @@ function finish(){clearSpot();$("quiz").hidden=true;$("results").hidden=false;wi
    else rn.innerHTML=`<b>Test-day check: ${runs.length} of ${READY_RUNS}</b>That one counts. One more full timed exam at ${READY_PCT}% or better and you're ready.`}
   else rn.innerHTML=`<b>Full exam: ${pct}%</b>${READY_PCT}% or better counts toward test-day ready. Retry the misses, read the red topics, then run it again.`}
  drawReady();
- ping(pct,right,by);
+ ping(pct,right,by);logRun(pct,right);
  if(set.length>=10){if(!store("a2l-first"))store("a2l-first",pct);store("a2l-runs",(+store("a2l-runs")||0)+1)}
  lastRun={pct,right,n:set.length,by,missed:set.filter((q,n)=>!res[n].ok).length};
  const unlocked=store("a2l-sr")==="1";$("fb").hidden=unlocked;$("sr").hidden=true;if(unlocked)drawReport();
@@ -624,7 +649,7 @@ function drawReport(){const r=lastRun;if(!r)return;const box=$("sr");box.hidden=
  <section class="sec"><h4>Cleared for test day?</h4><div class="tagrow"><div class="htag${on?" on":""}">${on?"Cleared":"Not yet"}</div><div><p>${on?"Two full timed exams at 85% or better. Go book the real test.":"Two full timed exams at 85% or better and this tag turns green."}</p><div class="dots">${Array.from({length:READY_RUNS},(_,k)=>rd[k]?`<i class="hit">${rd[k].p}</i>`:`<i>${k+1}</i>`).join("")}</div></div></div>
   <p style="margin:0">Keep after it. <span class="sign">— Unk</span></p></section></article>`;
  const rt=$("sr-retry");if(rt)rt.onclick=()=>$("retryMissed").click()}
-$("again").onclick=()=>{$("results").hidden=true;$("setup").hidden=false;drawProfile();window.scrollTo(0,0)};
+$("again").onclick=()=>{$("results").hidden=true;$("setup").hidden=false;drawProfile();drawHist();window.scrollTo(0,0)};
 
 /* ---------- little rewards ---------- */
 function countUp(to,cb){if(!motion){cb(to);return}let v=0;const step=()=>{v=Math.min(to,v+Math.max(1,Math.ceil(to/30)));cb(v);if(v<to)requestAnimationFrame(step)};step()}
