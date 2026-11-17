@@ -166,6 +166,9 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
 @media (prefers-reduced-motion:no-preference){.track i,.meter .m i{transition:width .6s ease}}
 @media (max-width:420px){.match{grid-template-columns:1fr}.slot{grid-template-columns:1fr;gap:2px}}
 
+/* save my place */
+.resume{border:2px solid var(--flame,#e0702f);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;margin:6px 0 4px}
+.resume p{margin:0;display:flex;flex-direction:column;gap:2px}.resume span{color:var(--muted);font-size:.95rem}
 /* email gate: score shows after an email is given (once per device) */
 #results.locked>*:not(#gate){display:none!important}
 #results:not(.locked)>#gate{display:none}
@@ -250,6 +253,11 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
   </header>
 
   <section id="setup" class="card">
+    <div class="resume" id="resume" hidden>
+      <p><b>🔧 Job on hold</b><span id="resume-txt"></span></p>
+      <button class="btn" id="resume-go">Back to the job</button>
+      <button class="btn ghost" id="resume-new">Close the ticket, start new</button>
+    </div>
     <div class="player">
       <div class="stat flame"><b id="s-days">0</b><span>Day streak</span></div>
       <div class="stat"><b id="s-xp">0</b><span>Total XP</span></div>
@@ -301,6 +309,7 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
       <p class="kind label" id="kind"></p>
       <p class="q" id="qtext"></p>
     </div>
+    <div id="ra-slot"></div>
     <div id="area"></div>
     <button class="btn" id="check" hidden>Check</button>
     <div id="feedback" hidden></div>
@@ -418,6 +427,22 @@ function prep(q){const t=typeOf(q);
  return q}
 function build(list){set=list.map(prep);i=0;res=[];xp=0;run=0;bestRun=0;
  $("setup").hidden=true;$("results").hidden=true;$("quiz").hidden=false;hud();show();window.scrollTo(0,0)}
+/* ---------- save my place: the run in progress is kept on this device for 14 days ---------- */
+const SPOT="a2l-resume",SPOT_DAYS=14;
+function saveSpot(){try{localStorage.setItem(SPOT,JSON.stringify({set,i,res,xp,run,bestRun,mode,secs,full,at:Date.now()}))}catch(e){}}
+function clearSpot(){try{localStorage.removeItem(SPOT)}catch(e){}}
+function readSpot(){try{const s=JSON.parse(localStorage.getItem(SPOT)||"null");if(!s||!Array.isArray(s.set)||!s.set.length||Date.now()-s.at>SPOT_DAYS*864e5)return null;return s}catch(e){return null}}
+function offerSpot(){const s=readSpot(),box=$("resume");if(!s){box.hidden=true;return}
+ const done=s.res.filter(Boolean).length,ago=Math.round((Date.now()-s.at)/36e5);
+ $("resume-txt").textContent=`${s.mode==="exam"?"Exam":"Practice"}: ${done} of ${s.set.length} questions done, left the job ${ago<1?"less than an hour":ago<48?ago+" hours":Math.round(ago/24)+" days"} ago.`;box.hidden=false}
+$("resume-go").onclick=()=>{const s=readSpot();if(!s)return offerSpot();
+ ({set,i,res,xp,run,bestRun,mode,secs,full}=s);res=res.map(r=>r||undefined);
+ while(i<set.length&&res[i])i++;
+ $("resume").hidden=true;$("setup").hidden=true;$("results").hidden=true;$("quiz").hidden=false;
+ if(i>=set.length){finish();return}
+ hud();show();window.scrollTo(0,0)};
+$("resume-new").onclick=()=>{clearSpot();$("resume").hidden=true};
+offerSpot();
 $("start").onclick=()=>{full=mode==="exam"&&secs>0&&count>=50&&!pick.length;build(shuffle(POOL).slice(0,Math.min(count,POOL.length)))};
 
 function hud(){$("h-streak").textContent="🔥 "+run;$("h-xp").textContent="⚡ "+xp+" XP";
@@ -427,11 +452,12 @@ function hud(){$("h-streak").textContent="🔥 "+run;$("h-xp").textContent="⚡ 
 function show(){const q=set[i],t=typeOf(q);state={t};
  $("count").textContent=`Question ${i+1} of ${set.length}`;$("topic").textContent=T[q.t];
  $("kind").textContent=KIND[t];$("kind").className="kind label";
+ if(window.RA){RA.stop();const sl=$("ra-slot");if(!sl.firstChild){const b=RA.makeBtn();b.onclick=()=>{const opts=[...$("area").querySelectorAll(".opt span")].map((o,k)=>L[k]+". "+o.textContent+".").join(" ");RA.toggle($("qtext").textContent.replace(/CHECK$/,"")+" "+(opts||RA.readable($("area"))),b)};sl.appendChild(b)}}
  $("qtext").innerHTML=q.q+(q.f?' <span class="flag" title="Rule or number to double-check against the current source">CHECK</span>':"");
  const qb=$("qbody");qb.classList.remove("pop");void qb.offsetWidth;qb.classList.add("pop");
  $("feedback").hidden=true;$("next").hidden=true;$("check").hidden=t==="single";$("check").disabled=true;
  if(t==="single")renderSingle(q);else if(t==="multi")renderMulti(q);else if(t==="match")renderMatch(q);else renderLabel(q);
- hud();clearInterval(tick);$("timer").textContent="";$("timer").classList.remove("low");
+ saveSpot();hud();clearInterval(tick);$("timer").textContent="";$("timer").classList.remove("low");
  if(secs){left=t==="single"?secs:secs*2;draw();tick=setInterval(()=>{left--;draw();if(left<=0){clearInterval(tick);submit(true)}},1000)}}
 function draw(){const m=Math.floor(Math.max(left,0)/60),s=Math.max(left,0)%60;$("timer").textContent=m+":"+String(s).padStart(2,"0");$("timer").classList.toggle("low",left<=10)}
 
@@ -478,7 +504,7 @@ function grade(q,st,timedOut){const t=typeOf(q);
  if(t==="match"){const ok=!timedOut&&q.pairs.every((_,k)=>st.map[k]===k);return{ok,map:{...st.map}}}
  if(t==="label"){const ok=!timedOut&&q.slots.every((s,k)=>st.fill[k]!==undefined&&q.vals[st.fill[k]]===s[1]);return{ok,fill:{...st.fill}}}}
 
-function submit(timedOut){if(res[i])return;clearInterval(tick);const q=set[i],t=typeOf(q);const r=grade(q,state,timedOut);res[i]=r;
+function submit(timedOut){if(res[i])return;clearInterval(tick);const q=set[i],t=typeOf(q);const r=grade(q,state,timedOut);res[i]=r;saveSpot();
  $("area").querySelectorAll("button").forEach(b=>b.disabled=true);$("check").hidden=true;
  let gain=0;if(r.ok){run++;bestRun=Math.max(bestRun,run);gain=10+(run>=3?5*Math.min(run-2,4):0);xp+=gain}else run=0;
  if(mode==="practice"){mark(q,r);
@@ -505,7 +531,7 @@ function answerText(q){const t=typeOf(q);
 $("next").onclick=()=>{if(i<set.length-1){i++;show();window.scrollTo({top:0,behavior:motion?"smooth":"auto"})}else finish()};
 
 /* ---------- results ---------- */
-function finish(){$("quiz").hidden=true;$("results").hidden=false;window.scrollTo(0,0);
+function finish(){clearSpot();$("quiz").hidden=true;$("results").hidden=false;window.scrollTo(0,0);
  let right=0;const by={};set.forEach((q,n)=>{by[q.t]=by[q.t]||[0,0];by[q.t][1]++;if(res[n].ok){right++;by[q.t][0]++}});
  const pct=Math.round(right/set.length*100);
  const p=profile();if(pct>p.best&&set.length>=10)store("a2l-best",pct);store("a2l-xp",p.xp+xp);
@@ -613,5 +639,6 @@ function loop(){ctx.clearRect(0,0,innerWidth,innerHeight);parts=parts.filter(p=>
  raf=parts.length?requestAnimationFrame(loop):0;if(!raf)ctx.clearRect(0,0,innerWidth,innerHeight)}
 </script>
 <script src="../assets/motion.js" defer></script>
+<script src="../assets/readaloud.js" defer></script>
 </body>
 </html>

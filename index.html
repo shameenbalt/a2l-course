@@ -81,9 +81,10 @@ body{font-size:17px}
 .schools b{font:700 1.3rem var(--display);text-transform:uppercase;letter-spacing:.04em}
 
 /* Cinematic video hero: always dark, like the scene. Video sits behind the words. */
-.vhero{position:relative;margin:0 -16px;min-height:min(78vh,520px);display:flex;align-items:flex-end;overflow:hidden;background:#0d1214 url(assets/video/hero-poster.jpg) center/cover;color:#f2f4f5;isolation:isolate}
+.vhero{position:relative;margin:0 -16px;min-height:min(78vh,520px);display:flex;align-items:flex-end;overflow:hidden;background:#0d1214;color:#f2f4f5;isolation:isolate}
 @media (min-width:600px){.vhero{margin:0;border-radius:10px;min-height:440px}}
-.vhero-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%;z-index:-2}
+.vhero-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0%;z-index:-2}
+@media (min-width:600px){.vhero-v{object-position:50% 40%}}
 .vhero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,11,13,.15) 0%,rgba(8,11,13,.35) 40%,rgba(8,11,13,.88) 100%),linear-gradient(90deg,rgba(8,11,13,.55),rgba(8,11,13,0) 70%)}
 .vhero-t{display:flex;flex-direction:column;gap:14px;padding:28px 16px 22px}
 @media (min-width:600px){.vhero-t{padding:32px 28px 28px}}
@@ -135,10 +136,10 @@ details p{margin-top:6px;color:var(--muted)}
   <div class="band" aria-hidden="true"></div>
   <section class="hero" style="display:flex;flex-direction:column;gap:14px">
     <div class="vhero">
-      <video class="vhero-v" muted loop playsinline preload="metadata" poster="assets/video/hero-poster.jpg" aria-hidden="true" tabindex="-1">
-        <source src="assets/video/hero.webm" type="video/webm">
-        <source src="assets/video/hero.mp4" type="video/mp4">
-      </video>
+      <picture>
+        <source media="(min-width:600px)" srcset="assets/img/hero-van-wide.jpg">
+        <img class="vhero-v" src="assets/img/hero-van-phone.jpg" alt="" width="1000" height="1080" fetchpriority="high">
+      </picture>
       <div class="vhero-t">
         <p class="eyebrow">Free A2L course for HVAC techs</p>
         <h1>Learn A2L the way techs actually work</h1>
@@ -374,16 +375,6 @@ try{document.getElementById("nQ").textContent=Q.length}catch(e){}
   requestAnimationFrame(()=>requestAnimationFrame(()=>sc.classList.add("go")));
   count(lcd,36,v=>v.toFixed(2).padStart(5,"0"),1800);
   document.querySelectorAll(".panel b").forEach(b=>{const n=parseInt(b.textContent,10);if(n>0)count(b,n,v=>String(Math.round(v)),1200)});
-})();
-</script>
-<script>
-/* Hero video: play only when on screen; skip for reduced motion or data saver (poster shows instead). */
-(function(){var v=document.querySelector('.vhero-v');if(!v)return;
-var still=matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData);
-if(still){v.removeAttribute('loop');v.preload='none';return}
-v.preload='auto';
-var go=function(){var p=v.play();if(p&&p.catch)p.catch(function(){})};
-if('IntersectionObserver'in window){new IntersectionObserver(function(e){e[0].isIntersecting?go():v.pause()}).observe(v)}else go();
 })();
 </script>
 <script src="assets/motion.js" defer></script>
