@@ -254,9 +254,9 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
 
   <section id="setup" class="card">
     <div class="resume" id="resume" hidden>
-      <p><b>Pick up where you left off</b><span id="resume-txt"></span></p>
-      <button class="btn" id="resume-go">Resume my test</button>
-      <button class="btn ghost" id="resume-new">Start over</button>
+      <p><b>🔧 Job on hold</b><span id="resume-txt"></span></p>
+      <button class="btn" id="resume-go">Back to the job</button>
+      <button class="btn ghost" id="resume-new">Close the ticket, start new</button>
     </div>
     <div class="player">
       <div class="stat flame"><b id="s-days">0</b><span>Day streak</span></div>
@@ -434,7 +434,7 @@ function clearSpot(){try{localStorage.removeItem(SPOT)}catch(e){}}
 function readSpot(){try{const s=JSON.parse(localStorage.getItem(SPOT)||"null");if(!s||!Array.isArray(s.set)||!s.set.length||Date.now()-s.at>SPOT_DAYS*864e5)return null;return s}catch(e){return null}}
 function offerSpot(){const s=readSpot(),box=$("resume");if(!s){box.hidden=true;return}
  const done=s.res.filter(Boolean).length,ago=Math.round((Date.now()-s.at)/36e5);
- $("resume-txt").textContent=`${s.mode==="exam"?"Exam":"Practice"}: ${done} of ${s.set.length} answered, saved ${ago<1?"less than an hour":ago<48?ago+" hours":Math.round(ago/24)+" days"} ago.`;box.hidden=false}
+ $("resume-txt").textContent=`${s.mode==="exam"?"Exam":"Practice"}: ${done} of ${s.set.length} questions done, left the job ${ago<1?"less than an hour":ago<48?ago+" hours":Math.round(ago/24)+" days"} ago.`;box.hidden=false}
 $("resume-go").onclick=()=>{const s=readSpot();if(!s)return offerSpot();
  ({set,i,res,xp,run,bestRun,mode,secs,full}=s);res=res.map(r=>r||undefined);
  while(i<set.length&&res[i])i++;
