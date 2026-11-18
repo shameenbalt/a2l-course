@@ -574,8 +574,9 @@ function finish(){clearSpot();$("quiz").hidden=true;$("results").hidden=false;wi
   else rn.innerHTML=`<b>Full exam: ${pct}%</b>${READY_PCT}% or better counts toward test-day ready. Retry the misses, read the red topics, then run it again.`}
  drawReady();
  ping(pct,right,by);logRun(pct,right);
+ const pv=set.length>=10?readJ(HIST,[]).slice(1).find(h=>h.n>=10):null,prev=pv?pv.pct:null;
  if(set.length>=10){if(!store("a2l-first"))store("a2l-first",pct);store("a2l-runs",(+store("a2l-runs")||0)+1)}
- lastRun={pct,right,n:set.length,by,missed:set.filter((q,n)=>!res[n].ok).length};
+ lastRun={pct,right,n:set.length,by,prev,missed:set.filter((q,n)=>!res[n].ok).length};
  const unlocked=store("a2l-sr")==="1";$("fb").hidden=unlocked;$("sr").hidden=true;if(unlocked)drawReport();
  $("bytopic").innerHTML=Object.keys(T).filter(k=>by[k]).map(k=>{const[r,n]=by[k],v=Math.round(r/n*100);return`<div class="t"><span>${T[k]}</span><span>${r}/${n}</span></div><div class="m"><i data-w="${v}" style="background:var(${v>=70?"--good":"--bad"})"></i></div>${v<70&&typeof R!=="undefined"&&R[k]?`<div class="r">Read: ${R[k]}</div>`:""}`}).join("");
  requestAnimationFrame(()=>$("bytopic").querySelectorAll("i[data-w]").forEach(el=>el.style.width=el.dataset.w+"%"));
@@ -633,7 +634,7 @@ function drawReport(){const r=lastRun;if(!r)return;const box=$("sr");box.hidden=
  const fix=[...low,...mid].slice(0,2);
  const rep=fix.map(t=>`<li><span>Read up on <b>${t.n}</b>${typeof R!=="undefined"&&R[t.k]?`: ${R[t.k]}`:""}.</span></li>`);
  rep.push(r.missed?`<li><span>Retry the ${r.missed} you missed. Then run a fresh test.</span></li>`:`<li><span>Run a full timed exam: Exam mode, 60 s, 50 questions.</span></li>`);
- const first=+store("a2l-first")||r.pct,split=r.pct-first,runs=+store("a2l-runs")||1;
+ const full10=r.n>=10,prevP=r.prev!=null&&r.prev!==""?+r.prev:null,split=prevP==null?0:r.pct-prevP,runs=+store("a2l-runs")||1;
  const back=new Date(Date.now()+3*864e5),DAYS=["SUN","MON","TUE","WED","THU","FRI","SAT"],DAYW=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
  const rd=readyRuns(),on=rd.length>=READY_RUNS,nm=store("a2l-name");
  const d=new Date(),tk=String(Math.abs((d.getTime()/6e4|0)%10000)).padStart(4,"0");
@@ -641,8 +642,8 @@ function drawReport(){const r=lastRun;if(!r)return;const box=$("sr");box.hidden=
  <header class="th"><h3><small>HVAC UNK · A2L PREP</small>Service Report</h3><div class="no">TICKET #${tk}<br>${d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}).toUpperCase()}</div></header>
  <div class="plate"><div><small>Unit (that's you)</small><b>${nm?nm.replace(/[<>&"]/g,""):"You"}</b></div><div><small>This run</small><b>${r.pct}% · ${r.right} of ${r.n}</b></div><div><small>Runs on record</small><b>${runs}</b></div><div><small>Pass line</small><b>70%</b></div></div>
  <section class="sec"><h4>Gauge readings <i>by topic, this run</i></h4><div class="gauges">${tops.map(gauge).join("")}</div></section>
- <section class="sec"><h4>Delta T <i>first run vs. this one</i></h4><div class="split"><div class="lcd"><small>THIS RUN</small>${r.pct}%</div><span class="op">−</span><div class="lcd"><small>FIRST</small>${first}%</div><span class="op">=</span><div class="lcd res"><small>SPLIT</small>${split>0?"+":""}${split}</div></div>
-  <p class="small">${runs<2?"First reading on record. Run another test and I'll show your split.":split>=15?`A ${split}° split means the system's doing its job. Keep the airflow going.`:split>0?"Climbing. Keep after the low topics and the split will open up.":"No gain yet. Don't just rerun it: read the low topics first, then test."}</p></section>
+ <section class="sec"><h4>Delta T <i>last test vs. this one</i></h4>${!full10?`<p class="small">This was a retry of ${r.n} question${r.n>1?"s":""}, so no split. Splits only compare full tests of 10 or more.</p>`:prevP==null?`<p class="small">First reading on record. Run another test and I'll show your split.</p>`:`<div class="split"><div class="lcd"><small>THIS RUN</small>${r.pct}%</div><span class="op">−</span><div class="lcd"><small>LAST TEST</small>${prevP}%</div><span class="op">=</span><div class="lcd res"><small>SPLIT</small>${split>0?"+":""}${split}</div></div>
+  <p class="small">${split>=10?`A ${split}° rise since your last test. The system's doing its job.`:split>0?"Climbing. Keep after the low topics.":split===0?"Holding steady. Read the low topics to push it higher.":r.pct>=85?"A little down from last time, but still well over the pass line. Different questions each test, so some swing is normal.":"Down from last time. Read the low topics first, then test."}</p>`}</section>
  <section class="sec"><h4>Diagnosis</h4><div class="say"><div class="av">U</div><p>${dx}</p></div></section>
  <section class="sec"><h4>Recommended repair</h4><ol class="rep">${rep.join("")}</ol>${r.missed?`<button class="btn" type="button" id="sr-retry">Retry my ${r.missed} misses</button>`:""}</section>
  <section class="sec"><h4>Return visit</h4><div class="ret"><div class="cal"><small>${DAYS[back.getDay()]}</small><b>${back.getDate()}</b></div><p>${r.missed?`Come back ${DAYW[back.getDay()]} and retry only what you missed. If it sticks after a few days, it'll stick on test day.`:`Come back ${DAYW[back.getDay()]} and run a fresh set. A clean run twice, a few days apart, means it stuck.`}</p></div></section>
